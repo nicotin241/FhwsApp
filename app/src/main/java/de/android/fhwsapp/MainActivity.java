@@ -15,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import de.android.fhwsapp.fragments.MainFragment;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -38,7 +40,9 @@ public class MainActivity extends AppCompatActivity
 
         initNavigationDrawer();
 
-
+        manager = getSupportFragmentManager();
+        mFragment = new MainFragment();
+        setFragment(mFragment);
 
 
     }
@@ -104,6 +108,7 @@ public class MainActivity extends AppCompatActivity
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("F H | W - S");
 
     }
 
@@ -118,6 +123,19 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+    }
+
+    private void setFragment (Fragment fragment){
+        String backStateName = fragment.getClass().getName();
+
+        boolean fragmentPopped = manager.popBackStackImmediate (backStateName, 0);
+
+        if (!fragmentPopped){ //fragment not in back stack, create it.
+            android.support.v4.app.FragmentTransaction ft = manager.beginTransaction();
+            ft.replace(R.id.content_frame, fragment);
+            if(!(fragment instanceof MainFragment)) ft.addToBackStack(backStateName);  //do this to avoid white screen after backPressed
+            ft.commit();
+        }
     }
 
 

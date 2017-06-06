@@ -29,7 +29,8 @@ public class SplashScreen extends FragmentActivity {
             @Override
             public void run() {
 
-            startActivity(new Intent(mContext, MainActivity.class));
+                startActivity(new Intent(mContext, MainActivity.class));
+                finish();
 
             }
         };
