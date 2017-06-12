@@ -2,7 +2,9 @@ package de.android.fhwsapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +17,9 @@ public class SplashScreen extends FragmentActivity {
     private Runnable mCallback;
     private Context mContext;
 
+    private boolean signedIn;
+    private SharedPreferences mPrefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,12 +30,24 @@ public class SplashScreen extends FragmentActivity {
         mHandler = new Handler();
         mContext = this;
 
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        signedIn = mPrefs.getBoolean("signedIn", false);
+
         mCallback = new Runnable() {
             @Override
             public void run() {
 
-                startActivity(new Intent(mContext, MainActivity.class));
-                finish();
+                if(signedIn) {
+
+                    startActivity(new Intent(mContext, MainActivity.class));
+                    finish();
+
+                } else {
+
+                    startActivity(new Intent(mContext, LoginActivity.class));
+                    finish();
+
+                }
 
             }
         };

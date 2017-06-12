@@ -1,6 +1,10 @@
 package de.android.fhwsapp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -30,15 +34,25 @@ public class MainActivity extends AppCompatActivity
     private Fragment mFragment;
     public FragmentManager manager;
 
+    private SharedPreferences mPrefs;
+    private SharedPreferences.Editor editor;
+
+    private Context mContext;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mContext = this;
+
         initToolbar();
 
         initNavigationDrawer();
+
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        editor = mPrefs.edit();
 
         manager = getSupportFragmentManager();
         mFragment = new MainFragment();
@@ -96,6 +110,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+
+            editor.putBoolean("signedIn", false);
+            editor.apply();
+            startActivity(new Intent(mContext, SplashScreen.class));
+            finish();
 
         }
 
