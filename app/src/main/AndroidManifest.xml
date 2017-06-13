@@ -30,6 +30,9 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"></activity>
+        <activity android:name=".Timetable.Timetable"></activity>
+        <activity android:name=".Timetable.AddSubject"></activity>
+        <activity android:name=".Timetable.TimetableFilter"></activity>
     </application>
 
 </manifest>

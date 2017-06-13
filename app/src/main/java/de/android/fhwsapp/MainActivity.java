@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import de.android.fhwsapp.Timetable.Timetable;
 import de.android.fhwsapp.fragments.MainFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -99,8 +100,9 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.nav_timetable) {
+            Intent intent = new Intent(this, Timetable.class);
+            startActivity(intent);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
