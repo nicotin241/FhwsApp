@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="de.android.fhwsapp.Timetable.Timetable">
+
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="1.0">
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llDays"
+            app:layout_constraintHorizontal_bias="0.0" />
+
+
+        <LinearLayout
+            android:id="@+id/layoutHeight"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="48dp"
+            android:orientation="vertical"
+            android:weightSum="13">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#AAAAAA"
+                android:text="8:00"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#DDDDDD"
+                android:text="9:00"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#AAAAAA"
+                android:text="10:00"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#DDDDDD"
+                android:text="11:00"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#AAAAAA"
+                android:text="12:00"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#DDDDDD"
+                android:text="13:00"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#AAAAAA"
+                android:text="14:00"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#DDDDDD"
+                android:text="15:00"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#AAAAAA"
+                android:text="16:00"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#DDDDDD"
+                android:text="17:00"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#AAAAAA"
+                android:text="18:00"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#DDDDDD"
+                android:text="19:00"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_weight="1"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#AAAAAA"
+                android:text="20:00"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <de.android.fhwsapp.Timetable.BTGridPager.BTFragmentGridPager
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="48dp" />
+
+        <LinearLayout
+            android:id="@+id/llDays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="43dp"
+            android:weightSum="6">
+
+            <ImageButton
+                android:id="@+id/ibMo"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"/>
+
+            <ImageButton
+                android:id="@+id/ibDi"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"/>
+
+            <ImageButton
+                android:id="@+id/ibMi"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"/>
+
+            <ImageButton
+                android:id="@+id/ibDo"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"/>
+
+            <ImageButton
+                android:id="@+id/ibFr"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"/>
+
+            <ImageButton
+                android:id="@+id/ibSa"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llWeeks"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="48dp"
+            android:weightSum="0">
+
+
+            </LinearLayout>
+
+
+    </FrameLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:tag="plus"/>
+
+</android.support.constraint.ConstraintLayout>
