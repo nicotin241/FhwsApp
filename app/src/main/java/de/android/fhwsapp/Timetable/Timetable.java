@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -18,23 +20,34 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import de.android.fhwsapp.R;
 import de.android.fhwsapp.Timetable.BTGridPager.BTFragmentGridPager;
+import de.android.fhwsapp.Timetable.database.Database;
 
 public class Timetable extends FragmentActivity {
 
     private BTFragmentGridPager.FragmentGridPagerAdapter mFragmentGridPagerAdapter;
 
-    private static int DAYS = 6;
+    private static int DAYS = 7;
     private static int WEEKS = 3;
     private static final String SCREEN_HEIGHT = "screenHeight";
     public static float oneHourMargin;
 
-    private ImageButton tabMo, tabDi, tabMi, tabDo, tabFr, tabSa;
+    private ImageButton tabMo, tabDi, tabMi, tabDo, tabFr, tabSa, tabSo;
     private ArrayList<ImageButton> weekTabList;
 
     private LinearLayout linearLayout;
@@ -53,6 +66,8 @@ public class Timetable extends FragmentActivity {
     private LinearLayout weekTabs;
 
     private int colorAccent;
+
+    private Database database;
 
 //    private LinearLayout addLayout;
     public static FloatingActionButton floatingActionButton;
@@ -129,11 +144,15 @@ public class Timetable extends FragmentActivity {
                             .setMessage("Willst du das Fach wirklich aus deinem Stundenplan nehmen")
                             .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+                                    ContentFragment.markedTv.clearAnimation();
+                                    ContentFragment.markedTv = null;
                                     Toast.makeText(getApplicationContext(),"kann noch nicht gelöscht werden",Toast.LENGTH_LONG).show();
                                 }
                             })
                             .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+                                    ContentFragment.markedTv.clearAnimation();
+                                    ContentFragment.markedTv = null;
                                     dialog.dismiss();
                                 }
                             })
@@ -166,7 +185,7 @@ public class Timetable extends FragmentActivity {
         weekTabs.setWeightSum(weekTabs.getWeightSum()+1);
 
         ImageButton ib = new ImageButton(this,null);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(5, 0, 1);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(10, 0, 1);
         params.setMargins(0,2,0,2);
         ib.setLayoutParams(params);
         ib.setBackgroundColor(Color.GRAY);
@@ -186,6 +205,7 @@ public class Timetable extends FragmentActivity {
         tabDo.setBackgroundColor(Color.GRAY);
         tabFr.setBackgroundColor(Color.GRAY);
         tabSa.setBackgroundColor(Color.GRAY);
+        tabSo.setBackgroundColor(Color.GRAY);
 
         if(day == 0)
             tabMo.setBackgroundColor(colorAccent);
@@ -199,6 +219,8 @@ public class Timetable extends FragmentActivity {
             tabFr.setBackgroundColor(colorAccent);
         else if(day == 5)
             tabSa.setBackgroundColor(colorAccent);
+        else if(day == 6)
+            tabSo.setBackgroundColor(colorAccent);
 
 
     }
@@ -216,6 +238,7 @@ public class Timetable extends FragmentActivity {
 //        tabFr.setOnClickListener(this);
         tabSa = (ImageButton) findViewById(R.id.ibSa);
 //        tabSa.setOnClickListener(this);
+        tabSo = (ImageButton) findViewById(R.id.ibSo);
     }
 
     public void moveToCurrentDay(){
@@ -259,37 +282,30 @@ public class Timetable extends FragmentActivity {
     }
 
     private ArrayList<Subject>[][] loadSubjects(){
-        //hier muss vorher die anzahl der tage berechnet werden
-        ArrayList<Subject>[][] result = new ArrayList[WEEKS][DAYS];
 
-        for(int w = 0; w < WEEKS; w++)
-            for(int d = 0; d < DAYS; d++)
-                result[w][d]= new ArrayList<>();
+        //return loadFromServer();
+        new LoadSemesterFromServer().execute("http://backend2.applab.fhws.de:8080/fhwsapi/v1/lectures");
 
-        result[0][0].add(0, new Subject(1,"Mo: 01.05.17","10:00","15:00","S","Programmieren 1","Heinzl","H.1.5",""));
-        result[0][0].add(1,new Subject(2,"Mo: 01.05.17","8:15","9:45","S","Mathe","Kuhn","I.2.15","Raumänderung"));
-
-        result[0][1].add(0,new Subject(3,"Di: 02.05.17","8:15","10:15","S","Mathe","Kuhn","I.2.15",""));
-
-        result[0][2].add(0,new Subject(4,"Mi: 03.05.17","13:30","15:45","S","Programmieren 2","Heinzl","H.1.1",""));
-
-
-        result[1][0].add(0, new Subject(5,"Mo: 04.05.17","10:00","15:00","S","Programmieren 1","Heinzl","H.1.5",""));
-        result[1][0].add(1,new Subject(6,"Mo: 04.05.17","8:15","9:45","S","Mathe","Kuhn","I.2.15","Raumänderung"));
-
-        result[1][1].add(0,new Subject(7,"Di: 05.05.17","8:15","10:15","S","Mathe","Kuhn","I.2.15",""));
-
-        result[1][2].add(0,new Subject(8,"Mi: 06.06.17","13:30","15:45","S","Programmieren 2","Heinzl","H.1.1",""));
+        database = new Database(this);
+        if(database.getWeekCount() == 0){
+            database.createSubject(new Subject(1,"01.05.17","10:00","15:00","S","Programmieren 1","Heinzl","H.1.5","","Gruppe 1","SS17","BIN"));
+            database.createSubject(new Subject(2,"01.05.17","8:15","9:45","S","Mathe","Kuhn","I.2.15","Raumänderung","","SS17","BIN"));
+            database.createSubject(new Subject(2,"02.05.17","8:15","10:15","S","Mathe","Kuhn","I.2.15","","","SS17","BIN"));
+            database.createSubject(new Subject(3,"03.05.17","13:30","15:45","S","Programmieren 2","Heinzl","H.1.1","","","SS17","BIN"));
+            database.createSubject(new Subject(1,"07.05.17","10:00","15:00","S","Programmieren 1","Heinzl","H.1.5","","Gruppe 1","SS17","BIN"));
+            database.createSubject(new Subject(2,"07.05.17","8:15","9:45","S","Mathe","Kuhn","I.2.15","","","SS17","BIN"));
+            database.createSubject(new Subject(2,"08.05.17","8:15","10:15","S","Mathe","Kuhn","I.2.15","","","SS17","BIN"));
+            database.createSubject(new Subject(3,"09.05.17","13:30","15:45","S","Programmieren 2","Heinzl","H.1.1","","","SS17","BIN"));
+            database.createSubject(new Subject(1,"15.05.17","10:00","15:00","S","Programmieren 1","Heinzl","H.1.5","","Gruppe 1","SS17","BIN"));
+            database.createSubject(new Subject(2,"15.05.17","8:15","9:45","S","Mathe","Kuhn","I.2.15","","","SS17","BIN"));
+            database.createSubject(new Subject(2,"16.05.17","8:15","10:15","S","Mathe","Kuhn","I.2.15","","","SS17","BIN"));
+            database.createSubject(new Subject(2,"17.05.17","13:30","15:45","S","Programmieren 2","Heinzl","H.1.1","","","SS17","BIN"));
+        }
 
 
-        result[2][0].add(0, new Subject(9,"Mo: 07.05.17","10:00","15:00","S","Programmieren 1","Heinzl","H.1.5",""));
-        result[2][0].add(1,new Subject(10,"Mo: 07.05.17","8:15","9:45","S","Mathe","Kuhn","I.2.15","Raumänderung"));
+        WEEKS = database.getWeekCount();
 
-        result[2][1].add(0,new Subject(11,"Di: 08.05.17","8:15","10:15","S","Mathe","Kuhn","I.2.15",""));
-
-        result[2][2].add(0,new Subject(12,"Mi: 09.05.17","13:30","15:45","S","Programmieren 2","Heinzl","H.1.1",""));
-
-
+        ArrayList<Subject>[][] result = database.getSortedSubjects(DAYS, WEEKS);
 
         return result;
     }
@@ -318,5 +334,78 @@ public class Timetable extends FragmentActivity {
 //                break;
 //        }
 //    }
+
+    public class LoadSemesterFromServer extends AsyncTask<String , Void ,String> {
+        String server_response;
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            URL url;
+            HttpURLConnection urlConnection = null;
+
+            try {
+                url = new URL(strings[0]);
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                int responseCode = urlConnection.getResponseCode();
+
+                if(responseCode == HttpURLConnection.HTTP_OK){
+                    server_response = readStream(urlConnection.getInputStream());
+                    Log.v("CatalogClient", server_response);
+                }
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            try {
+                JSONArray jsonArray = new JSONArray(server_response);
+                for(int i = 0; i < jsonArray.length(); i++){
+                    JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                    String semester = jsonObject.getString("label");
+                    String url = jsonObject.getString("url");
+                }
+            }catch (Exception e){}
+
+            Log.e("Response", "" + server_response);
+
+
+        }
+    }
+
+// Converting InputStream to String
+
+    private String readStream(InputStream in) {
+        BufferedReader reader = null;
+        StringBuffer response = new StringBuffer();
+        try {
+            reader = new BufferedReader(new InputStreamReader(in));
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return response.toString();
+    }
 }
 

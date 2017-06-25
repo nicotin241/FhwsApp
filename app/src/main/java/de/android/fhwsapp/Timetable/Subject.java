@@ -1,12 +1,17 @@
 package de.android.fhwsapp.Timetable;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class Subject {
 
 
-    private int id;
     private String date;
     private String timeStart;
     private String timeEnd;
@@ -16,7 +21,9 @@ public class Subject {
     private String room;
     private String info;
     private String gruppe;
-
+    private String semester;
+    private String studiengang;
+    private int id;
     private boolean checked = false;
 
     public Subject(JSONObject jsonObject) {
@@ -25,8 +32,11 @@ public class Subject {
 
     public Subject(){};
 
-    //gruppe muss noch hinzugefügt werden
-    public Subject(int id, String date, String timeStart, String timeEnd, String type, String subjectName, String teacher, String room, String info){
+    public Subject(int id, String date, String timeStart, String timeEnd,
+                   String type, String subjectName, String teacher, String room,
+                   String info, String gruppe, String semester, String studiengang){
+
+        this.id = id;
         this.date = date;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
@@ -35,16 +45,19 @@ public class Subject {
         this.teacher = teacher;
         this.room = room;
         this.info = info;
-        this.id = id;
+        this.gruppe = gruppe;
+        this.semester = semester;
+        this.studiengang = studiengang;
+
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     public String getInfo() {
         return info;
@@ -113,6 +126,15 @@ public class Subject {
         return date;
     }
 
+    public DateTime getDateAsDateTime(){
+        return DateTime.parse(date, DateTimeFormat.forPattern("dd.MM.yy"));
+    }
+
+    public void setDateAsDateTime(DateTime date){
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("dd.MM.yy");
+        this.date = fmt.print(date);
+    }
+
     public void setDate(String date) {
         this.date = date;
     }
@@ -131,5 +153,29 @@ public class Subject {
 
     public void setChecked(boolean checked) {
         this.checked = checked;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
+    public String getStudiengang() {
+        return studiengang;
+    }
+
+    public void setStudiengang(String studiengang) {
+        this.studiengang = studiengang;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

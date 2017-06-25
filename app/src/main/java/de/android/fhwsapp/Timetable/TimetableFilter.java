@@ -57,14 +57,14 @@ public class TimetableFilter extends AppCompatActivity {
 
         // Adding child data
         List<Subject> programmieren = new ArrayList<Subject>();
-        programmieren.add(new Subject(1,"Mo: 07.05.17","10:00","15:00","S","Programmieren 1","Heinzl","H.1.5",""));
-        programmieren.add(new Subject(2,"Mo: 07.05.17","10:00","15:00","S","Programmieren 2","Heinzl","H.1.5",""));
-        programmieren.add(new Subject(3,"Mo: 07.05.17","10:00","15:00","S","Programmieren 3","Heinzl","H.1.5",""));
+        programmieren.add(new Subject(1,"Mo: 07.05.17","10:00","15:00","S","Programmieren 1","Heinzl","H.1.5","","Gruppe 1","SS17","BIN"));
+        programmieren.add(new Subject(3,"Mo: 07.05.17","10:00","15:00","S","Programmieren 2","Heinzl","H.1.5","","Gruppe 1","SS17","BIN"));
+        programmieren.add(new Subject(5,"Mo: 07.05.17","10:00","15:00","S","Programmieren 3","Heinzl","H.1.5","","Gruppe 1","SS17","BIN"));
 
         List<Subject> mathe = new ArrayList<Subject>();
-        mathe.add(new Subject(4,"Mo: 07.05.17","10:00","15:00","S","Mathe 1","Heinzl","H.1.5",""));
-        mathe.add(new Subject(5,"Mo: 07.05.17","10:00","15:00","S","Mathe 2","Heinzl","H.1.5",""));
-        mathe.add(new Subject(6,"Mo: 07.05.17","10:00","15:00","S","Mathe 3","Heinzl","H.1.5",""));
+        mathe.add(new Subject(2,"Mo: 07.05.17","10:00","15:00","S","Mathe 1","Heinzl","H.1.5","","Gruppe 1","SS17","BIN"));
+        mathe.add(new Subject(6,"Mo: 07.05.17","10:00","15:00","S","Mathe 2","Heinzl","H.1.5","","Gruppe 1","SS17","BIN"));
+        mathe.add(new Subject(7,"Mo: 07.05.17","10:00","15:00","S","Mathe 3","Heinzl","H.1.5","","Gruppe 1","SS17","BIN"));
 
 
         listDataChild.put(listDataHeader.get(0), programmieren); // Header, Child data

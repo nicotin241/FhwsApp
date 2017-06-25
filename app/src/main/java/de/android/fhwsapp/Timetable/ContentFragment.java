@@ -6,17 +6,21 @@ import android.support.v4.app.Fragment;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import de.android.fhwsapp.R;
 
-public class ContentFragment extends Fragment implements View.OnClickListener {
+public class ContentFragment extends Fragment implements View.OnClickListener, View.OnTouchListener {
 
     private TextView tvDate;
     private String subjectText;
@@ -25,12 +29,15 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
     private TextView tvSubject;
 
     public static TextView markedTv;
+    Animation animShake;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.time_table_content, container, false);
+
+        animShake = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
 
         instViews(rootView);
 
@@ -43,6 +50,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
         tvDate = (TextView) rootView.findViewById(R.id.tvDate);
         //tvSubject = (TextView) rootView.findViewById(R.id.tvSubject);
         layout = (LinearLayout) rootView.findViewById(R.id.subjects);
+        layout.setOnTouchListener(this);
         
     }
 
@@ -56,12 +64,18 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
             return;
         }
 
-        Timetable.floatingActionButton.setImageResource(android.R.drawable.ic_input_add);
+        Timetable.floatingActionButton.setImageResource(R.drawable.plus);
         Timetable.floatingActionButton.setTag("plus");
 
-        //muss noch geändert werden dass das Datum extern von subjects geschickt wird
-        if(tvDate != null)
-            tvDate.setText(subjects.get(0).getDate());
+        if(tvDate != null) {
+            String weekDay = subjects.get(0).getDateAsDateTime().dayOfWeek().getAsShortText(new Locale("de"));
+            tvDate.setText(weekDay+" "+subjects.get(0).getDate());
+
+        }
+
+        //falls leere Fächer
+        if(subjects.get(0).getSubjectName() == null)
+            return;
 
         for(int i = 0; i < subjects.size(); i++) {
 
@@ -75,7 +89,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
                 tvSubject.setText(subjectText);
 
                 //bei info farbe ändern
-                if(subjects.get(i).getInfo()!="") {
+                if(!subjects.get(i).getInfo().equals("")) {
                     tvSubject.setBackgroundColor(0x99AA0000);
                     tvSubject.setHighlightColor(0x99AA0000);
                 }
@@ -140,6 +154,11 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
+        try{
+            markedTv.clearAnimation();
+        }catch (Exception e){}
+
         if(v instanceof TextView) {
             TextView tv = (TextView) v;
 
@@ -151,7 +170,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
 
                         if(markedTv == null)
                             if(Timetable.floatingActionButton != null) {
-                                Timetable.floatingActionButton.setImageResource(android.R.drawable.ic_input_add);
+                                Timetable.floatingActionButton.setImageResource(R.drawable.plus);
                                 Timetable.floatingActionButton.setTag("plus");
                             }
 
@@ -168,21 +187,37 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
                 markedTv.setBackgroundColor(markedTv.getHighlightColor());
 
             markedTv = tv;
-            tv.setBackgroundColor(0xFF00AA00);
+            tv.setBackgroundColor(0xFF000000);
+            tv.startAnimation(animShake);
 
-            //klick weder auf Button, noch auf TV
-        }else{
-            if(markedTv != null) {
+        }
+    }
+
+
+    //click weder auf Button, noch auf TV
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+        if(!(v instanceof TextView)) {
+
+            try {
+                markedTv.clearAnimation();
+            } catch (Exception e) {
+            }
+
+            if (markedTv != null) {
 
                 markedTv.setBackgroundColor(markedTv.getHighlightColor());
 
                 if (Timetable.floatingActionButton != null) {
-                    Timetable.floatingActionButton.setImageResource(android.R.drawable.ic_input_add);
+                    Timetable.floatingActionButton.setImageResource(R.drawable.plus);
                     Timetable.floatingActionButton.setTag("plus");
                 }
+
+                markedTv = null;
             }
         }
+        return false;
     }
-
 }
 
