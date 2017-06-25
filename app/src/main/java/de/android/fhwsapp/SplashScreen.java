@@ -20,6 +20,8 @@ public class SplashScreen extends FragmentActivity {
     private boolean signedIn;
     private SharedPreferences mPrefs;
 
+    private NetworkUtils utils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +31,19 @@ public class SplashScreen extends FragmentActivity {
 
         mHandler = new Handler();
         mContext = this;
+        utils = new NetworkUtils(this);
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         signedIn = mPrefs.getBoolean("signedIn", false);
+
+
+        if(utils.isConnectingToInternet()) {
+
+            // Server Sync
+            new MensaDataFetcher(this, "9").execute();
+
+        }
+
 
         mCallback = new Runnable() {
             @Override
