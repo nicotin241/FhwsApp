@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Locale;
 
 import de.android.fhwsapp.Timetable.Subject;
+import de.android.fhwsapp.objects.Meal;
 
 public class Database extends SQLiteOpenHelper {
 
@@ -30,6 +31,12 @@ public class Database extends SQLiteOpenHelper {
 
     // Database Name
     private static final String DATABASE_NAME = "FHWS";
+
+    /*
+    *
+    * Timetable Strings
+    *
+    * */
 
     // Table Names
     private static final String TABLE_SUBJECTS = "subjects";
@@ -95,6 +102,31 @@ public class Database extends SQLiteOpenHelper {
 //            + KEY_TODO_ID + " INTEGER," + KEY_TAG_ID + " INTEGER,"
 //            + KEY_CREATED_AT + " DATETIME" + ")";
 
+    /*
+    *
+    * Mensa meals - Strings
+    *
+    * */
+
+    private static final String MEALS_TABLE = "meals_table";
+    private static final String MEALS_MENSA_ID = "_mensaid";
+    private static final String MEALS_NAME = "_name";
+    private static final String MEALS_ARTNAME = "_artname";
+    private static final String MEALS_DATE = "_date";
+    private static final String MEALS_PRICE_STUDENTS = "_pricestudents";
+    private static final String MEALS_FOODTYPE = "_foodtype";
+
+    String CREATE_MEALS_TABLE = "CREATE TABLE " + MEALS_TABLE + " ("
+            + MEALS_MENSA_ID + " INTEGER,"
+            + MEALS_NAME + " TEXT,"
+            + MEALS_ARTNAME + " TEXT,"
+            + MEALS_DATE + " TEXT,"
+            + MEALS_PRICE_STUDENTS + " TEXT,"
+            + MEALS_FOODTYPE + " TEXT);";
+
+    String DROP_MEALS_TABLE = "DROP TABLE IF EXISTS " + MEALS_TABLE;
+
+
 
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -107,6 +139,9 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_SUBJECTS);
 //        db.execSQL(CREATE_TABLE_TAG);
 //        db.execSQL(CREATE_TABLE_TODO_TAG);
+
+        db.execSQL(CREATE_MEALS_TABLE);
+
     }
 
     @Override
@@ -116,9 +151,17 @@ public class Database extends SQLiteOpenHelper {
 //        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TAG);
 //        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TODO_TAG);
 
+        db.execSQL(DROP_MEALS_TABLE);
+
         // create new tables
         onCreate(db);
     }
+
+    /*
+    *
+    * Timetable functions
+    *
+    * */
 
     public long createSubject(Subject subject) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -499,5 +542,88 @@ public class Database extends SQLiteOpenHelper {
 
         return subjects;
     }
+
+    /*
+    *
+    * Mensa meals functions
+    *
+    * */
+
+    public void addMeal(Meal meal) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        try {
+
+            ContentValues values = new ContentValues();
+            values.put(MEALS_MENSA_ID, meal.getMensa_id());
+            values.put(MEALS_NAME, meal.getName());
+            values.put(MEALS_ARTNAME, meal.getArtname());
+            values.put(MEALS_DATE, meal.getDate());
+            values.put(MEALS_PRICE_STUDENTS, meal.getPrice_students());
+            values.put(MEALS_FOODTYPE, meal.getFoodtype());
+
+            db.insert(MEALS_TABLE, null, values);
+            db.close();
+
+        } catch (Exception e) {
+            Log.e("DB_HOTEL_PROBLEM", e+"");
+        }
+    }
+
+    public ArrayList<Meal> getMealsById(int mensa_id) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Meal> allMeals  = null;
+
+        try {
+
+            allMeals = new ArrayList<Meal>();
+            String QUERY = "SELECT * FROM " + MEALS_TABLE + " WHERE " + MEALS_MENSA_ID + " LIKE ?";
+
+            Cursor cursor = db.rawQuery(QUERY, new String[] {"" + mensa_id});
+
+            if(!cursor.isLast()) {
+
+                while (cursor.moveToNext()) {
+
+                    Meal tempMeal = new Meal();
+
+                    tempMeal.setMensa_id(cursor.getInt(0));
+                    tempMeal.setName(cursor.getString(1));
+                    tempMeal.setArtname(cursor.getString(2));
+                    tempMeal.setDate(cursor.getString(3));
+                    tempMeal.setPrice_students(cursor.getString(4));
+                    tempMeal.setFoodtype(cursor.getString(5));
+
+                    allMeals.add(tempMeal);
+
+                }
+
+            }
+
+            db.close();
+
+
+        } catch (Exception e) {
+            Log.e("ERROR", e+"");
+        }
+
+        return allMeals;
+
+    }
+
+    public void deleteOldMeals() {
+
+        this.getWritableDatabase().delete(MEALS_TABLE, null, null);
+
+    }
+
+
+
+
+
+
+
 
 }
