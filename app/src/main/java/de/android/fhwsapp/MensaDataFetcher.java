@@ -2,7 +2,6 @@ package de.android.fhwsapp;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +14,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import de.android.fhwsapp.Timetable.database.Database;
 import de.android.fhwsapp.objects.Meal;
 
 public class MensaDataFetcher extends AsyncTask<Void, Void, Void> {
@@ -29,10 +27,11 @@ public class MensaDataFetcher extends AsyncTask<Void, Void, Void> {
 
     private static String URL_AUSSTELLER = "https://www.studentenwerk-wuerzburg.de/index.php?type=4249&tx_thmensamenu_pi3[controller]=Speiseplan&tx_thmensamenu_pi3[action]=showjson&tx_thmensamenu_pi3[mensen]=";
 
-    public MensaDataFetcher(Context context, String mensa_id) {
+    public MensaDataFetcher(Context context, int mensa_id) {
 
         mContext = context;
         URL_AUSSTELLER += mensa_id;
+        this.mensa_id = mensa_id;
 
     }
 

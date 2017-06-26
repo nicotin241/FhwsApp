@@ -1,4 +1,4 @@
-package de.android.fhwsapp.Timetable.database;
+package de.android.fhwsapp;
 
 import android.content.ContentValues;
 import android.content.Context;

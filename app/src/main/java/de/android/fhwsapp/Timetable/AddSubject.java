@@ -17,7 +17,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 import de.android.fhwsapp.R;
-import de.android.fhwsapp.Timetable.database.Database;
+import de.android.fhwsapp.Database;
 
 public class AddSubject extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
 
