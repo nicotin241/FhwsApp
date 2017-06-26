@@ -36,7 +36,7 @@ import java.util.Date;
 
 import de.android.fhwsapp.R;
 import de.android.fhwsapp.Timetable.BTGridPager.BTFragmentGridPager;
-import de.android.fhwsapp.Timetable.database.Database;
+import de.android.fhwsapp.Database;
 
 public class Timetable extends FragmentActivity {
 
