@@ -4,31 +4,37 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_timetable"
-            android:title="Stundenplan" />
+            android:title="Stundenplan"
+            android:icon="@drawable/timetable_icon"/>
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:icon="@drawable/grades"
+            android:title="Noten" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:icon="@drawable/food_icon"
+            android:title="Mensa" />
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:icon="@drawable/bus"
+            android:title="Buspläne" />
+        <item
+            android:id="@+id/nav_veranst"
+            android:icon="@drawable/events"
+            android:title="Laufende Lehrveranstaltungen" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Infos">
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="Studienverlauf" />
             <item
                 android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Abmelden" />
+                android:title="Immatrikulationsbescheinigung" />
+            <item
+                android:id="@+id/nav_spo"
+                android:title="SPO" />
         </menu>
     </item>
 
