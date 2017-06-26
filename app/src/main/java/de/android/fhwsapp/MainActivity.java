@@ -21,6 +21,7 @@ import android.view.MenuItem;
 
 import de.android.fhwsapp.Timetable.Timetable;
 import de.android.fhwsapp.fragments.MainFragment;
+import de.android.fhwsapp.fragments.MensaFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -103,15 +104,22 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_timetable) {
             Intent intent = new Intent(this, Timetable.class);
             startActivity(intent);
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_grades) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_mensa) {
 
-        } else if (id == R.id.nav_manage) {
+            mFragment = new MensaFragment();
+            setFragment(mFragment);
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_bus) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_veranst) {
+
+        } else if (id == R.id.nav_progress) {
+
+        } else if (id == R.id.nav_imma) {
+
+        } else if (id == R.id.nav_signout) {
 
             editor.putBoolean("signedIn", false);
             editor.apply();
@@ -157,6 +165,13 @@ public class MainActivity extends AppCompatActivity
             if(!(fragment instanceof MainFragment)) ft.addToBackStack(backStateName);  //do this to avoid white screen after backPressed
             ft.commit();
         }
+    }
+
+    public void startMensaFragment(View view) {
+
+        mFragment = new MensaFragment();
+        setFragment(mFragment);
+
     }
 
 

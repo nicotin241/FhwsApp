@@ -7,15 +7,15 @@
             android:title="Stundenplan"
             android:icon="@drawable/timetable_icon"/>
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_grades"
             android:icon="@drawable/grades"
             android:title="Noten" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_mensa"
             android:icon="@drawable/food_icon"
             android:title="Mensa" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_bus"
             android:icon="@drawable/bus"
             android:title="Buspläne" />
         <item
@@ -27,14 +27,18 @@
     <item android:title="Infos">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_progress"
                 android:title="Studienverlauf" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_imma"
                 android:title="Immatrikulationsbescheinigung" />
             <item
                 android:id="@+id/nav_spo"
                 android:title="SPO" />
+
+            <item
+                android:id="@+id/nav_signout"
+                android:title="Abmelden" />
         </menu>
     </item>
 

@@ -87,7 +87,7 @@ public class MensaDataFetcher extends AsyncTask<Void, Void, Void> {
                 if(meal.has("date")) date = meal.getString("date");
 
                 String price_students = "";
-                if(meal.has("price_students")) price_students = meal.getString("price_students");
+                if(meal.has("price")) price_students = meal.getString("price");
 
                 String foodtype = "";
                 if(meal.has("foodtype")) foodtype = meal.getString("foodtype");

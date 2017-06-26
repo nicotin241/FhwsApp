@@ -574,6 +574,7 @@ public class Database extends SQLiteOpenHelper {
     public ArrayList<Meal> getMealsById(int mensa_id) {
 
         SQLiteDatabase db = this.getReadableDatabase();
+
         ArrayList<Meal> allMeals  = null;
 
         try {
