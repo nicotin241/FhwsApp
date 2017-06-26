@@ -1,31 +1,86 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="de.android.fhwsapp.fragments.MainFragment">
+    android:background="#fff">
 
-  <android.support.v7.widget.CardView
-      android:id="@+id/timeTable"
-      android:layout_margin="16dp"
-      android:layout_width="match_parent"
-      android:layout_height="80dp"
-      android:elevation="12dp"
-      app:cardCornerRadius="20dp"
-      android:layout_centerHorizontal="true"
-      android:innerRadius="0dp"
-      android:shape="ring"
-      android:thicknessRatio="1.9">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
 
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:text="Stundenplan"
-          android:textColor="@android:color/white"
-          android:textSize="50sp"
-          android:gravity="center"
-          android:background="@color/colorPrimary"/>
+        android:orientation="vertical">
 
-  </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/timeTable"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="2dp">
 
-</FrameLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:text="Stundenplan"
+                android:textColor="@android:color/white"
+                android:textSize="50sp" />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/card_view1"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0sp"
+                    android:layout_weight="2">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/burse" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom|right"
+                        android:layout_marginRight="8dp"
+                        android:textColor="#aaffffff"
+                        android:text="Heute in der Burse"
+                        android:textSize="25dp"/>
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0sp"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:text="Lecker vegetarischer Stuff mit epischen Nachtisch"
+                    android:textSize="17dp"
+                    android:textColor="#000"
+                    android:gravity="center_vertical"/>
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>
