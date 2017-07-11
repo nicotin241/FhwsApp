@@ -2,17 +2,23 @@ package de.android.fhwsapp.Timetable;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.Calendar;
 
@@ -25,13 +31,14 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
     private CheckBox cbEveryWeek;
     private Button btnSave;
     private Database database;
+    private Subject sbj = null;
+    private boolean edit = false;
+    private String oldName = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_subject);
-
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         database = new Database(this);
 
@@ -52,17 +59,76 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
 
         btnSave = (Button) findViewById(R.id.btnSave);
         btnSave.setOnClickListener(this);
+
+        if(this.getIntent().getExtras() != null){
+            String name = (String) this.getIntent().getExtras().get("Subject");
+
+            sbj = database.getSubjectWithName(name);
+
+            etSubjectName.setText(sbj.getSubjectName());
+            etTeacher.setText(sbj.getTeacher());
+            etRoom.setText(sbj.getRoom());
+            etGroup.setText(sbj.getGruppe());
+            etStart.setText(sbj.getTimeStart());
+            etEnd.setText(sbj.getTimeEnd());
+            etDay.setText(sbj.getDate());
+
+            oldName = sbj.getSubjectName();
+            edit = true;
+        }
+
     }
 
     @Override
     public void onClick(View v) {
-        //makes keyboard disappear
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         switch (v.getId()){
             case R.id.btnSave:
                 Subject customSubject = createCustomSubject();
-                database.createSubject(customSubject);
+
+                if(customSubject.getSubjectName().equals("") || customSubject.getDate().equals("")
+                        || customSubject.getTimeStart().equals("") || customSubject.getTimeEnd().equals("")){
+                    Toast.makeText(this,"Die Felder Name, Datum, Startzeit und Endzeit müssen ausgefüllt werden",
+                            Toast.LENGTH_LONG).show();
+                    break;
+                }
+
+                boolean stop = false;
+
+                for(String name : database.getAllSubjectNames()){
+                    if(customSubject.getSubjectName().equals(name)){
+                        Toast.makeText(this, "Es dürfen keine gleichen Namen vorkommen", Toast.LENGTH_LONG);
+                        stop = true;
+                        break;
+                    }
+                }
+                if(stop)
+                    break;
+
+
+                DateTimeFormatter formatter = DateTimeFormat.forPattern("HH:mm");
+                DateTime start = formatter.parseDateTime(customSubject.getTimeStart());
+                DateTime end = formatter.parseDateTime(customSubject.getTimeEnd());
+
+                if(start.isAfter(end)){
+                   Toast.makeText(this,"Die Endzeit muss größer sein als die Startzeit", Toast.LENGTH_LONG).show();
+                    break;
+                }
+
+                if(customSubject.getDateAsDateTime().plusDays(1).isBeforeNow()){
+                    Toast.makeText(this,"Das Datum liegt in der Vergangenheit", Toast.LENGTH_LONG).show();
+                    break;
+                }
+
+                if(edit)
+                    database.updateSubjectWithName(customSubject, oldName);
+                else {
+                    if(cbEveryWeek.isChecked())
+                        database.createSubjectsForEveryWeek(customSubject);
+                    else
+                        database.createSubject(customSubject);
+                }
+
                 Toast.makeText(this, "Ihr Fach wurde gespeichert", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
@@ -72,18 +138,26 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        if(event.getAction() == MotionEvent.ACTION_DOWN) {
 
-        switch (v.getId()){
-            case R.id.etDay:
-                showDatePickerDialog();
-                break;
-            case R.id.etStart:
-                showTimePickerDialog(R.id.etStart);
-                break;
-            case R.id.etEnd:
-                showTimePickerDialog(R.id.etEnd);
-                break;
+            InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            mgr.hideSoftInputFromWindow(etSubjectName.getWindowToken(), 0);
+            mgr.hideSoftInputFromWindow(etRoom.getWindowToken(), 0);
+            mgr.hideSoftInputFromWindow(etTeacher.getWindowToken(), 0);
+            mgr.hideSoftInputFromWindow(etGroup.getWindowToken(), 0);
+
+            switch (v.getId()) {
+                case R.id.etDay:
+                    showDatePickerDialog();
+                    break;
+                case R.id.etStart:
+                    showTimePickerDialog(R.id.etStart);
+                    break;
+                case R.id.etEnd:
+                    showTimePickerDialog(R.id.etEnd);
+                    break;
+
+            }
 
         }
         return false;
@@ -98,7 +172,8 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
         mDayPicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                etDay.setText( dayOfMonth + "." + month +"."+year);
+                //warum muss ich month um 1 erhöhen???
+                etDay.setText( dayOfMonth + "." + ++month +"."+year);
             }
         },year,month,day );
         mDayPicker.setTitle("Wähle Datum");
@@ -130,6 +205,17 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
 
     private Subject createCustomSubject(){
         Subject subject = new Subject();
+        subject.setType("Custom");
+        subject.setSubjectName(etSubjectName.getText().toString());
+        subject.setDate(etDay.getText().toString());
+        subject.setChecked(true);
+        subject.setGruppe(etGroup.getText().toString());
+        subject.setId(666);
+        subject.setRoom(etRoom.getText().toString());
+        subject.setTeacher(etTeacher.getText().toString());
+        subject.setTimeStart(etStart.getText().toString());
+        subject.setTimeEnd(etEnd.getText().toString());
+        subject.setYear("Custom");
 
         return subject;
     }

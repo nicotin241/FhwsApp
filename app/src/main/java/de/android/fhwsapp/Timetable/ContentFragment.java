@@ -104,7 +104,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener, V
     }
 
     public void setMargins(Subject subject, int side){
-        if(Timetable.oneHourMargin == 0)
+        if(Timetable.oneHourMargin == 0 || subject.getTimeStart() == null)
             return;
 
         int sideMargin = side;

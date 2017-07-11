@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,6 +32,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import de.android.fhwsapp.R;
 import de.android.fhwsapp.Timetable.BTGridPager.BTFragmentGridPager;
@@ -43,7 +43,7 @@ public class Timetable extends FragmentActivity {
     private BTFragmentGridPager.FragmentGridPagerAdapter mFragmentGridPagerAdapter;
 
     private static int DAYS = 7;
-    private static int WEEKS = 3;
+    private static int WEEKS = 0;
     private static final String SCREEN_HEIGHT = "screenHeight";
     public static float oneHourMargin;
 
@@ -51,12 +51,8 @@ public class Timetable extends FragmentActivity {
     private ArrayList<ImageButton> weekTabList;
 
     private LinearLayout linearLayout;
-//    private ListView listView;
     private ArrayList<Subject>[][] subjects;
     private BTFragmentGridPager mFragmentGridPager;
-
-//    private Animation slideUp;
-//    private Animation slideDown;
 
     private SharedPreferences sharedPreferences;
 
@@ -81,89 +77,6 @@ public class Timetable extends FragmentActivity {
         TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { R.attr.colorAccent });
         colorAccent = a.getColor(0, 0);
 
-        sharedPreferences = getSharedPreferences(getPackageName(),MODE_PRIVATE);
-        oneHourMargin = sharedPreferences.getFloat(SCREEN_HEIGHT,0);
-
-        mFragmentGridPager = (BTFragmentGridPager) findViewById(R.id.pager);
-
-        subjects = loadSubjects();
-
-        weekTabList = new ArrayList<>();
-
-        initTabs();
-
-        moveToCurrentDay();
-
-        mFragmentGridPagerAdapter = new BTFragmentGridPager.FragmentGridPagerAdapter() {
-            @Override
-            public int rowCount() {
-                return WEEKS;
-            }
-
-            @Override
-            public int columnCount(int row) {
-                return DAYS;
-            }
-
-            @Override
-            public Fragment getItem(BTFragmentGridPager.GridIndex index) {
-
-                if(index.getCol() != currentDay) {
-                    markCurrentDayTab(mFragmentGridPager.mCurrentIndex.getCol());
-                    currentDay = index.getCol();
-                }
-                if(index.getRow() != currentWeek){
-                    markCurrentWeekTab(mFragmentGridPager.mCurrentIndex.getRow());
-                    currentWeek = index.getRow();
-                }
-
-                ContentFragment fragment = new ContentFragment();
-                fragment.loadData(subjects[index.getRow()][index.getCol()]);
-                return fragment;
-            }
-        };
-
-        mFragmentGridPager.setGridPagerAdapter(mFragmentGridPagerAdapter);
-
-        weekTabs = (LinearLayout) findViewById(R.id.llWeeks);
-        addWeekTabs();
-
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(floatingActionButton.getTag().equals("plus")){
-
-                    Intent intent = new Intent(Timetable.this, TimetableFilter.class );
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
-
-                }else{
-                    new AlertDialog.Builder(Timetable.this)
-                            .setTitle("Fach entfernen")
-                            .setMessage("Willst du das Fach wirklich aus deinem Stundenplan nehmen")
-                            .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    ContentFragment.markedTv.clearAnimation();
-                                    ContentFragment.markedTv = null;
-                                    Toast.makeText(getApplicationContext(),"kann noch nicht gelöscht werden",Toast.LENGTH_LONG).show();
-                                }
-                            })
-                            .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    ContentFragment.markedTv.clearAnimation();
-                                    ContentFragment.markedTv = null;
-                                    dialog.dismiss();
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                }
-            }
-        });
-        if(oneHourMargin == 0) {
-            getLayoutHeight();
-        }
     }
 
 
@@ -177,6 +90,8 @@ public class Timetable extends FragmentActivity {
     }
 
     private void addWeekTabs(){
+        weekTabs.setWeightSum(0);
+
         for(int i = 0; i < WEEKS; i++)
             addTab();
     }
@@ -274,9 +189,9 @@ public class Timetable extends FragmentActivity {
 
                 sharedPreferences.edit().putFloat(SCREEN_HEIGHT,oneHourMargin).commit();
 
-                Intent intent = new Intent(getBaseContext(), Timetable.class);
+                Intent intent = new Intent(getBaseContext(), TimetableFilter.class);
                 startActivity(intent);
-                finish();
+                //finish();
             }
         });
     }
@@ -288,18 +203,18 @@ public class Timetable extends FragmentActivity {
 
         database = new Database(this);
         if(database.getWeekCount() == 0){
-            database.createSubject(new Subject(1,"01.05.17","10:00","15:00","S","Programmieren 1","Heinzl","H.1.5","","Gruppe 1","SS17","BIN"));
-            database.createSubject(new Subject(2,"01.05.17","8:15","9:45","S","Mathe","Kuhn","I.2.15","Raumänderung","","SS17","BIN"));
-            database.createSubject(new Subject(2,"02.05.17","8:15","10:15","S","Mathe","Kuhn","I.2.15","","","SS17","BIN"));
-            database.createSubject(new Subject(3,"03.05.17","13:30","15:45","S","Programmieren 2","Heinzl","H.1.1","","","SS17","BIN"));
-            database.createSubject(new Subject(1,"07.05.17","10:00","15:00","S","Programmieren 1","Heinzl","H.1.5","","Gruppe 1","SS17","BIN"));
-            database.createSubject(new Subject(2,"07.05.17","8:15","9:45","S","Mathe","Kuhn","I.2.15","","","SS17","BIN"));
-            database.createSubject(new Subject(2,"08.05.17","8:15","10:15","S","Mathe","Kuhn","I.2.15","","","SS17","BIN"));
-            database.createSubject(new Subject(3,"09.05.17","13:30","15:45","S","Programmieren 2","Heinzl","H.1.1","","","SS17","BIN"));
-            database.createSubject(new Subject(1,"15.05.17","10:00","15:00","S","Programmieren 1","Heinzl","H.1.5","","Gruppe 1","SS17","BIN"));
-            database.createSubject(new Subject(2,"15.05.17","8:15","9:45","S","Mathe","Kuhn","I.2.15","","","SS17","BIN"));
-            database.createSubject(new Subject(2,"16.05.17","8:15","10:15","S","Mathe","Kuhn","I.2.15","","","SS17","BIN"));
-            database.createSubject(new Subject(2,"17.05.17","13:30","15:45","S","Programmieren 2","Heinzl","H.1.1","","","SS17","BIN"));
+            database.createSubject(new Subject(1,"01.05.17","10:00","15:00","S","Programmieren 1","Heinzl","H.1.5","","Gruppe 1","SS17","BIN","1",""));
+            database.createSubject(new Subject(2,"01.05.17","8:15","9:45","S","Mathe","Kuhn","I.2.15","Raumänderung","","SS17","BIN","1",""));
+            database.createSubject(new Subject(2,"02.05.17","8:15","10:15","S","Mathe","Kuhn","I.2.15","","","SS17","BIN","1",""));
+            database.createSubject(new Subject(3,"03.05.17","13:30","15:45","S","Programmieren 2","Heinzl","H.1.1","","","SS17","BIN","1",""));
+            database.createSubject(new Subject(1,"07.05.17","10:00","15:00","S","Programmieren 1","Heinzl","H.1.5","","Gruppe 1","SS17","BIN","1",""));
+            database.createSubject(new Subject(2,"07.05.17","8:15","9:45","S","Mathe","Kuhn","I.2.15","","","SS17","BIN","1",""));
+            database.createSubject(new Subject(2,"08.05.17","8:15","10:15","S","Mathe","Kuhn","I.2.15","","","SS17","BIN","1",""));
+            database.createSubject(new Subject(3,"09.05.17","13:30","15:45","S","Programmieren 2","Heinzl","H.1.1","","","SS17","BIN","1",""));
+            database.createSubject(new Subject(1,"15.05.17","10:00","15:00","S","Programmieren 1","Heinzl","H.1.5","","Gruppe 1","SS17","BIN","1",""));
+            database.createSubject(new Subject(2,"15.05.17","8:15","9:45","S","Mathe","Kuhn","I.2.15","","","SS17","BIN","1",""));
+            database.createSubject(new Subject(2,"16.05.17","8:15","10:15","S","Mathe","Kuhn","I.2.15","","","SS17","BIN","1",""));
+            database.createSubject(new Subject(2,"17.05.17","13:30","15:45","S","Programmieren 2","Heinzl","H.1.1","","","SS17","BIN","1",""));
         }
 
 
@@ -406,6 +321,133 @@ public class Timetable extends FragmentActivity {
             }
         }
         return response.toString();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        mFragmentGridPager = (BTFragmentGridPager) findViewById(R.id.pager);
+
+        sharedPreferences = getSharedPreferences(getPackageName(),MODE_PRIVATE);
+        oneHourMargin = sharedPreferences.getFloat(SCREEN_HEIGHT,0);
+
+        subjects = loadSubjects();
+
+        weekTabList = new ArrayList<>();
+
+        initTabs();
+
+        moveToCurrentDay();
+
+        mFragmentGridPagerAdapter = new BTFragmentGridPager.FragmentGridPagerAdapter() {
+            @Override
+            public int rowCount() {
+                return WEEKS;
+            }
+
+            @Override
+            public int columnCount(int row) {
+                return DAYS;
+            }
+
+            @Override
+            public Fragment getItem(BTFragmentGridPager.GridIndex index) {
+
+                if(index.getCol() != currentDay) {
+                    markCurrentDayTab(mFragmentGridPager.mCurrentIndex.getCol());
+                    currentDay = index.getCol();
+                }
+                if(index.getRow() != currentWeek){
+                    markCurrentWeekTab(mFragmentGridPager.mCurrentIndex.getRow());
+                    currentWeek = index.getRow();
+                }
+
+                ContentFragment fragment = new ContentFragment();
+                try {
+                    fragment.loadData(subjects[index.getRow()][index.getCol()]);
+                }catch (Exception e){
+                    //bei absoluten Notfall
+                    onBackPressed();
+                }
+                return fragment;
+            }
+        };
+
+        mFragmentGridPager.setGridPagerAdapter(mFragmentGridPagerAdapter);
+
+        weekTabs = (LinearLayout) findViewById(R.id.llWeeks);
+        weekTabs.removeAllViews();
+        addWeekTabs();
+
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(floatingActionButton.getTag().equals("plus")){
+
+                    Intent intent = new Intent(Timetable.this, TimetableFilter.class );
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+
+                }else{
+                    new AlertDialog.Builder(Timetable.this)
+                            .setTitle("Fach entfernen")
+                            .setMessage("Willst du das Fach wirklich aus deinem Stundenplan nehmen")
+                            .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    ContentFragment.markedTv.clearAnimation();
+
+                                    if (ContentFragment.markedTv != null)
+                                        ContentFragment.markedTv.setBackgroundColor(ContentFragment.markedTv.getHighlightColor());
+
+                                    floatingActionButton.setImageResource(R.drawable.plus);
+                                    floatingActionButton.setTag("plus");
+
+                                    String subject = "";
+
+                                    List<String> names = database.getAllSubjectNames();
+                                    for(String name : names)
+                                        if(ContentFragment.markedTv.getText().toString().contains(name)){
+                                            subject = name;
+                                            break;
+                                        }
+
+
+                                    Subject update = database.getSubjectWithName(subject);
+
+                                    database.updateCheckedSubjects(update.getId(), false);
+
+                                    ContentFragment.markedTv = null;
+
+                                    subjects = loadSubjects();
+                                    mFragmentGridPager.setGridPagerAdapter(mFragmentGridPagerAdapter);
+                                }
+                            })
+                            .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    ContentFragment.markedTv.clearAnimation();
+
+                                    if (ContentFragment.markedTv != null)
+                                        ContentFragment.markedTv.setBackgroundColor(ContentFragment.markedTv.getHighlightColor());
+
+                                    ContentFragment.markedTv = null;
+
+                                    Timetable.floatingActionButton.setImageResource(R.drawable.plus);
+                                    Timetable.floatingActionButton.setTag("plus");
+
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            }
+        });
+        if(oneHourMargin == 0) {
+            getLayoutHeight();
+        }
+
     }
 }
 

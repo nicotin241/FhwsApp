@@ -5,9 +5,6 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 
 public class Subject {
 
@@ -21,9 +18,11 @@ public class Subject {
     private String room;
     private String info;
     private String gruppe;
-    private String semester;
+    private String year;
     private String studiengang;
     private int id;
+    private String semester;
+    private String url;
     private boolean checked = false;
 
     public Subject(JSONObject jsonObject) {
@@ -34,7 +33,7 @@ public class Subject {
 
     public Subject(int id, String date, String timeStart, String timeEnd,
                    String type, String subjectName, String teacher, String room,
-                   String info, String gruppe, String semester, String studiengang){
+                   String info, String gruppe, String year, String studiengang, String semester, String url){
 
         this.id = id;
         this.date = date;
@@ -46,8 +45,10 @@ public class Subject {
         this.room = room;
         this.info = info;
         this.gruppe = gruppe;
-        this.semester = semester;
+        this.year = year;
         this.studiengang = studiengang;
+        this.semester = semester;
+        this.url = url;
 
     }
 
@@ -60,7 +61,10 @@ public class Subject {
 //    }
 
     public String getInfo() {
-        return info;
+        if(info != null)
+            return info;
+        else
+            return "";
     }
 
     public void setInfo(String info) {
@@ -155,12 +159,12 @@ public class Subject {
         this.checked = checked;
     }
 
-    public String getSemester() {
-        return semester;
+    public String getYear() {
+        return year;
     }
 
-    public void setSemester(String semester) {
-        this.semester = semester;
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public String getStudiengang() {
@@ -177,5 +181,21 @@ public class Subject {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
