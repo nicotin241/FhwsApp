@@ -67,7 +67,9 @@ public class MensaDataFetcher extends AsyncTask<Void, Void, Void> {
         }
 
         String serverData = result.toString();
-        dataBaseHelper.deleteOldMeals();
+        try {
+            dataBaseHelper.deleteOldMeals();
+        }catch (Exception e){}
 
         try {
 
