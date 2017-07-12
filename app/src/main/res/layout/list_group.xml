@@ -2,10 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp"
-    android:background="@color/colorPrimary">
+    android:orientation="horizontal"
+  >
 
+    <View
+        android:id="@+id/level1"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"></View>
+
+    <View
+        android:id="@+id/level2"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+    </View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/ivArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/arrow_down_float"
+            android:layout_gravity="center"/>
 
     <TextView
         android:id="@+id/lblListHeader"
@@ -14,5 +38,7 @@
         android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
         android:textSize="17dp"
         android:textColor="@android:color/black" />
+
+    </LinearLayout>
 
 </LinearLayout>

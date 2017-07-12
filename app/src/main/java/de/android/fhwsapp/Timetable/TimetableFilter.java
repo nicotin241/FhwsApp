@@ -84,6 +84,8 @@ public class TimetableFilter extends AppCompatActivity {
                 @Override
                 public View getView(NLevelItem item) {
                     View view = inflater.inflate(R.layout.list_group, null);
+                    view.findViewById(R.id.level1).setVisibility(View.GONE);
+                    view.findViewById(R.id.level2).setVisibility(View.GONE);
                     TextView tv = (TextView) view.findViewById(R.id.lblListHeader);
                     String name = item.getWrappedObject().toString();
                     tv.setText(name);
@@ -184,9 +186,8 @@ public class TimetableFilter extends AppCompatActivity {
                         @Override
                         public View getView(NLevelItem item) {
                             View view = inflater.inflate(R.layout.list_group, null);
-                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                            params.setMargins(10, 0, 0, 0);
-                            view.setLayoutParams(params);
+                            view.findViewById(R.id.level1).setVisibility(View.VISIBLE);
+                            view.findViewById(R.id.level2).setVisibility(View.GONE);
                             TextView tv = (TextView) view.findViewById(R.id.lblListHeader);
                             String name = item.getWrappedObject().toString();
                             tv.setText(name);
@@ -205,6 +206,8 @@ public class TimetableFilter extends AppCompatActivity {
                             public View getView(NLevelItem item) {
                                 View view = inflater.inflate(R.layout.list_group, null);
                                 TextView tv = (TextView) view.findViewById(R.id.lblListHeader);
+                                view.findViewById(R.id.level1).setVisibility(View.VISIBLE);
+                                view.findViewById(R.id.level2).setVisibility(View.VISIBLE);
                                 String name = "Semester: " + item.getWrappedObject().toString();
                                 tv.setText(name);
                                 return view;
