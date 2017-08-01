@@ -7,7 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.icu.util.RangeValueIterator;
 import android.preference.PreferenceManager;
+import android.provider.DocumentsContract;
+import android.renderscript.Element;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +26,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,9 +36,29 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -43,22 +67,20 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String TAG = "LoginActivity";
+
     private SharedPreferences mPrefs;
     private SharedPreferences.Editor editor;
 
     private Context mContext;
+    private HttpsURLConnection conn;
+    private List<String> cookies;
+    private final String USER_AGENT = "Mozilla/5.0";
 
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "k12345:hello", "k11111:world"
-    };
-
-    private UserLoginTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView mK_Nummer;
     private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                    //attemptLogin();
                     return true;
                 }
                 return false;
@@ -89,171 +111,165 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         editor = mPrefs.edit();
     }
 
-
-
-
-
-
-
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
 
-        // Reset errors.
-        mK_Nummer.setError(null);
-        mPasswordView.setError(null);
+        startActivity(new Intent(this, MainActivity.class));
+        editor.putBoolean("signedIn", true);
+        editor.apply();
+        //new LoginTask().execute();
 
-        // Store values at the time of the login attempt.
-        String email = mK_Nummer.getText().toString();
-        String password = mPasswordView.getText().toString();
-
-        boolean cancel = false;
-        View focusView = null;
-
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError("Passwort eingeben!");//getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
-
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mK_Nummer.setError("k-Nummer");//getString(R.string.error_field_required));
-            focusView = mK_Nummer;
-            cancel = true;
-        }
-
-        if (cancel) {
-
-            focusView.requestFocus();
-
-        } else {
-
-            showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
-
-        }
     }
-
-
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
+    private class LoginTask extends AsyncTask<String, Void, String> {
 
         @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+        protected String doInBackground(String... params) {
+
+            String url = "https://studentenportal.fhws.de/login/login";
+            String gmail = "https://studentenportal.fhws.de/home";
+
+            String result = "";
+
+            // make sure cookies is turn on
+            CookieHandler.setDefault(new CookieManager());
 
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
+                // 1. Send a "GET" request, so that you can extract the form's data.
+                String page = getPageContent(url);
+                String postParams = "username=k15621&password=BrainLess23";
+
+                // 2. Construct above post's content and then send a POST request for
+                // authentication
+                sendPost(url, postParams);
+
+                // 3. success then go to gmail.
+                result = getPageContent(gmail);
+                Log.d(TAG, result);
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
+            return result;
 
-            // TODO: register the new account here.
-            return true;
         }
 
         @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
+        protected void onPostExecute(String data) {
 
-            if (success) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                editor.putBoolean("signedIn", true);
-                editor.apply();
-                finish();
-            } else {
-                mPasswordView.setError("Falsches Passwort");//getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
 
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
         }
     }
+
+    private void sendPost(String url, String postParams) throws Exception {
+
+        URL obj = new URL(url);
+        conn = (HttpsURLConnection) obj.openConnection();
+
+        // Acts like a browser
+        conn.setUseCaches(false);
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Host", "studentenportal.fhws.de");
+        conn.setRequestProperty("User-Agent", USER_AGENT);
+        conn.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+        conn.setRequestProperty("Accept-Language", "de,en-US;q=0.7,en;q=0.3");
+        for (String cookie : this.cookies) {
+            conn.addRequestProperty("Cookie", cookie.split(";", 1)[0]);
+        }
+        conn.setRequestProperty("Connection", "keep-alive");
+        conn.setRequestProperty("Referer", "https://studentenportal.fhws.de/login");
+        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        conn.setRequestProperty("Content-Length", Integer.toString(postParams.length()));
+
+        conn.setDoOutput(true);
+        conn.setDoInput(true);
+
+        // Send post request
+        DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+        wr.writeBytes(postParams);
+        wr.flush();
+        wr.close();
+
+        int responseCode = conn.getResponseCode();
+        Log.d(TAG, "\nSending 'POST' request to URL : " + url);
+        Log.d(TAG, "Post parameters : " + postParams);
+        Log.d(TAG, "Response Code : " + responseCode);
+
+        BufferedReader in =
+                new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        Log.d(TAG, response.toString());
+
+    }
+
+    private String getPageContent(String url) throws Exception {
+
+        URL obj = new URL(url);
+        conn = (HttpsURLConnection) obj.openConnection();
+
+        // default is GET
+        conn.setRequestMethod("GET");
+
+        conn.setUseCaches(false);
+
+        // act like a browser
+        conn.setRequestProperty("User-Agent", USER_AGENT);
+        conn.setRequestProperty("Accept",
+                "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+        conn.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+        if (cookies != null) {
+            for (String cookie : this.cookies) {
+                conn.addRequestProperty("Cookie", cookie.split(";", 1)[0]);
+            }
+        }
+        int responseCode = conn.getResponseCode();
+        Log.d(TAG, "\nSending 'GET' request to URL : " + url);
+        Log.d(TAG, "Response Code : " + responseCode);
+
+        BufferedReader in =
+                new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        // Get the response cookies
+        setCookies(conn.getHeaderFields().get("Set-Cookie"));
+
+        return response.toString();
+
+    }
+
+
+    public List<String> getCookies() {
+        return cookies;
+    }
+
+    public void setCookies(List<String> cookies) {
+        this.cookies = cookies;
+    }
+
+
+
+
 }
 
