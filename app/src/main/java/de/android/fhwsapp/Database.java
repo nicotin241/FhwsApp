@@ -777,7 +777,9 @@ public class Database extends SQLiteOpenHelper {
             subjects[w][i].add(index, emptySubject);
         }
 
-        lastMonday = subjects[w][0].get(0).getDateAsDateTime();
+        try {
+            lastMonday = subjects[w][0].get(0).getDateAsDateTime();
+        }catch (Exception e){}
 
         return subjects;
     }
