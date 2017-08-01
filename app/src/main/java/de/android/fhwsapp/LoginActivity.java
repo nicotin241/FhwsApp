@@ -146,7 +146,7 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 // 1. Send a "GET" request, so that you can extract the form's data.
                 String page = getPageContent(url);
-                String postParams = "username=k15621&password=BrainLess23";
+                String postParams = "username=<>&password=<>";
 
                 // 2. Construct above post's content and then send a POST request for
                 // authentication
