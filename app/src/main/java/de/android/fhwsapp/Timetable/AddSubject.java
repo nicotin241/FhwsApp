@@ -62,8 +62,9 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
 
         if(this.getIntent().getExtras() != null){
             String name = (String) this.getIntent().getExtras().get("Subject");
+            String date = (String) this.getIntent().getExtras().get("Date");
 
-            sbj = database.getSubjectWithName(name);
+            sbj = database.getSubjectWithNameAndDate(name, date);
 
             etSubjectName.setText(sbj.getSubjectName());
             etTeacher.setText(sbj.getTeacher());
@@ -96,6 +97,8 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
                 boolean stop = false;
 
                 for(String name : database.getAllSubjectNames()){
+                    if(name.equals(oldName))
+                        continue;
                     if(customSubject.getSubjectName().equals(name)){
                         Toast.makeText(this, "Es dürfen keine gleichen Namen vorkommen", Toast.LENGTH_LONG);
                         stop = true;

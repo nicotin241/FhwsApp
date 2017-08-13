@@ -1,5 +1,6 @@
 package de.android.fhwsapp.Timetable;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +20,8 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -33,10 +36,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
+import de.android.fhwsapp.MainActivity;
 import de.android.fhwsapp.R;
 import de.android.fhwsapp.Timetable.BTGridPager.BTFragmentGridPager;
 import de.android.fhwsapp.Database;
+import de.android.fhwsapp.fragments.MainFragment;
 
 public class Timetable extends FragmentActivity {
 
@@ -65,43 +71,50 @@ public class Timetable extends FragmentActivity {
 
     private Database database;
 
-//    private LinearLayout addLayout;
+    private Context context;
+
+    //    private LinearLayout addLayout;
     public static FloatingActionButton floatingActionButton;
+
+    private boolean created;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timetable);
 
+        context = this;
+        created = true;
+
         TypedValue typedValue = new TypedValue();
-        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { R.attr.colorAccent });
+        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorAccent});
         colorAccent = a.getColor(0, 0);
 
     }
 
 
-    private void markCurrentWeekTab(int week){
-        for(int i = 0; i < weekTabList.size(); i++){
-            if(i == week)
+    private void markCurrentWeekTab(int week) {
+        for (int i = 0; i < weekTabList.size(); i++) {
+            if (i == week)
                 weekTabList.get(i).setBackgroundColor(colorAccent);
             else
                 weekTabList.get(i).setBackgroundColor(Color.GRAY);
         }
     }
 
-    private void addWeekTabs(){
+    private void addWeekTabs() {
         weekTabs.setWeightSum(0);
 
-        for(int i = 0; i < WEEKS; i++)
+        for (int i = 0; i < WEEKS; i++)
             addTab();
     }
 
-    private void addTab(){
-        weekTabs.setWeightSum(weekTabs.getWeightSum()+1);
+    private void addTab() {
+        weekTabs.setWeightSum(weekTabs.getWeightSum() + 1);
 
-        ImageButton ib = new ImageButton(this,null);
+        ImageButton ib = new ImageButton(this, null);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(10, 0, 1);
-        params.setMargins(0,2,0,2);
+        params.setMargins(0, 2, 0, 2);
         ib.setLayoutParams(params);
         ib.setBackgroundColor(Color.GRAY);
 
@@ -112,7 +125,7 @@ public class Timetable extends FragmentActivity {
 
     }
 
-    private void markCurrentDayTab(int day){
+    private void markCurrentDayTab(int day) {
 
         tabMo.setBackgroundColor(Color.GRAY);
         tabDi.setBackgroundColor(Color.GRAY);
@@ -122,25 +135,25 @@ public class Timetable extends FragmentActivity {
         tabSa.setBackgroundColor(Color.GRAY);
         tabSo.setBackgroundColor(Color.GRAY);
 
-        if(day == 0)
+        if (day == 0)
             tabMo.setBackgroundColor(colorAccent);
-        else if(day == 1)
+        else if (day == 1)
             tabDi.setBackgroundColor(colorAccent);
-        else if(day == 2)
+        else if (day == 2)
             tabMi.setBackgroundColor(colorAccent);
-        else if(day == 3)
+        else if (day == 3)
             tabDo.setBackgroundColor(colorAccent);
-        else if(day == 4)
+        else if (day == 4)
             tabFr.setBackgroundColor(colorAccent);
-        else if(day == 5)
+        else if (day == 5)
             tabSa.setBackgroundColor(colorAccent);
-        else if(day == 6)
+        else if (day == 6)
             tabSo.setBackgroundColor(colorAccent);
 
 
     }
 
-    private void initTabs(){
+    private void initTabs() {
         tabMo = (ImageButton) findViewById(R.id.ibMo);
 //        tabMo.setOnClickListener(this);
         tabDi = (ImageButton) findViewById(R.id.ibDi);
@@ -156,23 +169,23 @@ public class Timetable extends FragmentActivity {
         tabSo = (ImageButton) findViewById(R.id.ibSo);
     }
 
-    public void moveToCurrentDay(){
+    public void moveToCurrentDay() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy");
         String currentDay = sdf.format(new Date());
 
-        for(int w = 0; w < WEEKS; w++)
-            for(int d = 0; d < DAYS; d++){
-                if(subjects[w][d].size() >0)
-                if(subjects[w][d].get(0).getDate().contains(currentDay)){
-                    mFragmentGridPager.setStartDay(d, w);
-                    this.currentDay = d;
-                    currentWeek = w;
-                    break;
-                }
+        for (int w = 0; w < WEEKS; w++)
+            for (int d = 0; d < DAYS; d++) {
+                if (subjects[w][d].size() > 0)
+                    if (subjects[w][d].get(0).getDate().contains(currentDay)) {
+                        mFragmentGridPager.setStartDay(d, w);
+                        this.currentDay = d;
+                        currentWeek = w;
+                        break;
+                    }
             }
     }
 
-    private void getLayoutHeight(){
+    private void getLayoutHeight() {
         linearLayout = (LinearLayout) findViewById(R.id.layoutHeight);
 
         ViewTreeObserver vto = linearLayout.getViewTreeObserver();
@@ -187,7 +200,7 @@ public class Timetable extends FragmentActivity {
 
                 oneHourMargin = linearLayout.getMeasuredHeight() / 13;
 
-                sharedPreferences.edit().putFloat(SCREEN_HEIGHT,oneHourMargin).commit();
+                sharedPreferences.edit().putFloat(SCREEN_HEIGHT, oneHourMargin).commit();
 
                 Intent intent = new Intent(getBaseContext(), TimetableFilter.class);
                 startActivity(intent);
@@ -196,26 +209,25 @@ public class Timetable extends FragmentActivity {
         });
     }
 
-    private ArrayList<Subject>[][] loadSubjects(){
-
-        //return loadFromServer();
-        new LoadSemesterFromServer().execute("http://backend2.applab.fhws.de:8080/fhwsapi/v1/lectures");
+    private ArrayList<Subject>[][] loadSubjects() {
 
         database = new Database(this);
-        if(database.getWeekCount() == 0){
-            database.createSubject(new Subject(1,"01.05.17","10:00","15:00","S","Programmieren 1","Heinzl","H.1.5","","Gruppe 1","SS17","BIN","1",""));
-            database.createSubject(new Subject(2,"01.05.17","8:15","9:45","S","Mathe","Kuhn","I.2.15","Raumänderung","","SS17","BIN","1",""));
-            database.createSubject(new Subject(2,"02.05.17","8:15","10:15","S","Mathe","Kuhn","I.2.15","","","SS17","BIN","1",""));
-            database.createSubject(new Subject(3,"03.05.17","13:30","15:45","S","Programmieren 2","Heinzl","H.1.1","","","SS17","BIN","1",""));
-            database.createSubject(new Subject(1,"07.05.17","10:00","15:00","S","Programmieren 1","Heinzl","H.1.5","","Gruppe 1","SS17","BIN","1",""));
-            database.createSubject(new Subject(2,"07.05.17","8:15","9:45","S","Mathe","Kuhn","I.2.15","","","SS17","BIN","1",""));
-            database.createSubject(new Subject(2,"08.05.17","8:15","10:15","S","Mathe","Kuhn","I.2.15","","","SS17","BIN","1",""));
-            database.createSubject(new Subject(3,"09.05.17","13:30","15:45","S","Programmieren 2","Heinzl","H.1.1","","","SS17","BIN","1",""));
-            database.createSubject(new Subject(1,"15.05.17","10:00","15:00","S","Programmieren 1","Heinzl","H.1.5","","Gruppe 1","SS17","BIN","1",""));
-            database.createSubject(new Subject(2,"15.05.17","8:15","9:45","S","Mathe","Kuhn","I.2.15","","","SS17","BIN","1",""));
-            database.createSubject(new Subject(2,"16.05.17","8:15","10:15","S","Mathe","Kuhn","I.2.15","","","SS17","BIN","1",""));
-            database.createSubject(new Subject(2,"17.05.17","13:30","15:45","S","Programmieren 2","Heinzl","H.1.1","","","SS17","BIN","1",""));
-        }
+
+        //dummy data
+//        if (database.getWeekCount() == 0) {
+//            database.createSubject(new Subject(1, "01.05.17", "10:00", "15:00", "S", "Programmieren 1", "Heinzl", "H.1.5", "", "Gruppe 1", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(2, "01.05.17", "8:15", "9:45", "S", "Mathe", "Kuhn", "I.2.15", "Raumänderung", "", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(2, "02.05.17", "8:15", "10:15", "S", "Mathe", "Kuhn", "I.2.15", "", "", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(3, "03.05.17", "13:30", "15:45", "S", "Programmieren 2", "Heinzl", "H.1.1", "", "", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(1, "07.05.17", "10:00", "15:00", "S", "Programmieren 1", "Heinzl", "H.1.5", "", "Gruppe 1", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(2, "07.05.17", "8:15", "9:45", "S", "Mathe", "Kuhn", "I.2.15", "", "", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(2, "08.05.17", "8:15", "10:15", "S", "Mathe", "Kuhn", "I.2.15", "", "", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(3, "09.05.17", "13:30", "15:45", "S", "Programmieren 2", "Heinzl", "H.1.1", "", "", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(1, "15.05.17", "10:00", "15:00", "S", "Programmieren 1", "Heinzl", "H.1.5", "", "Gruppe 1", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(2, "15.05.17", "8:15", "9:45", "S", "Mathe", "Kuhn", "I.2.15", "", "", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(2, "16.05.17", "8:15", "10:15", "S", "Mathe", "Kuhn", "I.2.15", "", "", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(2, "17.05.17", "13:30", "15:45", "S", "Programmieren 2", "Heinzl", "H.1.1", "", "", "SS17", "BIN", "1", ""));
+//        }
 
 
         WEEKS = database.getWeekCount();
@@ -250,7 +262,7 @@ public class Timetable extends FragmentActivity {
 //        }
 //    }
 
-    public class LoadSemesterFromServer extends AsyncTask<String , Void ,String> {
+    public class LoadSemesterFromServer extends AsyncTask<String, Void, String> {
         String server_response;
 
         @Override
@@ -265,7 +277,7 @@ public class Timetable extends FragmentActivity {
 
                 int responseCode = urlConnection.getResponseCode();
 
-                if(responseCode == HttpURLConnection.HTTP_OK){
+                if (responseCode == HttpURLConnection.HTTP_OK) {
                     server_response = readStream(urlConnection.getInputStream());
                     Log.v("CatalogClient", server_response);
                 }
@@ -283,17 +295,135 @@ public class Timetable extends FragmentActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            ArrayList<Subject> subs = new ArrayList<>();
+
             try {
                 JSONArray jsonArray = new JSONArray(server_response);
-                for(int i = 0; i < jsonArray.length(); i++){
+                database = new Database(context);
+                for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                    String semester = jsonObject.getString("label");
-                    String url = jsonObject.getString("url");
+                    Subject subject = new Subject();
+
+
+                    //id
+                    //int id = jsonObject.getInteger("number");
+                    //subject.setId(id)
+
+                    //look if checked
+//                    if(database.getSubjectWithID(id).isChecked())
+//                        subject.setChecked(true);
+
+                    //endTime
+                    String endTime = jsonObject.getString("endTime");
+                    int indexTime = endTime.indexOf("T");
+                    String day = endTime.substring(0, indexTime);
+                    String time = endTime.substring(indexTime + 1, endTime.length() - 9);
+                    subject.setTimeEnd(time);
+
+                    try {
+                        Date date = dateFormat.parse(day);
+                        dateFormat.applyPattern("dd.MM.yy");
+                        String d = dateFormat.format(date);
+                        subject.setDate(d);
+
+                    } catch (Exception ex) {
+                        String[] dateArray = day.split("-");
+                        String newDate = dateArray[2]+"."+dateArray[1]+"."+dateArray[0].substring(2);
+                        subject.setDate(newDate);
+                    }
+
+                    //teacher
+                    JSONArray lecturerView = (JSONArray) jsonObject.getJSONArray("lecturerView");
+                    StringBuilder lecturers = new StringBuilder();
+                    for (int y = 0; y < lecturerView.length(); y++) {
+                        JSONObject lecturer = lecturerView.getJSONObject(y);
+                        String teacher = null;
+                        if (!lecturer.getString("title").equals(""))
+                            teacher = lecturer.getString("title") + " " + lecturer.getString("lastName");
+                        else
+                            teacher = lecturer.getString("lastName");
+
+                        if (y == 0)
+                            lecturers.append(teacher);
+                        else
+                            lecturers.append(", " + teacher);
+
+                    }
+                    subject.setTeacher(lecturers.toString());
+
+                    //name
+                    String name = jsonObject.getString("name");
+                    subject.setSubjectName(name);
+
+                    //room
+                    JSONArray roommsView = (JSONArray) jsonObject.getJSONArray("roomsView");
+                    StringBuilder rooms = new StringBuilder();
+                    for (int y = 0; y < roommsView.length(); y++) {
+                        JSONObject room = roommsView.getJSONObject(y);
+
+                        String raum = room.getString("name");
+
+                        if (y == 0)
+                            rooms.append(raum);
+                        else
+                            rooms.append(", " + raum);
+
+                    }
+                    subject.setRoom(rooms.toString());
+
+                    //startTime
+                    String startTime = jsonObject.getString("startTime");
+                    indexTime = startTime.indexOf("T");
+                    time = startTime.substring(indexTime + 1, startTime.length() - 9);
+                    subject.setTimeStart(time);
+
+
+                    //type
+                    String type = jsonObject.getString("type");
+                    subject.setType(type);
+
+                    //semester, studiengang
+                    JSONArray studentsView = (JSONArray) jsonObject.getJSONArray("studentsView");
+                    for (int y = 0; y < studentsView.length(); y++) {
+                        JSONObject students = studentsView.getJSONObject(y);
+
+                        String programm = students.getString("program");
+                        int semester = students.getInt("semester");
+
+                        if (y == 0) {
+                            subject.setStudiengang(programm);
+                            subject.setSemester("" + semester);
+                        } else {
+                            Subject subject2 = new Subject(subject);
+                            subject2.setStudiengang(programm);
+                            subject2.setSemester("" + semester);
+                            //database.createSubject(subject2);
+                            subs.add(subject2);
+                        }
+
+                    }
+
+                    //database.createSubject(subject);
+                    subs.add(subject);
+
                 }
-            }catch (Exception e){}
+            } catch (Exception e) {
+                e.getMessage();
+            }
 
             Log.e("Response", "" + server_response);
 
+            //delete old subjects
+            if(subs.size() > 0)
+            database.deleteAllSubjects();
+
+            //add new subjects
+            for(Subject su : subs){
+                database.createSubject(su);
+            }
+
+            init();
 
         }
     }
@@ -324,14 +454,25 @@ public class Timetable extends FragmentActivity {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
 
         mFragmentGridPager = (BTFragmentGridPager) findViewById(R.id.pager);
 
-        sharedPreferences = getSharedPreferences(getPackageName(),MODE_PRIVATE);
-        oneHourMargin = sharedPreferences.getFloat(SCREEN_HEIGHT,0);
+        sharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
+        oneHourMargin = sharedPreferences.getFloat(SCREEN_HEIGHT, 0);
 
+        if (created && MainActivity.isNetworkConnected(this)) {
+            //loadFromServer
+            created = false;
+            new LoadSemesterFromServer().execute("https://apistaging.fiw.fhws.de/mo/api/modules/5100350/events");
+        } else {
+            //offline mode
+            init();
+        }
+    }
+
+    private void init(){
         subjects = loadSubjects();
 
         weekTabList = new ArrayList<>();
@@ -354,11 +495,11 @@ public class Timetable extends FragmentActivity {
             @Override
             public Fragment getItem(BTFragmentGridPager.GridIndex index) {
 
-                if(index.getCol() != currentDay) {
+                if (index.getCol() != currentDay) {
                     markCurrentDayTab(mFragmentGridPager.mCurrentIndex.getCol());
                     currentDay = index.getCol();
                 }
-                if(index.getRow() != currentWeek){
+                if (index.getRow() != currentWeek) {
                     markCurrentWeekTab(mFragmentGridPager.mCurrentIndex.getRow());
                     currentWeek = index.getRow();
                 }
@@ -366,7 +507,7 @@ public class Timetable extends FragmentActivity {
                 ContentFragment fragment = new ContentFragment();
                 try {
                     fragment.loadData(subjects[index.getRow()][index.getCol()]);
-                }catch (Exception e){
+                } catch (Exception e) {
                     //bei absoluten Notfall
                     onBackPressed();
                 }
@@ -384,13 +525,13 @@ public class Timetable extends FragmentActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(floatingActionButton.getTag().equals("plus")){
+                if (floatingActionButton.getTag().equals("plus")) {
 
-                    Intent intent = new Intent(Timetable.this, TimetableFilter.class );
+                    Intent intent = new Intent(Timetable.this, TimetableFilter.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 
-                }else{
+                } else {
                     new AlertDialog.Builder(Timetable.this)
                             .setTitle("Fach entfernen")
                             .setMessage("Willst du das Fach wirklich aus deinem Stundenplan nehmen")
@@ -407,8 +548,8 @@ public class Timetable extends FragmentActivity {
                                     String subject = "";
 
                                     List<String> names = database.getAllSubjectNames();
-                                    for(String name : names)
-                                        if(ContentFragment.markedTv.getText().toString().contains(name)){
+                                    for (String name : names)
+                                        if (ContentFragment.markedTv.getText().toString().contains(name)) {
                                             subject = name;
                                             break;
                                         }
@@ -444,10 +585,9 @@ public class Timetable extends FragmentActivity {
                 }
             }
         });
-        if(oneHourMargin == 0) {
+        if (oneHourMargin == 0) {
             getLayoutHeight();
         }
-
     }
 }
 

@@ -124,7 +124,7 @@ public class TimetableFilter extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     cb.toggle();
-                                    database.updateCheckedSubjects(subject.getId(), cb.isChecked());
+                                    database.updateCheckedSubjects(subject, cb.isChecked());
                                     subject.setChecked(cb.isChecked());
                                 }
                             });
@@ -132,7 +132,7 @@ public class TimetableFilter extends AppCompatActivity {
                             cb.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    database.updateCheckedSubjects(subject.getId(), cb.isChecked());
+                                    database.updateCheckedSubjects(subject, cb.isChecked());
                                     subject.setChecked(cb.isChecked());
                                 }
                             });
@@ -142,6 +142,7 @@ public class TimetableFilter extends AppCompatActivity {
                                 public void onClick(View v) {
                                     Intent intent = new Intent(TimetableFilter.this, AddSubject.class);
                                     intent.putExtra("Subject", subject.getSubjectName());
+                                    intent.putExtra("Date", subject.getDate());
                                     startActivity(intent);
                                 }
                             });
@@ -155,7 +156,7 @@ public class TimetableFilter extends AppCompatActivity {
                                             .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                    database.deleteSubjectsWithName(subject.getSubjectName());
+                                                    database.deleteSingleSubject(subject);
                                                     dialog.dismiss();
                                                     init();
                                                 }

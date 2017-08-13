@@ -25,8 +25,21 @@ public class Subject {
     private String url;
     private boolean checked = false;
 
-    public Subject(JSONObject jsonObject) {
-        //fill fields
+    public Subject(Subject subject) {
+        this.id = subject.getId();
+        this.date = subject.getDate();
+        this.timeStart = subject.getTimeStart();
+        this.timeEnd = subject.getTimeEnd();
+        this.type = subject.getType();
+        this.subjectName = subject.getSubjectName();
+        this.teacher = subject.getTeacher();
+        this.room = subject.getRoom();
+        this.info = subject.getInfo();
+        this.gruppe = subject.getGruppe();
+        this.year = subject.getYear();
+        this.studiengang = subject.getStudiengang();
+        this.semester = subject.getSemester();
+        this.url = subject.getUrl();
     }
 
     public Subject(){};
@@ -72,7 +85,8 @@ public class Subject {
     }
 
     public String getRoom() {
-
+        if(room == null)
+            return "";
         return room;
     }
 
@@ -81,7 +95,8 @@ public class Subject {
     }
 
     public String getTeacher() {
-
+        if(teacher == null)
+            return "";
         return teacher;
     }
 
@@ -90,7 +105,8 @@ public class Subject {
     }
 
     public String getSubjectName() {
-
+        if(subjectName == null)
+            return "";
         return subjectName;
     }
 
@@ -99,7 +115,8 @@ public class Subject {
     }
 
     public String getTimeEnd() {
-
+        if(timeEnd == null)
+            return "";
         return timeEnd;
     }
 
@@ -108,7 +125,8 @@ public class Subject {
     }
 
     public String getTimeStart() {
-
+        if(timeStart == null)
+            return "";
         return timeStart;
     }
 
@@ -117,7 +135,8 @@ public class Subject {
     }
 
     public String getType() {
-
+        if(type == null)
+            return "";
         return type;
     }
 
@@ -126,7 +145,8 @@ public class Subject {
     }
 
     public String getDate() {
-
+        if(date == null)
+            return "";
         return date;
     }
 
@@ -144,6 +164,8 @@ public class Subject {
     }
 
     public String getGruppe() {
+        if(gruppe == null)
+            return "";
         return gruppe;
     }
 
@@ -160,6 +182,8 @@ public class Subject {
     }
 
     public String getYear() {
+        if(year == null)
+            return "";
         return year;
     }
 
@@ -168,6 +192,8 @@ public class Subject {
     }
 
     public String getStudiengang() {
+        if(studiengang == null)
+            return "";
         return studiengang;
     }
 
@@ -184,6 +210,8 @@ public class Subject {
     }
 
     public String getSemester() {
+        if(semester == null)
+            return "";
         return semester;
     }
 
@@ -192,6 +220,8 @@ public class Subject {
     }
 
     public String getUrl() {
+        if(url == null)
+            return "";
         return url;
     }
 

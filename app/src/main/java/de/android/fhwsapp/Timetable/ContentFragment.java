@@ -64,8 +64,10 @@ public class ContentFragment extends Fragment implements View.OnClickListener, V
             return;
         }
 
-        Timetable.floatingActionButton.setImageResource(R.drawable.plus);
-        Timetable.floatingActionButton.setTag("plus");
+        try {
+            Timetable.floatingActionButton.setImageResource(R.drawable.plus);
+            Timetable.floatingActionButton.setTag("plus");
+        }catch (Exception e){}
 
         if(tvDate != null) {
             String weekDay = subjects.get(0).getDateAsDateTime().dayOfWeek().getAsShortText(new Locale("de"));
@@ -74,7 +76,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener, V
         }
 
         //falls leere Fächer
-        if(subjects.get(0).getSubjectName() == null)
+        if(subjects.get(0).getSubjectName() == null || subjects.get(0).getSubjectName().equals(""))
             return;
 
         for(int i = 0; i < subjects.size(); i++) {

@@ -80,7 +80,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         pbEvents = (ProgressBar) layout.findViewById(R.id.pbEvents);
         listView = (ListView) layout.findViewById(R.id.listView);
         todaysEvents = preferences.getString("todaysEvents", "");
-        if(isNetworkConnected())
+        if(MainActivity.isNetworkConnected(getContext()))
             new LoadEventsFromServer().execute("https://apistaging.fiw.fhws.de/mo/api/events/today");
         else{
 
@@ -266,9 +266,5 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         return response.toString();
     }
 
-    private boolean isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null;
-    }
 
 }

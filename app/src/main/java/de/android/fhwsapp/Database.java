@@ -91,8 +91,8 @@ public class Database extends SQLiteOpenHelper {
             + KEY_YEAR + " TEXT,"
             + KEY_STUDIENGANG + " TEXT,"
             + KEY_Semester + " TEXT,"
-            + KEY_Url + " TEXT,"
-            + " PRIMARY KEY(" + KEY_Name + "," + KEY_Date + "," + KEY_Group + ")"
+            + KEY_Url + " TEXT"
+            //+ ", PRIMARY KEY(" + KEY_Name + "," + KEY_Date + "," + KEY_Group + ")"
             + ")";
 
     private static DateTime lastMonday = null;
@@ -205,10 +205,23 @@ public class Database extends SQLiteOpenHelper {
 
         int addFaktor = subject.getDateAsDateTime().getDayOfWeek();
 
-        if(lastMonday == null)
-            getSortedSubjects(7, getWeekCount());
 
-        addFaktor++;
+        if(lastMonday == null) {
+            DateTime lastDay = null;
+            List<DateTime> list = getAllDistinctSubjectDates();
+            for(DateTime date : list){
+                if(lastDay == null)
+                    lastDay = date;
+                else if(lastDay.isBefore(date)){
+                    lastDay = date;
+                }
+            }
+
+            lastMonday = lastDay.minusDays(lastDay.getDayOfWeek()-1);
+        }
+
+
+
         DateTime end = lastMonday.plusDays(addFaktor);
 
         do {
@@ -443,6 +456,38 @@ public class Database extends SQLiteOpenHelper {
         return subject;
     }
 
+    public Subject getSubjectWithNameAndDate(String name, String date) {
+        Subject subject = new Subject();
+        String selectQuery = "SELECT  * FROM " + TABLE_SUBJECTS +" WHERE " + KEY_Name + " = '"+name+"'"
+                + " AND " +KEY_Date + " = '"+date+"'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c.moveToFirst()) {
+            subject.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+            subject.setDate(c.getString(c.getColumnIndex(KEY_Date)));
+            subject.setGruppe(c.getString(c.getColumnIndex(KEY_Group)));
+            subject.setInfo(c.getString(c.getColumnIndex(KEY_Info)));
+            subject.setRoom(c.getString(c.getColumnIndex(KEY_Room)));
+            subject.setSubjectName(c.getString(c.getColumnIndex(KEY_Name)));
+            subject.setTeacher(c.getString(c.getColumnIndex(KEY_Teacher)));
+            subject.setType(c.getString(c.getColumnIndex(KEY_Type)));
+            subject.setTimeStart(c.getString(c.getColumnIndex(KEY_Start_Time)));
+            subject.setTimeEnd(c.getString(c.getColumnIndex(KEY_End_Time)));
+            subject.setStudiengang(c.getString(c.getColumnIndex(KEY_STUDIENGANG)));
+            subject.setYear(c.getString(c.getColumnIndex(KEY_YEAR)));
+            subject.setSemester(c.getString(c.getColumnIndex(KEY_Semester)));
+            subject.setUrl(c.getString(c.getColumnIndex(KEY_Url)));
+            if (c.getString(c.getColumnIndex(KEY_Selected)).equals("true"))
+                subject.setChecked(true);
+            else
+                subject.setChecked(false);
+        }
+
+        return subject;
+    }
+
 
     public List<Subject> getAllSubjects() {
         List<Subject> subjects = new ArrayList<Subject>();
@@ -480,6 +525,24 @@ public class Database extends SQLiteOpenHelper {
         }
 
         return subjects;
+    }
+
+    public List<DateTime> getAllDistinctSubjectDates() {
+        String selectQuery = "SELECT DISTINCT "+KEY_Date+" FROM "+TABLE_SUBJECTS;
+        List<DateTime> dates = new ArrayList<>();
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if(c.moveToFirst()){
+            do{
+                String date = c.getString(c.getColumnIndex(KEY_Date));
+                dates.add(DateTime.parse(date, DateTimeFormat.forPattern("dd.MM.yy")));
+            }while (c.moveToNext());
+        }
+
+        return dates;
     }
 
     public List<Subject> getAllCheckedSubjects() {
@@ -580,6 +643,24 @@ public class Database extends SQLiteOpenHelper {
         return db.update(TABLE_SUBJECTS, values, KEY_ID + "= "+id, null);
     }
 
+    public int updateCheckedSubjects(Subject subject, boolean checked) {
+
+        Subject s = getSubjectWithNameAndDate(subject.getSubjectName(), subject.getDate());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        if(checked)
+            values.put(KEY_Selected, "true");
+        else
+            values.put(KEY_Selected, "false");
+
+        // updating row
+        return db.update(TABLE_SUBJECTS, values,KEY_Name + " = ?" + " AND " + KEY_Group + " = ?" + " AND " + KEY_Date + " = ?",
+                new String[]{String.valueOf(subject.getSubjectName()), subject.getGruppe(), subject.getDate()});
+    }
+
 
     public void deleteSingleSubject(Subject subject) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -591,6 +672,12 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_SUBJECTS, KEY_Name + " = ?",
                 new String[]{String.valueOf(name)});
+    }
+
+    public void deleteAllSubjects(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_SUBJECTS, KEY_Type + " <> ?",
+                new String[]{"Custom"});
     }
 
 
@@ -648,7 +735,7 @@ public class Database extends SQLiteOpenHelper {
 
     public ArrayList<Subject>[][] getSortedSubjects(int days, int weeks) {
         ArrayList<Subject>[][] subjects = new ArrayList[weeks][days];
-        String selectQuery = "SELECT  * FROM " + TABLE_SUBJECTS + " WHERE "+KEY_Selected +" = "+"'true'";
+        String selectQuery = "SELECT  * FROM " + TABLE_SUBJECTS;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -698,11 +785,11 @@ public class Database extends SQLiteOpenHelper {
                     for (int i = 0; i < length; i++) {
                         DateTime currentDay = subject.getDateAsDateTime().minusDays(length - i);
 
-                        d++;
-
                         Subject emptySubject = new Subject();
                         emptySubject.setDateAsDateTime(currentDay);
                         subjects[w][d].add(index, emptySubject);
+
+                        d++;
                     }
 
 
@@ -743,7 +830,9 @@ public class Database extends SQLiteOpenHelper {
                                 } catch (Exception e) {
                                     w++;
                                     d = 0;
-                                    subjects[w][d].add(index, emptySubject);
+                                    try {
+                                        subjects[w][d].add(index, emptySubject);
+                                    }catch (Exception ex){}
                                 }
 
                             }
@@ -759,7 +848,9 @@ public class Database extends SQLiteOpenHelper {
                     }catch (Exception e){
                         w++;
                         d = 0;
-                        subjects[w][d].add(index, subject);
+                        try {
+                            subjects[w][d].add(index, subject);
+                        }catch (Exception ex){}
                     }
 
                 }
@@ -860,12 +951,5 @@ public class Database extends SQLiteOpenHelper {
         this.getWritableDatabase().delete(MEALS_TABLE, null, null);
 
     }
-
-
-
-
-
-
-
 
 }
