@@ -217,6 +217,11 @@ public class Database extends SQLiteOpenHelper {
                 }
             }
 
+            if(lastDay == null){
+                createSubject(subject);
+                return;
+            }
+
             lastMonday = lastDay.minusDays(lastDay.getDayOfWeek()-1);
         }
 
@@ -226,7 +231,7 @@ public class Database extends SQLiteOpenHelper {
 
         do {
             createSubject(subject);
-            subject.setDateAsDateTime(subject.getDateAsDateTime().plusDays(addFaktor));
+            subject.setDateAsDateTime(subject.getDateAsDateTime().plusDays(7));
         }while (end.isAfter(subject.getDateAsDateTime()));
 
     }
@@ -615,6 +620,36 @@ public class Database extends SQLiteOpenHelper {
                 new String[]{String.valueOf(oldName)});
     }
 
+    public int updateSubjectWithNameAndDate(Subject subject, String oldName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID, subject.getId());
+        values.put(KEY_Name, subject.getSubjectName());
+        values.put(KEY_Teacher, subject.getTeacher());
+        values.put(KEY_Date, subject.getDate());
+        values.put(KEY_Group, subject.getGruppe());
+        values.put(KEY_Info, subject.getInfo());
+        values.put(KEY_Room, subject.getRoom());
+        values.put(KEY_Type, subject.getType());
+        values.put(KEY_Start_Time, subject.getTimeStart());
+        values.put(KEY_End_Time, subject.getTimeEnd());
+        values.put(KEY_YEAR, subject.getYear());
+        values.put(KEY_STUDIENGANG, subject.getStudiengang());
+        values.put(KEY_Semester, subject.getSemester());
+        values.put(KEY_Url, subject.getUrl());
+        if (subject.isChecked())
+            values.put(KEY_Selected, "true");
+        else
+            values.put(KEY_Selected, "false");
+
+        values.put(KEY_CREATED_AT, getDateTime());
+
+        // updating row
+        return db.update(TABLE_SUBJECTS, values, KEY_Name + " = ?"+ " AND " + KEY_Date + " = ?",
+                new String[]{String.valueOf(oldName), subject.getDate()});
+    }
+
     public int updateSubjectInfo(Subject subject) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -865,7 +900,9 @@ public class Database extends SQLiteOpenHelper {
             DateTime lastDay = subjects[w][i-1].get(0).getDateAsDateTime();
             Subject emptySubject = new Subject();
             emptySubject.setDateAsDateTime(lastDay.plusDays(1));
-            subjects[w][i].add(index, emptySubject);
+            try {
+                subjects[w][i].add(index, emptySubject);
+            }catch (Exception e){}
         }
 
         try {

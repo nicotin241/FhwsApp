@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Random;
 
 import de.android.fhwsapp.Database;
+import de.android.fhwsapp.MainActivity;
 import de.android.fhwsapp.R;
 import de.android.fhwsapp.Timetable.nLevelExpandableListview.NLevelAdapter;
 import de.android.fhwsapp.Timetable.nLevelExpandableListview.NLevelItem;
@@ -38,6 +39,8 @@ public class TimetableFilter extends AppCompatActivity {
     private Button addSubject;
     private Button done;
 
+    private boolean nothingChecked = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,9 @@ public class TimetableFilter extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.lvNExp);
         database = new Database(this);
+
+        if(getIntent().getExtras() != null)
+            nothingChecked = getIntent().getExtras().getBoolean("nothing checked");
 
         addSubject = (Button) findViewById(R.id.btnAddCustomSubject);
         addSubject.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +119,15 @@ public class TimetableFilter extends AppCompatActivity {
                             TextView tv = (TextView) view.findViewById(R.id.tvSubjectName);
                             String name = subject.getSubjectName();
                             tv.setText(name);
+
+                            TextView tvInfo = (TextView) view.findViewById(R.id.tvInfos);
+                            String info = subject.getDate();
+                            if(!subject.getGruppe().equals(""))
+                                info = info+", "+subject.getGruppe();
+                            if(!subject.getTeacher().equals(""))
+                                info = info+", "+subject.getTeacher();
+                            tvInfo.setText(info);
+                            tvInfo.setSelected(true);
 
                             final CheckBox cb = (CheckBox) view.findViewById(R.id.cbAbo);
                             if (subject.isChecked())
@@ -217,7 +232,7 @@ public class TimetableFilter extends AppCompatActivity {
                         list.add(child);
 
                         //Fächer
-                        List<Subject> grandChildList = database.getDistinctSubjectsOfYaSaS(gParentList.get(i), parentList.get(j), childList.get(j));
+                        List<Subject> grandChildList = database.getDistinctSubjectsOfYaSaS(gParentList.get(i), parentList.get(j), childList.get(k));
 
                         for (int l = 0; l < grandChildList.size(); l++) {
                             NLevelItem grandChild = new NLevelItem(grandChildList.get(l), child, new NLevelView() {
@@ -230,6 +245,15 @@ public class TimetableFilter extends AppCompatActivity {
                                     TextView tv = (TextView) view.findViewById(R.id.tvSubjectName);
                                     String name = subject.getSubjectName();
                                     tv.setText(name);
+
+                                    TextView tvInfo = (TextView) view.findViewById(R.id.tvInfos);
+                                    String info = "";
+                                    if(!subject.getTeacher().equals(""))
+                                        info = info+subject.getTeacher();
+                                    if(!subject.getGruppe().equals(""))
+                                        info = info+", "+subject.getGruppe();
+                                    tvInfo.setText(info);
+                                    tvInfo.setSelected(true);
 
                                     final CheckBox cb = (CheckBox) view.findViewById(R.id.cbAbo);
                                     if (subject.isChecked())
@@ -266,6 +290,12 @@ public class TimetableFilter extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
+
+        if(nothingChecked) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
     }

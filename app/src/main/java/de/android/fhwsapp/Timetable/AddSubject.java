@@ -76,6 +76,8 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
 
             oldName = sbj.getSubjectName();
             edit = true;
+
+            cbEveryWeek.setEnabled(false);
         }
 
     }
@@ -123,8 +125,12 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
                     break;
                 }
 
-                if(edit)
-                    database.updateSubjectWithName(customSubject, oldName);
+                if(edit) {
+                    if(customSubject.getType().equals("Custom"))
+                        database.updateSubjectWithNameAndDate(customSubject, oldName);
+                    else
+                        database.updateSubjectWithName(customSubject, oldName);
+                }
                 else {
                     if(cbEveryWeek.isChecked())
                         database.createSubjectsForEveryWeek(customSubject);

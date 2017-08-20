@@ -215,18 +215,18 @@ public class Timetable extends FragmentActivity {
 
         //dummy data
 //        if (database.getWeekCount() == 0) {
-//            database.createSubject(new Subject(1, "01.05.17", "10:00", "15:00", "S", "Programmieren 1", "Heinzl", "H.1.5", "", "Gruppe 1", "SS17", "BIN", "1", ""));
-//            database.createSubject(new Subject(2, "01.05.17", "8:15", "9:45", "S", "Mathe", "Kuhn", "I.2.15", "Raumänderung", "", "SS17", "BIN", "1", ""));
-//            database.createSubject(new Subject(2, "02.05.17", "8:15", "10:15", "S", "Mathe", "Kuhn", "I.2.15", "", "", "SS17", "BIN", "1", ""));
-//            database.createSubject(new Subject(3, "03.05.17", "13:30", "15:45", "S", "Programmieren 2", "Heinzl", "H.1.1", "", "", "SS17", "BIN", "1", ""));
-//            database.createSubject(new Subject(1, "07.05.17", "10:00", "15:00", "S", "Programmieren 1", "Heinzl", "H.1.5", "", "Gruppe 1", "SS17", "BIN", "1", ""));
-//            database.createSubject(new Subject(2, "07.05.17", "8:15", "9:45", "S", "Mathe", "Kuhn", "I.2.15", "", "", "SS17", "BIN", "1", ""));
-//            database.createSubject(new Subject(2, "08.05.17", "8:15", "10:15", "S", "Mathe", "Kuhn", "I.2.15", "", "", "SS17", "BIN", "1", ""));
-//            database.createSubject(new Subject(3, "09.05.17", "13:30", "15:45", "S", "Programmieren 2", "Heinzl", "H.1.1", "", "", "SS17", "BIN", "1", ""));
-//            database.createSubject(new Subject(1, "15.05.17", "10:00", "15:00", "S", "Programmieren 1", "Heinzl", "H.1.5", "", "Gruppe 1", "SS17", "BIN", "1", ""));
-//            database.createSubject(new Subject(2, "15.05.17", "8:15", "9:45", "S", "Mathe", "Kuhn", "I.2.15", "", "", "SS17", "BIN", "1", ""));
-//            database.createSubject(new Subject(2, "16.05.17", "8:15", "10:15", "S", "Mathe", "Kuhn", "I.2.15", "", "", "SS17", "BIN", "1", ""));
-//            database.createSubject(new Subject(2, "17.05.17", "13:30", "15:45", "S", "Programmieren 2", "Heinzl", "H.1.1", "", "", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(1, "01.10.17", "10:00", "15:00", "S", "Programmieren 1", "Heinzl", "H.1.5", "", "Gruppe 1", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(2, "01.10.17", "8:15", "9:45", "S", "Mathe", "Kuhn test test test", "I.2.15", "Raumänderung", "", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(2, "02.10.17", "8:15", "10:15", "S", "Mathe", "Kuhn", "I.2.15", "", "", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(3, "03.10.17", "13:30", "15:45", "S", "Programmieren 2", "Heinzl", "H.1.1", "", "", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(1, "07.10.17", "10:00", "15:00", "S", "Programmieren 1", "Heinzl", "H.1.5", "", "Gruppe 1", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(2, "07.10.17", "8:15", "9:45", "S", "Mathe", "Kuhn", "I.2.15", "", "", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(2, "08.10.17", "8:15", "10:15", "S", "Mathe", "Kuhn", "I.2.15", "", "", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(3, "09.10.17", "13:30", "15:45", "S", "Programmieren 2", "Heinzl", "H.1.1", "", "", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(1, "15.10.17", "10:00", "15:00", "S", "Programmieren 1", "Heinzl", "H.1.5", "", "Gruppe 1", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(2, "15.10.17", "8:15", "9:45", "S", "Mathe", "Kuhn", "I.2.15", "", "", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(2, "16.10.17", "8:15", "10:15", "S", "Mathe", "Kuhn", "I.2.15", "", "", "SS17", "BIN", "1", ""));
+//            database.createSubject(new Subject(2, "17.10.17", "13:30", "15:45", "S", "Programmieren 2", "Heinzl", "H.1.1", "", "", "SS17", "BIN", "1", ""));
 //        }
 
 
@@ -303,110 +303,121 @@ public class Timetable extends FragmentActivity {
                 database = new Database(context);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                    Subject subject = new Subject();
+
+                    JSONArray events = jsonObject.getJSONArray("events");
+
+                    for (int e = 0; e < events.length(); e++) {
+                        Subject subject = new Subject();
+
+                        JSONObject event = (JSONObject) events.get(e);
 
 
-                    //id
-                    //int id = jsonObject.getInteger("number");
-                    //subject.setId(id)
+                        //id
+                        //int id = jsonObject.getInteger("number");
+                        //subject.setId(id)
 
-                    //look if checked
+                        //look if checked
 //                    if(database.getSubjectWithID(id).isChecked())
 //                        subject.setChecked(true);
 
-                    //endTime
-                    String endTime = jsonObject.getString("endTime");
-                    int indexTime = endTime.indexOf("T");
-                    String day = endTime.substring(0, indexTime);
-                    String time = endTime.substring(indexTime + 1, endTime.length() - 9);
-                    subject.setTimeEnd(time);
+                        //endTime
+                        String endTime = event.getString("endTime");
+                        int indexTime = endTime.indexOf("T");
+                        String day = endTime.substring(0, indexTime);
+                        String time = endTime.substring(indexTime + 1, endTime.length() - 9);
+                        subject.setTimeEnd(time);
 
-                    try {
-                        Date date = dateFormat.parse(day);
-                        dateFormat.applyPattern("dd.MM.yy");
-                        String d = dateFormat.format(date);
-                        subject.setDate(d);
+                        try {
+                            Date date = dateFormat.parse(day);
+                            dateFormat.applyPattern("dd.MM.yy");
+                            String d = dateFormat.format(date);
+                            subject.setDate(d);
 
-                    } catch (Exception ex) {
-                        String[] dateArray = day.split("-");
-                        String newDate = dateArray[2]+"."+dateArray[1]+"."+dateArray[0].substring(2);
-                        subject.setDate(newDate);
-                    }
-
-                    //teacher
-                    JSONArray lecturerView = (JSONArray) jsonObject.getJSONArray("lecturerView");
-                    StringBuilder lecturers = new StringBuilder();
-                    for (int y = 0; y < lecturerView.length(); y++) {
-                        JSONObject lecturer = lecturerView.getJSONObject(y);
-                        String teacher = null;
-                        if (!lecturer.getString("title").equals(""))
-                            teacher = lecturer.getString("title") + " " + lecturer.getString("lastName");
-                        else
-                            teacher = lecturer.getString("lastName");
-
-                        if (y == 0)
-                            lecturers.append(teacher);
-                        else
-                            lecturers.append(", " + teacher);
-
-                    }
-                    subject.setTeacher(lecturers.toString());
-
-                    //name
-                    String name = jsonObject.getString("name");
-                    subject.setSubjectName(name);
-
-                    //room
-                    JSONArray roommsView = (JSONArray) jsonObject.getJSONArray("roomsView");
-                    StringBuilder rooms = new StringBuilder();
-                    for (int y = 0; y < roommsView.length(); y++) {
-                        JSONObject room = roommsView.getJSONObject(y);
-
-                        String raum = room.getString("name");
-
-                        if (y == 0)
-                            rooms.append(raum);
-                        else
-                            rooms.append(", " + raum);
-
-                    }
-                    subject.setRoom(rooms.toString());
-
-                    //startTime
-                    String startTime = jsonObject.getString("startTime");
-                    indexTime = startTime.indexOf("T");
-                    time = startTime.substring(indexTime + 1, startTime.length() - 9);
-                    subject.setTimeStart(time);
-
-
-                    //type
-                    String type = jsonObject.getString("type");
-                    subject.setType(type);
-
-                    //semester, studiengang
-                    JSONArray studentsView = (JSONArray) jsonObject.getJSONArray("studentsView");
-                    for (int y = 0; y < studentsView.length(); y++) {
-                        JSONObject students = studentsView.getJSONObject(y);
-
-                        String programm = students.getString("program");
-                        int semester = students.getInt("semester");
-
-                        if (y == 0) {
-                            subject.setStudiengang(programm);
-                            subject.setSemester("" + semester);
-                        } else {
-                            Subject subject2 = new Subject(subject);
-                            subject2.setStudiengang(programm);
-                            subject2.setSemester("" + semester);
-                            //database.createSubject(subject2);
-                            subs.add(subject2);
+                        } catch (Exception ex) {
+                            String[] dateArray = day.split("-");
+                            String newDate = dateArray[2] + "." + dateArray[1] + "." + dateArray[0].substring(2);
+                            subject.setDate(newDate);
                         }
 
+                        //teacher
+                        JSONArray lecturerView = (JSONArray) event.getJSONArray("lecturerView");
+                        StringBuilder lecturers = new StringBuilder();
+                        for (int y = 0; y < lecturerView.length(); y++) {
+                            JSONObject lecturer = lecturerView.getJSONObject(y);
+                            String teacher = null;
+                            if (!lecturer.getString("title").equals(""))
+                                teacher = lecturer.getString("title") + " " + lecturer.getString("lastName");
+                            else
+                                teacher = lecturer.getString("lastName");
+
+                            if (y == 0)
+                                lecturers.append(teacher);
+                            else
+                                lecturers.append(", " + teacher);
+
+                        }
+                        subject.setTeacher(lecturers.toString());
+
+                        //name
+                        String name = jsonObject.getString("name");
+                        subject.setSubjectName(name);
+
+                        //id
+                        int id = jsonObject.getInt("id");
+                        subject.setId(id);
+
+                        //room
+                        JSONArray roommsView = (JSONArray) event.getJSONArray("roomsView");
+                        StringBuilder rooms = new StringBuilder();
+                        for (int y = 0; y < roommsView.length(); y++) {
+                            JSONObject room = roommsView.getJSONObject(y);
+
+                            String raum = room.getString("name");
+
+                            if (y == 0)
+                                rooms.append(raum);
+                            else
+                                rooms.append(", " + raum);
+
+                        }
+                        subject.setRoom(rooms.toString());
+
+                        //startTime
+                        String startTime = event.getString("startTime");
+                        indexTime = startTime.indexOf("T");
+                        time = startTime.substring(indexTime + 1, startTime.length() - 9);
+                        subject.setTimeStart(time);
+
+
+                        //type
+                        String type = event.getString("type");
+                        subject.setType(type);
+
+                        //semester, studiengang
+                        JSONArray studentsView = (JSONArray) event.getJSONArray("studentsView");
+                        for (int y = 0; y < studentsView.length(); y++) {
+                            JSONObject students = studentsView.getJSONObject(y);
+
+                            String programm = students.getString("program");
+                            int semester = students.getInt("semester");
+
+                            if (y == 0) {
+                                subject.setStudiengang(programm);
+                                subject.setSemester("" + semester);
+                            } else {
+                                Subject subject2 = new Subject(subject);
+                                subject2.setStudiengang(programm);
+                                subject2.setSemester("" + semester);
+                                //database.createSubject(subject2);
+                                subs.add(subject2);
+                            }
+
+                        }
+
+                        //database.createSubject(subject);
+                        subs.add(subject);
+
                     }
-
-                    //database.createSubject(subject);
-                    subs.add(subject);
-
                 }
             } catch (Exception e) {
                 e.getMessage();
@@ -465,7 +476,7 @@ public class Timetable extends FragmentActivity {
         if (created && MainActivity.isNetworkConnected(this)) {
             //loadFromServer
             created = false;
-            new LoadSemesterFromServer().execute("https://apistaging.fiw.fhws.de/mo/api/modules/5100350/events");
+            new LoadSemesterFromServer().execute("http://54.93.76.71:8080/FHWS/veranstaltungen?program=BIN&size=1");
         } else {
             //offline mode
             init();
@@ -474,6 +485,13 @@ public class Timetable extends FragmentActivity {
 
     private void init(){
         subjects = loadSubjects();
+
+        if(subjects.length == 0){
+            Intent intent = new Intent(this, TimetableFilter.class);
+            intent.putExtra("nothing checked",true);
+            startActivity(intent);
+            return;
+        }
 
         weekTabList = new ArrayList<>();
 

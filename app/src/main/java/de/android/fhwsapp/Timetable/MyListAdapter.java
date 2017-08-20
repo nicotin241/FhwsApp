@@ -63,7 +63,7 @@ public class MyListAdapter extends BaseAdapter {
             if(position+1 <= objects.size()) {
                 tvTime.setText(objects.get(position).getTimeStart() + " - " + objects.get(position).getTimeEnd());
                 tvName.setText(objects.get(position).getType() + " " + objects.get(position).getSubjectName());
-                if(objects.get(position).getStudiengang() != null)
+                if(objects.get(position).getStudiengang() != null && !objects.get(position).getStudiengang().equals(""))
                     tvName.setText(tvName.getText()+ " [" + objects.get(position).getStudiengang() + "]");
 
                 tvRoom.setText(objects.get(position).getRoom());
