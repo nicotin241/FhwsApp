@@ -724,7 +724,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
     public int getWeekCount() {
-        String selectQuery = "SELECT  * FROM " + TABLE_SUBJECTS +" WHERE "+ KEY_Selected + " = 'true'";
+        String selectQuery = "SELECT DISTINCT "+KEY_Date+" FROM " + TABLE_SUBJECTS +" WHERE "+ KEY_Selected + " = 'true'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -744,10 +744,12 @@ public class Database extends SQLiteOpenHelper {
                     firstWeek = subject.getDate();
                     lastWeek = firstWeek;
                     first = false;
-                } else if(subject.getDate()!= null && !subject.getDate().equals("")
-                        && DateTime.parse(lastWeek, DateTimeFormat.forPattern("dd.MM.yy")).getMillis() < (subject.getDateAsDateTime()).getMillis())
-                lastWeek = subject.getDate();
-
+                } else if(subject.getDate()!= null && !subject.getDate().equals("")) {
+                    if (DateTime.parse(lastWeek, DateTimeFormat.forPattern("dd.MM.yy")).getMillis() < (subject.getDateAsDateTime()).getMillis())
+                        lastWeek = subject.getDate();
+                    if (DateTime.parse(firstWeek, DateTimeFormat.forPattern("dd.MM.yy")).getMillis() > (subject.getDateAsDateTime()).getMillis())
+                        firstWeek = subject.getDate();
+                }
             } while (c.moveToNext());
         }
 

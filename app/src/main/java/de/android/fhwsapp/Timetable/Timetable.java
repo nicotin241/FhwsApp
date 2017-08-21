@@ -52,7 +52,10 @@ public class Timetable extends FragmentActivity {
     private static int DAYS = 7;
     private static int WEEKS = 0;
     private static final String SCREEN_HEIGHT = "screenHeight";
+    private static final String LAST_UPDATE ="lastUpdate";
     public static float oneHourMargin;
+
+    private long lastUpdate;
 
     private ImageButton tabMo, tabDi, tabMi, tabDo, tabFr, tabSa, tabSo;
     private ArrayList<ImageButton> weekTabList;
@@ -308,6 +311,8 @@ public class Timetable extends FragmentActivity {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             ArrayList<Subject> subs = new ArrayList<>();
 
+            sharedPreferences.edit().putLong(LAST_UPDATE, DateTime.now().getMillis()).commit();
+
             try {
                 JSONArray jsonArray = new JSONArray(server_response);
                 database = new Database(context);
@@ -477,8 +482,12 @@ public class Timetable extends FragmentActivity {
 
         sharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
         oneHourMargin = sharedPreferences.getFloat(SCREEN_HEIGHT, 0);
+        lastUpdate = sharedPreferences.getLong(LAST_UPDATE,300001);
 
-        if (created && MainActivity.isNetworkConnected(this)) {
+        long timeDiff = DateTime.now().getMillis()-lastUpdate;
+
+        //update nur alle 5 Minuten, falls Internetverbindung vorhanden und nicht wenn aus Filter zurückkehrt
+        if (created && timeDiff > 300000 && MainActivity.isNetworkConnected(this)) {
             //loadFromServer
             created = false;
             new LoadSemesterFromServer().execute("http://54.93.76.71:8080/FHWS/veranstaltungen?program=BIN");
