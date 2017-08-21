@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -78,6 +79,8 @@ public class Timetable extends FragmentActivity {
 
     private boolean created;
 
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,9 +89,14 @@ public class Timetable extends FragmentActivity {
         context = this;
         created = true;
 
+        if(getIntent().getExtras() != null)
+            created = getIntent().getExtras().getBoolean("from_filter");
+
         TypedValue typedValue = new TypedValue();
         TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorAccent});
         colorAccent = a.getColor(0, 0);
+
+        progressBar = (ProgressBar) findViewById(R.id.timeTableProgress);
 
     }
 
@@ -232,7 +240,9 @@ public class Timetable extends FragmentActivity {
 
         WEEKS = database.getWeekCount();
 
-        ArrayList<Subject>[][] result = database.getSortedSubjects(DAYS, WEEKS);
+        ArrayList<Subject>[][] result = null;
+
+        result = database.getSortedSubjects(DAYS, WEEKS);
 
         return result;
     }
@@ -311,14 +321,13 @@ public class Timetable extends FragmentActivity {
 
                         JSONObject event = (JSONObject) events.get(e);
 
-
                         //id
-                        //int id = jsonObject.getInteger("number");
-                        //subject.setId(id)
+                        int id = jsonObject.getInt("id");
+                        subject.setId(id);
 
                         //look if checked
-//                    if(database.getSubjectWithID(id).isChecked())
-//                        subject.setChecked(true);
+                        if(database.getSubjectWithID(id).isChecked())
+                            subject.setChecked(true);
 
                         //endTime
                         String endTime = event.getString("endTime");
@@ -361,10 +370,6 @@ public class Timetable extends FragmentActivity {
                         //name
                         String name = jsonObject.getString("name");
                         subject.setSubjectName(name);
-
-                        //id
-                        int id = jsonObject.getInt("id");
-                        subject.setId(id);
 
                         //room
                         JSONArray roommsView = (JSONArray) event.getJSONArray("roomsView");
@@ -420,7 +425,7 @@ public class Timetable extends FragmentActivity {
                     }
                 }
             } catch (Exception e) {
-                e.getMessage();
+                Log.e("Lesen der Vorlesungen",e.getMessage());
             }
 
             Log.e("Response", "" + server_response);
@@ -476,7 +481,7 @@ public class Timetable extends FragmentActivity {
         if (created && MainActivity.isNetworkConnected(this)) {
             //loadFromServer
             created = false;
-            new LoadSemesterFromServer().execute("http://54.93.76.71:8080/FHWS/veranstaltungen?program=BIN&size=1");
+            new LoadSemesterFromServer().execute("http://54.93.76.71:8080/FHWS/veranstaltungen?program=BIN");
         } else {
             //offline mode
             init();
@@ -606,6 +611,8 @@ public class Timetable extends FragmentActivity {
         if (oneHourMargin == 0) {
             getLayoutHeight();
         }
+
+        progressBar.setVisibility(View.GONE);
     }
 }
 

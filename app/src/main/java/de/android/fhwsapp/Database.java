@@ -724,7 +724,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
     public int getWeekCount() {
-        String selectQuery = "SELECT  * FROM " + TABLE_SUBJECTS;
+        String selectQuery = "SELECT  * FROM " + TABLE_SUBJECTS +" WHERE "+ KEY_Selected + " = 'true'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -782,6 +782,8 @@ public class Database extends SQLiteOpenHelper {
         int w = 0, d = 0, index = 0;
         DateTime lastDate = null;
 
+        Subject lastSubject = null;
+
         if (c.moveToFirst()) {
             do {
 
@@ -803,13 +805,26 @@ public class Database extends SQLiteOpenHelper {
                     subject.setYear(c.getString(c.getColumnIndex(KEY_YEAR)));
                     subject.setSemester(c.getString(c.getColumnIndex(KEY_Semester)));
                     subject.setUrl(c.getString(c.getColumnIndex(KEY_Url)));
-                    if (c.getString(c.getColumnIndex(KEY_Selected)).equals("true"))
-                        subject.setChecked(true);
-                    else
-                        subject.setChecked(false);
+                    subject.setChecked(true);
+
+                    //löscht kopien von anderen semestern, studiengaengen
+                    if(lastSubject == null)
+                        lastSubject = subject;
+                    else{
+                        if(lastSubject.getSubjectName().equals(subject.getSubjectName())
+                                && lastSubject.getDate().equals(subject.getDate())
+                                && lastSubject.getRoom().equals(subject.getRoom())
+                                && lastSubject.getTimeStart().equals(subject.getTimeStart())
+                                && lastSubject.getTimeEnd().equals(subject.getTimeEnd())
+                                && lastSubject.getGruppe().equals(subject.getGruppe())
+                                && lastSubject.getTeacher().equals(subject.getTeacher()))
+                        continue;
+                    }
+
+                    lastSubject = subject;
 
                 }else{
-                    if(subjects[w][d].size() != 0)
+                    //if(subjects[w][d].size() != 0)
                         continue;
                 }
 

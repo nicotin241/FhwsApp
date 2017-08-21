@@ -40,6 +40,7 @@ public class Subject {
         this.studiengang = subject.getStudiengang();
         this.semester = subject.getSemester();
         this.url = subject.getUrl();
+        this.checked = subject.isChecked();
     }
 
     public Subject(){};

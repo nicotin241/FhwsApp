@@ -27,7 +27,11 @@
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:paddingLeft="5dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:ellipsize="marquee"
+        android:gravity="left"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true" />
 
     <TextView
         android:layout_width="0dp"

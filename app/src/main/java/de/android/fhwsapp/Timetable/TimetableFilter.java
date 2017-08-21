@@ -67,7 +67,9 @@ public class TimetableFilter extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent = new Intent(TimetableFilter.this, Timetable.class);
+                intent.putExtra("from_filter",true);
+                startActivity(intent);
             }
         });
 
@@ -119,6 +121,7 @@ public class TimetableFilter extends AppCompatActivity {
                             TextView tv = (TextView) view.findViewById(R.id.tvSubjectName);
                             String name = subject.getSubjectName();
                             tv.setText(name);
+                            tv.setSelected(true);
 
                             TextView tvInfo = (TextView) view.findViewById(R.id.tvInfos);
                             String info = subject.getDate();
@@ -245,6 +248,7 @@ public class TimetableFilter extends AppCompatActivity {
                                     TextView tv = (TextView) view.findViewById(R.id.tvSubjectName);
                                     String name = subject.getSubjectName();
                                     tv.setText(name);
+                                    tv.setSelected(true);
 
                                     TextView tvInfo = (TextView) view.findViewById(R.id.tvInfos);
                                     String info = "";
