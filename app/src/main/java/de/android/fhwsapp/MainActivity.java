@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import de.android.fhwsapp.Timetable.Timetable;
+import de.android.fhwsapp.busplaene.Busplaene;
 import de.android.fhwsapp.fragments.MainFragment;
 import de.android.fhwsapp.fragments.MensaFragment;
 
@@ -113,6 +114,8 @@ public class MainActivity extends AppCompatActivity
             setFragment(mFragment);
 
         } else if (id == R.id.nav_bus) {
+            mFragment = new Busplaene();
+            setFragment(mFragment);
 
         } else if (id == R.id.nav_veranst) {
 
