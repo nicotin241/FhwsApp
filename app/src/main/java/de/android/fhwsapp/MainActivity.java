@@ -178,6 +178,11 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public void startBuslinienFragment(View view){
+        mFragment = new Busplaene();
+        setFragment(mFragment);
+    }
+
     public static boolean isNetworkConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null;
