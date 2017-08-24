@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ScrollView;
 
 import de.android.fhwsapp.Timetable.Timetable;
 import de.android.fhwsapp.busplaene.Busplaene;
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity
     private SharedPreferences mPrefs;
     private SharedPreferences.Editor editor;
 
+    private ScrollView scrollView;
+
     private Context mContext;
 
 
@@ -50,6 +53,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         mContext = this;
+
+        scrollView = (ScrollView) findViewById(R.id.svMain);
 
         initToolbar();
 
@@ -118,6 +123,11 @@ public class MainActivity extends AppCompatActivity
             setFragment(mFragment);
 
         } else if (id == R.id.nav_veranst) {
+            if(scrollView == null)
+                scrollView = (ScrollView) findViewById(R.id.svMain);
+
+            scrollView.isSmoothScrollingEnabled();
+            scrollView.smoothScrollTo(0,0);
 
         } else if (id == R.id.nav_progress) {
 
