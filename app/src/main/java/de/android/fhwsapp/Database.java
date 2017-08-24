@@ -15,6 +15,7 @@ import org.joda.time.format.DateTimeFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -132,6 +133,23 @@ public class Database extends SQLiteOpenHelper {
 
     String DROP_MEALS_TABLE = "DROP TABLE IF EXISTS " + MEALS_TABLE;
 
+ /*
+    *
+    * Busplan - Strings
+    *
+    * */
+
+    private static final String BUS_TABLE = "bus_table";
+    private static final String BUS_LINIE = "bus_linie";
+    private static final String BUS_URL = "bus_url";
+
+
+    String CREATE_BUS_TABLE = "CREATE TABLE " + BUS_TABLE + " ("
+            + BUS_LINIE + " TEXT,"
+            + BUS_URL + " TEXT);";
+
+    String DROP_BUS_TABLE = "DROP TABLE IF EXISTS " + BUS_TABLE;
+
 
 
     public Database(Context context) {
@@ -148,6 +166,8 @@ public class Database extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_MEALS_TABLE);
 
+        db.execSQL(CREATE_BUS_TABLE);
+
     }
 
     @Override
@@ -158,6 +178,9 @@ public class Database extends SQLiteOpenHelper {
 //        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TODO_TAG);
 
         db.execSQL(DROP_MEALS_TABLE);
+
+        db.execSQL(DROP_BUS_TABLE);
+
 
         // create new tables
         onCreate(db);
@@ -186,13 +209,13 @@ public class Database extends SQLiteOpenHelper {
         values.put(KEY_YEAR, subject.getYear());
         values.put(KEY_STUDIENGANG, subject.getStudiengang());
         values.put(KEY_Semester, subject.getSemester());
-        values.put(KEY_Url, subject.getUrl());
+        //values.put(KEY_Url, subject.getUrl());
         if (subject.isChecked())
             values.put(KEY_Selected, "true");
         else
             values.put(KEY_Selected, "false");
 
-        values.put(KEY_CREATED_AT, getDateTime());
+        //values.put(KEY_CREATED_AT, getDateTime());
 
         // insert row
         long todo_id = db.insert(TABLE_SUBJECTS, null, values);
@@ -1003,6 +1026,57 @@ public class Database extends SQLiteOpenHelper {
     public void deleteOldMeals() {
 
         this.getWritableDatabase().delete(MEALS_TABLE, null, null);
+
+    }
+
+     /*
+    *
+    * busplan functions
+    *
+    * */
+
+    public void addBusplan(String linie, String url) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        try {
+
+            ContentValues values = new ContentValues();
+            values.put(BUS_LINIE, linie);
+            values.put(BUS_URL, url);
+
+            db.insert(BUS_TABLE, null, values);
+            db.close();
+
+        } catch (Exception e) {
+        }
+    }
+
+    public HashMap<String, String> getBusLinien() {
+
+        HashMap<String, String> map  = new HashMap<>();
+
+        String selectQuery = "SELECT  * FROM " + BUS_TABLE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+              map.put(c.getString(c.getColumnIndex(BUS_LINIE)), c.getString(c.getColumnIndex(BUS_URL)));
+
+            } while (c.moveToNext());
+        }
+
+        return map;
+
+    }
+
+    public void deleteOldBusLinien() {
+
+        this.getWritableDatabase().delete(BUS_TABLE, null, null);
 
     }
 

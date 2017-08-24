@@ -30,6 +30,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 
+import de.android.fhwsapp.Database;
 import de.android.fhwsapp.R;
 
 public class Busplaene extends Fragment {
@@ -49,8 +50,15 @@ public class Busplaene extends Fragment {
         view = inflater.inflate(R.layout.activity_busplaene, container, false);
         ListView listView = (ListView) view.findViewById(R.id.lvBus);
 
+        BusplanDataFetcher data = new BusplanDataFetcher(context);
+        data.execute();
 
-        map.put("Linie 10","http://www.zoo2.biozentrum.uni-wuerzburg.de/fileadmin/07020200/zoo2/Eingebundene_Dateien/Konferenzen/Bus_No_10_to_Biocenter.pdf");
+        Database database = new Database(context);
+        map = database.getBusLinien();
+
+
+        //dummy daten
+        //map.put("Linie 10","http://www.zoo2.biozentrum.uni-wuerzburg.de/fileadmin/07020200/zoo2/Eingebundene_Dateien/Konferenzen/Bus_No_10_to_Biocenter.pdf");
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, map.keySet().toArray(new String[map.keySet().size()]));
@@ -89,9 +97,17 @@ public class Busplaene extends Fragment {
         try{
             startActivity(pdfIntent);
         }catch(ActivityNotFoundException e){
-            Toast.makeText(getContext(), "Sie benötigen eine Applikation, welche PDFs darstellen kann", Toast.LENGTH_LONG).show();
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    Toast.makeText(getContext(), "Sie benötigen eine Applikation, welche PDFs darstellen kann", Toast.LENGTH_LONG).show();
+                }
+            });
         }catch (Exception ex){
-            Toast.makeText(getContext(), "Es ist leider ein Fehler aufgetreten", Toast.LENGTH_LONG).show();
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    Toast.makeText(getContext(), "Es ist leider ein Fehler aufgetreten", Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 
