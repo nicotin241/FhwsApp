@@ -123,11 +123,17 @@ public class MainActivity extends AppCompatActivity
             setFragment(mFragment);
 
         } else if (id == R.id.nav_veranst) {
-            if(scrollView == null)
-                scrollView = (ScrollView) findViewById(R.id.svMain);
+            if(mFragment instanceof MainFragment) {
+                if (scrollView == null)
+                    scrollView = (ScrollView) findViewById(R.id.svMain);
 
-            scrollView.isSmoothScrollingEnabled();
-            scrollView.smoothScrollTo(0,0);
+                scrollView.setSmoothScrollingEnabled(true);
+                scrollView.smoothScrollTo(0, 0);
+            }
+            else{
+                mFragment = new MainFragment();
+                setFragment(mFragment);
+            }
 
         } else if (id == R.id.nav_progress) {
 
