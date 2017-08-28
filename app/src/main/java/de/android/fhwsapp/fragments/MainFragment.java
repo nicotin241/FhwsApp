@@ -129,7 +129,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
             //add rooms
             for (int i = 0; i < jsonArrayRooms.length(); i++) {
-                if(subject.getRoom() == null)
+                if(subject.getRoom() == "")
                     subject.setRoom(jsonArrayRooms.getJSONObject(i).getString("name"));
                 else
                     subject.setRoom(subject.getRoom()+", "+jsonArrayRooms.getJSONObject(i).getString("name"));
@@ -137,7 +137,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
             //add teachers
             for (int i = 0; i < jsonArrayTeacher.length(); i++) {
-                if(subject.getTeacher() == null)
+                if(subject.getTeacher() == "")
                     subject.setTeacher(jsonArrayTeacher.getJSONObject(i).getString("name"));
                 else
                     subject.setTeacher(subject.getTeacher()+", "+jsonArrayTeacher.getJSONObject(i).getString("name"));
@@ -148,7 +148,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 if(jsonArrayStudents.getJSONObject(i).getString("program").equals("ANY"))
                     continue;
 
-                if(subject.getStudiengang() == null)
+                if(subject.getStudiengang() == "")
                     subject.setStudiengang(jsonArrayStudents.getJSONObject(i).getString("program"));
                 else
                     subject.setStudiengang(subject.getStudiengang()+", "+jsonArrayStudents.getJSONObject(i).getString("program"));
