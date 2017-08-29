@@ -2,6 +2,8 @@ package de.android.fhwsapp.busplaene;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,6 +15,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 
 import de.android.fhwsapp.Database;
 import de.android.fhwsapp.objects.Meal;
@@ -24,12 +27,17 @@ public class BusplanDataFetcher extends AsyncTask<Void, Void, Void> {
     private Database database;
     private Context mContext;
 
+    private HashMap<String, String> map;
+    private ListView listView;
+
 
     private String urlString = "http://54.93.76.71:8080/FHWS/busplan";
 
-    public BusplanDataFetcher(Context context) {
+    public BusplanDataFetcher(Context context, HashMap<String,String> map, ListView listView) {
 
         mContext = context;
+        this.map = map;
+        this.listView = listView;
     }
 
     @Override
@@ -104,6 +112,16 @@ public class BusplanDataFetcher extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
+
+        map = database.getBusLinien();
+
+
+        //dummy daten
+        //map.put("Linie 10","http://www.zoo2.biozentrum.uni-wuerzburg.de/fileadmin/07020200/zoo2/Eingebundene_Dateien/Konferenzen/Bus_No_10_to_Biocenter.pdf");
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, map.keySet().toArray(new String[map.keySet().size()]));
+        listView.setAdapter(adapter);
 
         super.onPostExecute(aVoid);
 

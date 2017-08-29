@@ -50,7 +50,7 @@ public class Busplaene extends Fragment {
         view = inflater.inflate(R.layout.activity_busplaene, container, false);
         ListView listView = (ListView) view.findViewById(R.id.lvBus);
 
-        BusplanDataFetcher data = new BusplanDataFetcher(context);
+        BusplanDataFetcher data = new BusplanDataFetcher(context, map, listView);
         data.execute();
 
         Database database = new Database(context);
