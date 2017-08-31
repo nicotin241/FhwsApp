@@ -134,7 +134,11 @@ public class Busplaene extends Fragment {
 
             try{
                 if(!isNetworkConnected(context)){
-                    Toast.makeText(getContext(), "Es besteht keine Internetverbindung. Der Busplan konnte nicht heruntergeladen werden!", Toast.LENGTH_LONG).show();
+                    getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(getContext(), "Es besteht keine Internetverbindung. Der Busplan konnte nicht heruntergeladen werden!", Toast.LENGTH_LONG).show();
+                        }
+                    });
                     return null;
                 }
 
