@@ -34,6 +34,7 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
     private Subject sbj = null;
     private boolean edit = false;
     private String oldName = null;
+    private String oldDate = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,7 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
             etDay.setText(sbj.getDate());
 
             oldName = sbj.getSubjectName();
+            oldDate = sbj.getDate();
             edit = true;
 
             cbEveryWeek.setEnabled(false);
@@ -127,7 +129,7 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
 
                 if(edit) {
                     if(customSubject.getType().equals("Custom"))
-                        database.updateSubjectWithNameAndDate(customSubject, oldName);
+                        database.updateSubjectWithNameAndDate(customSubject, oldName, oldDate);
                     else
                         database.updateSubjectWithName(customSubject, oldName);
                 }
@@ -216,7 +218,7 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
         Subject subject = new Subject();
         subject.setType("Custom");
         subject.setSubjectName(etSubjectName.getText().toString());
-        subject.setDate(etDay.getText().toString());
+        subject.setDateAsDateTime(DateTime.parse(etDay.getText().toString(), DateTimeFormat.forPattern("dd.MM.yy")));
         subject.setChecked(true);
         subject.setGruppe(etGroup.getText().toString());
         subject.setId(666);

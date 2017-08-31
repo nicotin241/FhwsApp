@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_weight="6"
-        android:weightSum="2">
+        android:weightSum="3">
 
     <TextView
         android:id="@+id/tvSubjectName"
@@ -37,7 +37,7 @@
         android:gravity="left"
         android:marqueeRepeatLimit="marquee_forever"
         android:singleLine="true"
-        android:layout_weight="1"/>
+        android:layout_weight="2"/>
 
     <TextView
         android:layout_width="0dp"
@@ -60,6 +60,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_weight="3"
+        android:weightSum="2"
         android:gravity="right">
 
     <ImageButton
@@ -71,6 +72,7 @@
         android:layout_marginRight="5dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
+        android:layout_weight="1"
         android:contentDescription="Edit" />
 
 
@@ -81,6 +83,7 @@
         android:src="@android:drawable/ic_delete"
         android:layout_marginRight="5dp"
         android:paddingTop="5dp"
+        android:layout_weight="1"
         android:paddingBottom="5dp"
         android:contentDescription="Delete" />
 

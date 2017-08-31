@@ -3,6 +3,7 @@ package de.android.fhwsapp.busplaene;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -123,7 +124,7 @@ public class Busplaene extends Fragment {
             if(!folder.exists())
                 folder.mkdir();
 
-            File pdfFile = new File(folder, fileName);
+            File pdfFile = new File(folder, fileName+".pdf");
 
             if(pdfFile.exists()){
                 view(pdfFile.getAbsolutePath());
@@ -132,6 +133,11 @@ public class Busplaene extends Fragment {
 
 
             try{
+                if(!isNetworkConnected(context)){
+                    Toast.makeText(getContext(), "Es besteht keine Internetverbindung. Der Busplan konnte nicht heruntergeladen werden!", Toast.LENGTH_LONG).show();
+                    return null;
+                }
+
                 pdfFile.createNewFile();
             }catch (IOException e){
                 e.printStackTrace();
@@ -143,6 +149,10 @@ public class Busplaene extends Fragment {
         }
     }
 
+    public static boolean isNetworkConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
+    }
 
 }
 

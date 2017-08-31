@@ -623,5 +623,13 @@ public class Timetable extends FragmentActivity {
 
         progressBar.setVisibility(View.GONE);
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        this.finish();
+    }
 }
 
