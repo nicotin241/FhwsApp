@@ -14,6 +14,8 @@ import org.joda.time.format.DateTimeFormat;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -834,29 +836,44 @@ public class Database extends SQLiteOpenHelper {
 
                 lastSubject = subject;
 
-                if (list.size() == 0)
-                    list.add(subject);
-                else {
-                    if (subject.getDateAsDateTime().isBefore(list.getFirst().getDateAsDateTime()))
-                        list.addFirst(subject);
-                    else if (subject.getDateAsDateTime().isAfter(list.getLast().getDateAsDateTime()))
-                        list.addLast(subject);
-                    else{
-                        for(int i = 1; i < list.size()-1; i++){
-                            if(subject.getDateAsDateTime() == list.get(i).getDateAsDateTime()){
-                                list.add(i,subject);
-                                break;
-                            }
-                            if(subject.getDateAsDateTime().isAfter(list.get(i).getDateAsDateTime())){
-                                continue;
-                            }
+                list.add(subject);
 
-                        }
-                    }
-                }
+//                if (list.size() == 0)
+//                    list.add(subject);
+//                else {
+//                    if (subject.getDateAsDateTime().isBefore(list.getFirst().getDateAsDateTime()))
+//                        list.addFirst(subject);
+//                    else if (subject.getDateAsDateTime().isAfter(list.getLast().getDateAsDateTime()))
+//                        list.addLast(subject);
+//                    else{
+//                        for(int i = 0; i < list.size(); i++){
+//                            if(subject.getDateAsDateTime().getMillis() >= list.get(i).getDateAsDateTime().getMillis()){
+//                                list.add(i,subject);
+//                                break;
+//                            }
+//                            if(subject.getDateAsDateTime().isAfter(list.get(i).getDateAsDateTime())){
+//                                continue;
+//                            }
+//
+//                        }
+//                    }
+//                }
             } while (c.moveToNext());
         }
-            return list;
+
+        Collections.sort(list, new Comparator<Subject>() {
+                @Override
+                public int compare(Subject o1, Subject o2) {
+                    if(o1.getDateAsDateTime().isBefore(o2.getDateAsDateTime()))
+                        return -1;
+                    if(o1.getDateAsDateTime().isAfter(o2.getDateAsDateTime()))
+                        return 1;
+
+                    return 0;
+                }
+            });
+
+        return list;
     }
 
     public ArrayList<Subject>[][] getSortedSubjects(int days, int weeks) {
