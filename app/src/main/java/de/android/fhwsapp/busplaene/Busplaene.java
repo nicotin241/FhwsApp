@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.os.FileUriExposedException;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -87,13 +89,23 @@ public class Busplaene extends Fragment {
         new DownloadFile().execute(url, name);
     }
 
-    public void view(String uri)
-    {
+    public void view(String uri) {
+
         File pdfFile = new File(uri);
-        Uri path = Uri.fromFile(pdfFile);
         Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
-        pdfIntent.setDataAndType(path, "application/pdf");
-        //pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        if (Build.VERSION.SDK_INT < 24) {
+
+            pdfIntent.setDataAndType(Uri.fromFile(pdfFile), "application/pdf");
+            pdfIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+        } else {
+
+            Uri pdfURI = FileProvider.getUriForFile(getContext(), "de.android.fhwsapp.fileprovider", pdfFile);
+            pdfIntent.setDataAndType(pdfURI , "application/pdf");
+            pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        }
 
         try{
             startActivity(pdfIntent);
@@ -116,6 +128,7 @@ public class Busplaene extends Fragment {
 
         @Override
         protected Void doInBackground(String... strings) {
+
             String fileUrl = strings[0];
             String fileName = strings[1];
 
@@ -124,7 +137,7 @@ public class Busplaene extends Fragment {
             if(!folder.exists())
                 folder.mkdir();
 
-            File pdfFile = new File(folder, fileName+".pdf");
+            File pdfFile = new File(folder, fileName + ".pdf");
 
             if(pdfFile.exists()){
                 view(pdfFile.getAbsolutePath());
