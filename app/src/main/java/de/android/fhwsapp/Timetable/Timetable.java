@@ -547,7 +547,11 @@ public class Timetable extends FragmentActivity {
             }
         };
 
-        mFragmentGridPager.setGridPagerAdapter(mFragmentGridPagerAdapter);
+        try {
+            mFragmentGridPager.setGridPagerAdapter(mFragmentGridPagerAdapter);
+        }catch (Exception e){
+            onBackPressed();
+        }
 
         weekTabs = (LinearLayout) findViewById(R.id.llWeeks);
         weekTabs.removeAllViews();

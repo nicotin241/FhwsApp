@@ -23,8 +23,11 @@ import android.widget.ScrollView;
 
 import de.android.fhwsapp.Timetable.Timetable;
 import de.android.fhwsapp.busplaene.Busplaene;
+import de.android.fhwsapp.fragments.LaufendeVeranstaltungenFragment;
 import de.android.fhwsapp.fragments.MainFragment;
 import de.android.fhwsapp.fragments.MensaFragment;
+import de.android.fhwsapp.fragments.SpoFragment;
+import de.android.fhwsapp.webView.MyWebView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,6 +49,9 @@ public class MainActivity extends AppCompatActivity
 
     private Context mContext;
 
+    private String password;
+    private String username;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,10 @@ public class MainActivity extends AppCompatActivity
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         editor = mPrefs.edit();
+
+        password = mPrefs.getString(LoginActivity.PASSWORD,"");
+        username = mPrefs.getString(LoginActivity.K_NUMBER,"");
+
 
         manager = getSupportFragmentManager();
         mFragment = new MainFragment();
@@ -123,21 +133,33 @@ public class MainActivity extends AppCompatActivity
             setFragment(mFragment);
 
         } else if (id == R.id.nav_veranst) {
-            if(mFragment instanceof MainFragment) {
-                if (scrollView == null)
-                    scrollView = (ScrollView) findViewById(R.id.svMain);
+//            if(mFragment instanceof MainFragment) {
+//                if (scrollView == null)
+//                    scrollView = (ScrollView) findViewById(R.id.svMain);
+//
+//                scrollView.setSmoothScrollingEnabled(true);
+//                scrollView.smoothScrollTo(0, 0);
+//            }
+//            else{
+//                mFragment = new MainFragment();
+//                setFragment(mFragment);
+//            }
 
-                scrollView.setSmoothScrollingEnabled(true);
-                scrollView.smoothScrollTo(0, 0);
-            }
-            else{
-                mFragment = new MainFragment();
-                setFragment(mFragment);
-            }
+            mFragment = new LaufendeVeranstaltungenFragment();
+            setFragment(mFragment);
 
         } else if (id == R.id.nav_progress) {
 
+            startNotenverlaufWebView(null);
+
+        } else if (id == R.id.nav_spo) {
+
+            mFragment = new SpoFragment();
+            setFragment(mFragment);
+
         } else if (id == R.id.nav_imma) {
+
+            startImmatrikWebView(null);
 
         } else if (id == R.id.nav_signout) {
 
@@ -194,8 +216,58 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public void startLVFragment(View view) {
+
+        mFragment = new LaufendeVeranstaltungenFragment();
+        setFragment(mFragment);
+
+    }
+
     public void startBuslinienFragment(View view){
         mFragment = new Busplaene();
+        setFragment(mFragment);
+    }
+
+    public void startImmatrikWebView(View view){
+        mFragment = new MyWebView();
+        Bundle bundle = new Bundle();
+
+        final String js = "javascript:" +
+                "document.getElementsByName('password')[0].value = '" + password + "';"  +
+                "document.getElementsByName('username')[0].value = '" + username + "';"  +
+                "document.getElementsByClassName('btn btn-primary')[0].click()";
+
+        bundle.putString("url","https://studentenportal.fhws.de/cert");
+        bundle.putString("js",js);
+        mFragment.setArguments(bundle);
+        setFragment(mFragment);
+    }
+    public void startNotenverlaufWebView(View view){
+        mFragment = new MyWebView();
+        Bundle bundle = new Bundle();
+
+        final String js = "javascript:" +
+                "document.getElementsByName('password')[0].value = '" + password + "';"  +
+                "document.getElementsByName('username')[0].value = '" + username + "';"  +
+                "document.getElementsByClassName('btn btn-primary')[0].click()";
+
+        bundle.putString("url","https://studentenportal.fhws.de/history");
+        bundle.putString("js",js);
+        mFragment.setArguments(bundle);
+        setFragment(mFragment);
+    }
+    public void startNotenWebView(View view){
+        mFragment = new MyWebView();
+
+        final String js = "javascript:" +
+                "document.getElementsByName('password')[0].value = '" + password + "';"  +
+                "document.getElementsByName('username')[0].value = '" + username + "';"  +
+                "document.getElementsByClassName('btn btn-primary')[0].click()";
+
+        Bundle bundle = new Bundle();
+        bundle.putString("url","https://studentenportal.fhws.de/grades");
+        bundle.putString("js",js);
+        mFragment.setArguments(bundle);
         setFragment(mFragment);
     }
 
