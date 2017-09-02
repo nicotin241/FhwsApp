@@ -1,0 +1,418 @@
+{
+	"Studienstruktur": 
+	[
+		{
+			"frage":"Wie ist das Studium aufgebaut?",
+			"antwort":"Das Studium umfasst insgesamt 7 Semester.In das Studium ist ein Praxismodul integriert(s.separater Fragenkomplex).Die Semester 1 - 4 sind theoretischeSemester, im 5. Semester ist die begleitete Praxisphase vorgesehen.Der letzte Studienabschnitt(Semester 6 und 7) umfasst im Wesentlichen einenStudienschwerpunkt, die Projektsowie Bachelorarbeit(zu den Einzelthemen s.Fragen weiter unten)."
+		},
+        {
+            "frage":"Wann kann das Studium begonnen werden?",
+            "antwort":"Für den Studiengang Informatik ist ein Studienbeginn in jedem Semester, für die Studiengänge E-Commerce und Wirtschaftsinformatik nur im Wintersemester vorgesehen.Ein Einstieg in ein höheres Semester unter Anrechnung von anderweitig erbrachten Leistungen (s. separaten Fragenkomplex) ist ebenfalls in jedem Semester möglich."
+        },
+        {
+            "frage":"Welche Module gibt es?",
+            "antwort":"Es gibt folgende Module:<ul> <li>Pflichtmodule</li> <li>fachbezogene Wahlpflichtmodule(FWPM)</li> <li>Vertiefungsmodul</li> <li>allgemeinwissenschaftliche Wahlpflichtmodule(AWPM)</li> <li>Wahlmodule</li> </ul> Pflichtmodule müssen belegt und bestanden werden.Wahlpflichtmodule sind vom Umfang in der Studien- und Prüfungsordnung (SPO) her vorgeschrieben (daher: Pflicht); es ist aber freigestellt, welches konkrete Modul aus dem jeweiligen Angebot belegt wird (daher: Wahl). Das Vertiefungsmodul (s. separate Fragen in diesem Abschnitt) ist ein Wahlpflichtmodul. Es besteht seinerseits aus drei einzelnen Pflichtmodulen. Wahlmodule sind Module, die über den in der SPO festgelegten Studienumfang hinausgehen. Belegung und Abschluss dieser Veranstaltungen sind daher freiwillig."
+        },
+        {
+            "frage":"Wer bietet welche Module an?",
+            "antwort":"Die FWPM werden von der Fakultät Informatik und Wirtschaftsinformatik (FIW) angeboten. Das Angebot wird zu Beginn des Semesters im Studienplan veröffentlicht (s. welearn Bachelor – jeweiliger Studiengang - Studienplan). Die AWPM werden von der Fakultät für angewandte Natur- und Geisteswissenschaften (FANG) angeboten. Die Liste der angebotenen AWPM wird zu Semesterbeginn veröffent - licht. G rundsätzlich steht Ihnen auch das Angebot an der Abteilung Schweinfurt offen. Dazu ist ein separates Belegungsverfahren erforderlich, das über die Internet-Seite der Fakultät ANG, Abt. SW zugänglich ist. Wenn Sie einen Kurs aus dem Angebot der Virtuellen Hochschule Bayern (VHB), der nicht im AWPM-Katalog enthalten ist, wählen wollen, ist vorher unbedingt die Zustimmung der Fakultäten FANG und FIW erforderlich. Bitte beachten Sie ggf. Sperrvermerke für Ihren Studiengang! Wahlmodule können aus beiden Lehrangeboten (FIW und FANG) gewählt werden."
+        },
+        {
+            "frage":"Kann ich an jedem Wahl(pflicht)module teilnehmen?",
+            "antwort":"Die FWPM sind können auf einen Studiengang oder bestimmte Semester beschränkt sein. Grundsätzlich kann die Teilnahme auch von Vorkenntnissen abhängig gemacht werden. Außerdem kann für jedes Wahl(pflicht)modul die Anzahl der TeilnehmerInnen beschränkt werden. Wenn eine Studierende/ein Studierender ein Modul als Wahlmodul belegen will, haben zunächst alle Studierenden, für die das Modul zum (Wahl)Pflichtbereich zählt, Vorrang bei der Belegung. Diese Aussagen gelten sinngemäß auch für AWPM. Außerdem kann ein AWPM, das inhaltlich den (Pflicht)Fächern des Studiengangs (Wirtschafts-)Informatik oder E-Commerce zuzuordnen ist, nicht anerkannt werden. Diese Lehrveranstaltungen sind durch einen Sperrvermerk  gekennzeichnet. Beachten Sie bitte die Liste der aktuellen Sperrvermerke auf we - learn in der Rubrik Prüfungsinformationen – Aktuelle Prüfungsinformationen. Eine Teilnahme an einem für den eigenen Studiengang gesperrten AWPF ist nur möglich, wenn regulär teilnahmeberechtigte Studierende dadurch nicht eingeschränkt werden. Außerdem ist ein Noteneintrag im Zeugnis nur als Wahlfach möglich."
+        },
+        {
+            "frage":"Wie kann ich ein Wahl(pflicht)modul belegen?",
+            "antwort":"Für die AWPM führt die Fakultät für angewandte Natur- und Geisteswissenschaften zu Beginn eines Semesters ein Belegungsverfahren durch (getrennte Verfahren für die Abteilungen Würzburg und Schweinfurt!). Verbindliche Informationen hierzu werden ausschließlich von der Fakultät für angewandte Natur- und Geisteswissenschaften erteilt. Bitte beachten Sie Besonderheiten bei der AWPM-Belegung  (s. separate Frage). F ür die FWPM und die Vertiefungsmodule wird ein elektronisches Verfahren mit Zugriff über das Hochschulnetz durchgeführt. Die Termine und Teilnahmebedingungen werden rechtzeitig vor der Belegung fakultätsweit bekannt gemacht (stud. E-Mail-Verteiler, we - learn). Nach Abschluss der Belegung werden die Listen mit den Matrikel-Nummern der an den Modulen teilnehmenden Studierenden fakultätsweit veröffentlicht. Eine Woche nach dieser Bekanntgabe sind diese Listen verbindlich."
+        },
+        {
+            "frage":"Welche Besonderheiten gibt es bei der AWPM-Belegung?",
+            "antwort":"Das AWPM ist mit 5 CP bewertet. Es werden zumeist aber nur Veranstaltungen (AWPF) im Umfang von 2 SWS angeboten. Es sind daher zwei zwei-stündige Veranstaltungen zu belegen, um das AWPM im Umfang von 5 CP abzuleisten! Bei der Wahl zu Beginn eines Semesters können bis zu drei Belegungswünsche angegeben werden. Da die Veranstaltungen für Studierende aller Fakultäten angeboten werden, kann eine Überbelegung vorkommen. In diesen Fällen entscheidet auf jeden Fall das Los über die Teilnahme. Es kann daher sein, dass man nicht beide Wunschkurse belegen kann. Deswegen findet immer noch ein Nachbelegungsverfahren statt. Hierbei können Plätze in noch nicht ausgebuchten AWPF-Veranstaltungen belegt werden!"
+        },
+        {
+            "frage":"Was ist ein Studien- bzw. Fachsemester?",
+            "antwort":"Mit dem Begriff „Studiensemester“ werden die Semester laut Curriculum gemäß betreffender Anlage bezeichnet. Mit dem Begriff „Fachsemester“ werden die Semester gezählt, die im betreffenden Studiengang an der Hochschule bisher studiert wurden. Wurden z. B. Studienleistungen vor Aufnahme des aktuellen Studiums an einer anderen Hochschule erbracht und auf das aktuelle Studium angerechnet, werden Studienzeiten in dem entsprechenden Maßstab bei der Ermittlung des Studiensemesters berücksichtigt. Zeiten einer Beurlaubung oder Inanspruchnahme einer Freistellung (z. B. nach dem Mutterschutzgesetz) werden jedoch nicht berücksichtigt. Wenn keine Studienzeiten angerechnet wurden und Sie alle Lehrveranstaltungen, die für die jeweiligen Studiensemester vorgesehen sind, belegen und erfolgreich abschließen, sind für Sie diese Angaben gleich."
+        },
+        {
+            "frage":"Welche Module sind in welchem Semester zu belegen?",
+            "antwort":"Diese Angaben sind in den neugestalteten Anlagen zur SPO enthalten. Bitte beachten Sie die für Sie zutreffende Zuordnung zur jeweiligen Anlage. Diese richtet sich nach Ihrem Studienbeginn unter Berücksichtigung von Anrechnungszeiten. Die Module der beiden ersten Studiensemester werden auch als Grundlagenmodule bezeichnet. Diese Bezeichnung hat eine besondere Bedeutung in Verbindung mit der Anrechnung von Leistungen (s. separaten Fragenkomplex). Eine Veranstaltung, die inhaltlich einem Pflicht- oder Wahlpflichtfach im jeweiligen Curriculum zuzuordnen ist, kann nicht als AWPF anerkannt werden! Entsprechende Sperrvermerke sind bei der Anmeldung - auch zu Veranstaltungen der Virtuellen Hochschule Bayern - zu beachten!  (vgl. auch Frage zur Teilnahme an Wahlpflichtmodulen)."
+        },
+        {
+            "frage":"Welche Vertiefungsmodule gibt es?",
+            "antwort":"Für den Studiengang E-Commerce werden folgende Vertiefungsmodule angeboten: <ul> <li>Conversion Optimierung (CO)</li> <li>Web-Management (WM)</li> </ul> Außerdem können die Vertiefungsmodule Information Security (IS) aus dem Studiengang Informatik sowie Management digitaler Innovationen (MdI) belegt werden. Für den Studiengang Informatik werden folgende Vertiefungsmodule angeboten: <ul> <li>Information Security (IS)</li> <li>Medien-Informatik (MI)</li> <li>Smart Systems (SmS)</li> </ul> Außerdem können die Vertiefungsmodule Mobile Solutions (MS) sowie Management digitaler Innovationen (MdI) aus dem Studiengang Wirtschaftsinformatik belegt werden. Für den Studiengang Wirtschaftsinformatik werden folgende Vertiefungsmodule angeboten: <ul> <li>Business Software (BS)</li> <li>Business Technologies (BT)</li> <li>Management digitaler Innovationen (MdI)</li> <li>Mobile Solutions (MS)</li> </ul> Außerdem können die Vertiefungsmodule Information Security (IS) und Medien- Informatik (MI) aus dem Studiengang Informatik belegt werden. Auf Antrag an die Prüfungskommission kann auch in besonders begründeten Fällen die Zulassung zu einem anderen Vertiefungsmodul gewährt werden. Für alle Studiengänge wird das genaue Angebot an Vertiefungsmodulen im jeweiligen Studienplan festgelegt."
+        },
+        {
+            "frage":"Wie sind die einzelnen Vertiefungsmodule aufgebaut?",
+            "antwort":"Jedes Vertiefungsmodul bietet ein Vertiefungsseminar (4 SWS, 5 CP) sowie zwei Vertiefungsfächer im Umfang von jeweils 4 SWS (5 CP) an. Die Inhalte (und Titel) dieser Vertiefungsfächer werden jeweils im Studienplan vor Beginn eines Semesters festgelegt. Das Vertiefungsmodul ist auf die Semester sechs und sieben verteilt!"
+            
+        },
+        {
+            "frage":"Wann kann ein Vertiefungsmodule belegt werden?",
+            "antwort":"Module eines Schwerpunktes können erst belegt werden, wenn mindestens 120 CP erreicht worden sind und die begleitete Praxisphase mit Erfolg abgelegt ist."
+        },
+        {
+            "frage":"Wie kann ich ein Vertiefungsmodul belegen?",
+            "antwort":"s. Antwort zur Frage 6"           
+        },
+        {
+            "frage":"Ist das Bachelor-Studium in Teilzeit möglich?",
+            "antwort":"Es gab einen Vorschlag für ein Teilzeitmodell, das eine Reduktion der Arbeitsbelastung auf 50% vorsah. Dieser Vorschlag wurde jedoch vom Ministerium abgelehnt. Eine Verteilung der Belastung kann also nur über Fristverlängerungen und Urlaubssemester erreicht werden. Wenn Sie aus nachvollziehbaren Gründen eine derartige Reduktion anstreben, nehmen Sie bitte Kontakt zur Studienfachberatung und/oder dem PK-Vorsitzenden auf."            
+        },
+        {
+            "frage":"Ist das Bachelor-Studium berufsbegleitend möglich?",
+            "antwort":"Nein! Auch im Falle einer Teilzeitregelung werden die Termine von Lehrveranstaltungen, Prüfungen usw. nicht auf die Abendstunden oder das Wochenende gelegt."    
+        }
+	
+	],
+	"Praxismodul":
+	[
+		{
+			"frage":"Woraus besteht das Praxismodul?",
+			"antwort":"Das Praxismodul besteht aus einer 20 Wochen dauernden, zusammenhängenden begleiteten Praxisphase (5. Semester). Die Tätigkeit ist in Vollzeit in einem Unternehmen oder einer Einrichtung auszuüben. Die Praxisphase wird durch das Modul Soft und Professional Skills vorbereitet."
+		},
+		{
+			"frage":"Wann ist die Praxisphase abzuleisten?",
+			"antwort":"Die Praxisphase ist Voraussetzung zum Beginn des Vertiefungsmoduls sowie zum Beginn der Bachelorarbeit und darf erst begonnen werden, wenn mindestens 91 CP erreicht sind. Im Studiengang Informatik muss zusätzlich die Prüfungsleistung zum Modul Algorithmen und Datenstrukturen I mit Erfolg abgelegt worden sind. In Härtefällen kann die Prüfungskommission auf begründeten Antrag hin Ausnahmen genehmigen."
+		}
+	],
+	"Anrechnung von Leistungen":
+	[
+		{
+			"frage":"Welche Studienleistungen können angerechnet werden?",
+			"antwort":"Grundsätzlich können nur Studienleistungen angerechnet werden, die bei einer anderen Bildungseinrichtung vor Aufnahme des aktuellen Bachelor-Studiums an der Hochschule Würzburg erbracht wurden und nicht Bestandteil der Hochschulzugangsberechtigung sind. Außerdem müssen die Leistungen zu den im Curriculum des Bachelor-Studiengangs gefor derten Leistungen gleichwertig  sein. Gleichwertig heißt nicht identisch! Die Inhalte einer anzurechnenden Studienleistung muss jedoch inhaltlich 'zielführend' für den gewählten Bachelor-Studiengang sein. Es muss der Nachweis erbracht werden, dass mit dieser Leistung vergleichbare Kompetenzen erworben wurden."
+		},
+		{
+			"frage":"Wie erfolgt die Anrechnung und was wird angerechnet?",
+			"antwort":"Die Anrechnung erfolgt auf Antrag, der innerhalb des ersten Monats nach Beginn des aktu ellen Bachelor-Studiums gestellt werden muss. Die fachlich zuständige Dozentin bzw. der fachlich zuständige Dozent muss dabei die Gleichwertigkeit zwischen der anzurechnenden Leistung und der zu ersetzenden Leistung bestätigen und die Note für die Leistung ermitteln. Um dies beurteilen zu können, sind die entsprechenden Unterlagen (Modulbeschreibung, Studienplan o. Ä.) über die anzurechnende Leistung vorzulegen. Ausnahmen bilden die sog. Grundlagenmodule  (Module der beiden ersten Lehrplanse mester) : Erbrachte Leistungen aus Grundlagenmodulen eines gleichnamigen Studiengangs einer staatlichen oder staatlich anerkannten Fachhochschule in Bayern  sind im Umfang von bis zu 60 CP auf die hiesigen Grundlagenmodule anzurechnen. Die Anrechnung selbst erfolgt dann durch Beschluss der Prüfungskommission. Durch die Anrechnung werden die gleichwertigen Leistungen des aktuellen Bachelor-Stu diengangs ersetzt. Die Anzahl der Leistungspunkte (CP) dieser ersetzten Leistungen gilt da mit als erbracht.  Im Verhältnis der angerechneten Leistungspunkte zur regulären CP-Anzahl eines Semesters werden auch Studienzeiten angerechnet. Dabei wird ein Semester mit 30 CP angesetzt. Es werden die vollen Semester angerechnet. Nur wenn der Rest mind. 75 % der Leistung eines Semesters entspricht, wird dies als ganzes Semester angerechnet."
+		},
+		{
+			"frage":"Kann man eine angerechnete Prüfungsleistung erneut ablegen?",
+			"antwort":"Nein"
+		},
+		{
+			"frage":"Kann man zwischen den Bachelor-Studiengängen E-Commerce, Informatik und Wirtschaftsinformatik wechseln?",
+			"antwort":"Ja"
+		},
+		{
+			"frage":"Welche Leistungen werden bei einem Wechsel zwischen  E-Commerce,  Informatik und Wirtschaftsinformatik angerechnet?",
+			"antwort":"Es werden die erfolgreich abgelegten Studien- und Prüfungsleistungen wechselseitig  an gerechnet, sofern keine wesentlichen Unterschiede zwischen den erworbenen und den zu erwerbenden Kompetenzen besteht. Dies ist bei Modulen mit gleichem oder sehr ähnli chem Inhalt gegeben. Andere Module sind nur auf Antrag im konkreten Einzelfall anrechenbar. Nach Begut achtung durch die jeweilige Modulverantwortliche bzw. den jeweiligen Modulverantwortli chen entscheidet die Prüfungskommission über die Anrechnung."
+		},
+		{
+			"frage":"Werden auch mit „nicht ausreichend“ bewertete Leistungen angerechnet?",
+			"antwort":"Nicht bestandene Prüfungsleistungen sind nur zu berücksichtigen, wenn sie in dem gleichen Fachhochschulstudiengang oder dem gleichen Grundstudium eines verwandten Fachhochschulstudienganges erbracht wurden; ein Diplomstudiengang ist kein verwandter Stu diengang im Verhältnis zum vorliegenden Bachelor-Studiengang. Diese Anrechnung nicht erfolgreicher Leistungen wird „nur“ bei der Prüfung, ob eine (weitere) und wie viele Wiederholungsmöglichkeit(en) bestehen, berücksichtigt. Sie setzt voraus, dass ein Antrag auf Anrechnung erbrachter Leistungen gestellt wird."
+		},
+		{
+			"frage":"Kann eine Leistung, die im Ausland erbracht wurde oder während des Studiums erbracht wird, angerechnet werden und wie ist dabei zu verfahren?",
+			"antwort":"Grundsätzlich gelten dabei dieselben Maßstäbe, die bei einer Anrechnung einer im Inland erbrachten Leistung gelten. Insbesondere muss eine anzurechnende Leistung zu der hiesigen Leistung gleichwertig sein und an einer Hochschule erbracht worden sein. Daher ist auch die Vorgehensweise gleich. Ggf. ist eine offizielle Beschreibung des ausländischen Notensystems vorzulegen, damit die Note in das hiesige System umgerechnet werden kann. Wenn Sie während Ihres Studiums einen Auslandsaufenthalt einschieben wollen, sollten Sie in Ihrem eigenen Interesse folgende Vorgehensweise beachten:<ul><li>Sie schließen ein sog. Learning Agreement ab.  Die zuständige Fachdozentin/der zuständige Fachdozent bestätigt Ihnen formlos, aber schriftlich vor Beginn des Auslandsstudiums, dass ein bestimmter Kurs gleichwertig zur hiesigen Veranstaltung ist. Dazu sind sicher eine genaue inhaltliche Beschreibung und Darstellung des Umfangs vorzulegen. Die Prüfungskommission bestätigt vorab die Anrechnung im Falle des erfolgreichen Abschlusses.</li><li> An der ausländischen Hochschule lassen Sie sich die erfolgreiche Teilnahme am Kurs und die Note offiziell bestätigen (sog. Transcript of Records) und ggf. eine offizielle Beschreibung des Notensystems aushändigen.</li><li>Diese Unterlagen (Learning Agreement, Transcript of Records und ggf. Notensystembeschreibung) reichen Sie nach Abschluss Ihres Auslandsaufenthaltes beim Hochschulservice Studium (Studenten- und Prüfungsamt) ein.</li><li> Auf der nächsten PK-Sitzung wird die Anrechnung formell bestätigt</li></ul>"
+		}
+	],
+	"Prüfungsleistungen":
+	[
+		{
+			"frage":"Welche Prüfungsleistungen gibt es?",
+			"antwort":"Für jedes Modul ist eine der folgenden Prüfungsleistungen durch die SPO vorgeschrieben: <ul><li> <b>schriftliche Prüfung  (sP):</b> Eine schriftliche Prüfung findet grundsätzlich nur im Prü fungszeitraum am Ende eines jeden Semesters statt. Sie wird unter Aufsicht für alle Stu dierenden, die sich zur Prüfung angemeldet haben durchgeführt. Die Dauer kann zwi schen 90 und 240 Minuten betragen.\nJede Prüfungsleistung darf im Laufe des Studiums zweimal wiederholt werden, wenn die Leistung nicht bestanden wurde (s. separate Frage zu diesem Thema).\nEine Ausnahme bilden die Prüfungsleistungen, die nicht zu einer Endnote führen, d. h. unbenotet sind. Sie können während des Studiums beliebig oft wiederholt werden. </li><li><b> studienbegleitend abzulegende schriftliche Prüfung  (ssP): </b> Bei einem Grundlagenmo dul, das nicht zu einer Endnote führt, kann die SPO ein individuelles Wahlrecht zwi schen einer schriftlichen Prüfung und einer semesterbegleitend abzulegenden Prüfung vorsehen (derzeit nur für das Modul Algorithmen und Datenstrukturen I im Studiengang Informatik). Das Wahlrecht steht der/dem Studierenden für jede Prüfung in diesem Mo dul zu. Diese Form der Prüfungsleistung ist erfolgreich abgelegt, wenn eine Teilnahme an mindestens 75 % der festgesetzten Termine und dabei eine Gesamtleistung von min destens 50 % der insgesamt geforderten Leistung nachgewiesen ist. </li><li> <b>mündliche Prüfung  (mP):</b> Eine mündliche Prüfung findet in Gegenwart von Erst- und ZweitprüferIn statt. Pro KandidatIn sind 15 bis 45 Minuten Prüfungszeit möglich. Sie kann als Einzel- oder Gruppenprüfung durchgeführt werden. Es werden separate Listen mit Matrikel-Nummer und Anfangszeit rechtzeitig vor dem Prüfungstermin veröffent licht (Aushang am Glasbrett zwischen den Eingängen zu den Räumen I.3.41 und I.3.42 sowie ggf. auf welearn, Rubrik Prüfungsinformationen). Sofern die/der zu prüfende Studierende nicht widerspricht, sind auch Studierende des gleichen Studiengangs als ZuhörerInnen zu einer mündlichen Prüfung zugelassen. </li><li> <b>sonstige Prüfung  (soP):</b> Unter diesen Sammelbegriff fallen insbesondere Leistungen wie das Anfertigen einer Dokumentation, ein Referat oder ein Kolloquium. Bei einem Seminar besteht die Prüfungsleistung in der Regel aus einem Referat und einem Kollo quium. In diesem Fall wird die Verteilung der Gewichtung durch die SPO vorgegeben oder durch den Studien- bzw. Prüfungsplan zu Semesterbeginn festgelegt.</li></ul> Wenn nicht unterschieden werden muss, wird im Folgenden nur von „Prüfungsleistung“ oder kurz „Prüfung“ gesprochen."
+		},
+		{
+			"frage":"Welche Zulassungsvoraussetzungen gibt es?",
+			"antwort":"Es gibt zwei Arten von Zulassungsvoraussetzungen: <ul><li> Das Antreten einiger Prüfungsleistungen ist vom insgesamt erreichten Studienfortschritt abhängig: <ul><li> Beginn der Praxisphase: 91 CP sowie im Studiengang Informatik das erfolgreiche Ablegen der Prüfungsleistung zum Modul Algorithmen und Datenstrukturen I </li><li> Beginn der Projektarbeit: 100 CP </li><li> Belegung des Vertiefungsmoduls: 120 CP, erfolgreiches Ableisten der begleiteten Praxisphase </li><li> Bachelorarbeit: 150 CP, erfolgreiches Ableisten der begleiteten Praxisphase und der Projektarbeit sowie im Studiengang E-Commerce das erfolgreiche Ablegen der Prüfungsleistung zum Modul English Communication</li></ul> </li><li> Außerdem gibt es für die Modulprüfungen zu „Programmieren I und II“ (bzw. „Web- Programmierung I und II“ im Studiengang E-Commerce), „Datenbanken“ (bzw. „Daten banken I“ im Stg. Informatik) sowie „Mathematik I und II“ (bzw. „Analysis“ und „Alge bra“ im Stg. Informatik) sogenannte „besondere Zulassungsvoraussetzungen“. Diese be stehen darin, dass bei den i. d. R. wöchentlich zu bearbeitenden Übungen ein bestimm ter Anteil (50 bzw. 70%) der insgesamt erreichbaren Punkte erzielt werden müssen. Ziel ist also der Nachweis, dass wesentliche Inhalte der Veranstaltung erfolgreich geübt wur den.</li></ul>"
+		},
+		{
+			"frage":"Muss ich mich zu Prüfungsleistungen anmelden?",
+			"antwort":"Eine form- und fristgerechte Prüfungsanmeldung ist erforderlich , um eine Prüfungsplanung (z. B. für Raumbelegungen, Kopieren der Klausurvorlagen, Zeitplan für mündliche Prüfungen usw.) ordnungsgemäß durchführen zu können. Die Anmeldung gilt nur für den jeweils nächsten Prüfungstermin, d. h. für Wiederholungsprüfungen muss man sich auf je den Fall erneut anmelden . Die Anmeldung wird ausschließlich vom Hochschulservice Studium (Studenten- und Prüfungsamt)  durchgeführt."
+		},
+		{
+			"frage":"Kann ich an einer Prüfungsleistung teilnehmen, zu der ich nicht angemeldet bin?",
+			"antwort":"Nein , eine Ausnahme kann nur die Prüfungskommission bzw. im Eilverfahren deren vorsitzendes Mitglied im Einvernehmen mit der Prüferin / dem Prüfer genehmigen. Ein entsprechend begründeter  Antrag ist rechtzeitig vor der Prüfungsleistung zu stellen. Wenn Sie die Anmeldung zu einer Prüfungsleistung übersehen haben, setzen Sie sich auf jeden Fall unverzüglich mit dem Hochschulservice Studium (Studenten- und Prüfungsamt) in Verbindung."
+		},
+		{
+			"frage":"Wie kann ich mich zu Prüfungsleistungen anmelden?",
+			"antwort":"Der Zeitraum wird für jedes Semester vom Prüfungsausschuss festgelegt und im Terminplan der Hochschule (s. http://studienangelegenheiten.fhws.de/terminplaene.html) veröffentlicht. Diese Anmeldung erfolgt ausschließlich elektronisch und wird vom Hochschulservice Studium organisiert. Bei Fehlern wenden Sie sich bitte direkt an den Hochschulservice Studium."
+		},
+		{
+			"frage":"Kann ich eine vergessene Anmeldung nachholen?",
+			"antwort":"Etwa eine Woche nach Abschluss der Anmeldung nimmt der Hochschulservice Studium noch nachträgliche Anmeldungen entgegen. Danach müssen Sie einen entsprechenden Antrag an die Prüfungskommission stellen und nachweisen, weshalb Sie sich nicht form- und fristgerecht anmelden konnten."
+		},
+		{
+			"frage":"Was geschieht, wenn ich zu einer Prüfungsleistung nicht erscheine, zu der ich mich angemeldet habe?",
+			"antwort":"Nichts, sofern hierdurch keine Fristüberschreitung ausgelöst wird. Sie sollten sich dennoch rechtzeitig von einer Prüfung wieder abmelden, wenn Sie wissen, dass Sie nicht teilnehmen können. Dies erleichtert den komplexen Prozess der Prüfungsorganisation (Räume, Kopien, Aufsichten, etc.) wesentlich!"
+		},
+		{
+			"frage":"Was ist zu tun, wenn ich an einer Prüfungsleistung, die ich absolvieren muss (z. B. aus Fristgründen bei Wiederholungsprüfungen), nicht teilnehmen kann?",
+			"antwort":"Sofern die Teilnahme aus gesundheitlichen Gründen nicht möglich ist, muss ein Antrag auf Fristverlängerung zusammen mit einem aussagekräftigen ärztlichen Attest der Prüfungskommission vorgelegt werden. Sofern andere Gründe, die Sie nicht zu vertreten haben , maßgeblich sind, sind sie mit entsprechenden Belegen der Prüfungskommission nachzuweisen. Ein derartiger Antrag ist rechtzeitig  zu stellen, d. h. so früh wie möglich nach Eintritt der Ursache.\nEin Attest muss <ul><li> den Zeitpunkt ärztlichen Untersuchung (Datum, Uhrzeit und Dauer), </li><li> eine konkrete und ausführliche Beschreibung der gesundheitlichen Beeinträchtigung, </li><li> die sich daraus ergebenden Beeinträchtigungen zum Prüfungszeitpunkt sowie </li><li> Beginn und Dauer der Beeinträchtigung</li></ul> enthalten."
+		},
+		{
+			"frage":"Was ist zu tun, wenn ich eine Prüfungsleistung aus gesundheitlichen Gründen nicht so erbringen kann, wie Studierende ohne gesundheitliche Einschränkungen?",
+			"antwort":"In einem derartigen Fall kann ein sogenannter Nachteilsausgleich  in Form einer angemessenen Prüfungszeitverlängerung oder der Ablegung der Prüfungsleistung in einer anderen Form gewährt werden. Auf Antrag entscheidet dies der Prüfungs ausschuss  (s. Fragen zu Gremien). Der Antrag ist zusammen mit aussagekräftigen Attesten rechtzeitig  zu stellen. Falls Sie durch die gesundheitliche Beeinträchtigung nicht oder nicht regelmäßig an den Lehrveranstaltungen des Semester teilnehmen konnten, ist ggf. ein Antrag auf ein krankheitsbedingtes Urlaubssemester zu stellen. Bitte besprechen Sie diese Lösung zuvor mit der Studienfachberaterin/dem Studienfachberater, dem Hochschulservice Studium (Studenten- und Prüfungsamt) oder dem vorsitzenden PK-Mitglied."
+		},
+		{
+			"frage":"Was ist zu tun, wenn ich eine Prüfung (z. B. aus gesundheitlichen Gründen) nicht beenden kann?",
+			"antwort":"Sofern die Prüfungsunfähigkeit erst nach Beginn der Prüfungsleistung eingetreten ist oder erst danach von Ihnen festgestellt wurde, können Sie von der Prüfungsleistung zurücktreten . Sie müssen die Prüfungsunfähigkeit durch ein aussagekräftiges ärztliches Attest vom Tag der Prüfung gegenüber der Prüfungskommission nachweisen. Außerdem muss das Attest darlegen, dass Sie die Prüfungsunfähigkeit nicht im Voraus erkennen konnten. Zum übrigen Inhalt des Attestes s. o.\n<b>Hinweis</b> : Der Abbruch einer begonnenen Prüfungsleistungen ohne glaubhafte Begründung gilt nicht als Rücktritt! Die Prüfungsleistung wird in diesem Fall bewertet!"
+		},
+		{
+			"frage":"Führt ein verspätetes Erscheinen zu einer Prüfungsleistung zu einer entsprechenden Verlängerung der Bearbeitungszeit?",
+			"antwort":"Sofern ein(e) Studierende(r) verspätet zu einer Prüfungsleistung erscheint, besteht kein Anspruch auf Verlängerung der Bearbeitungszeit.\n<b>Hinweis</b> : Sprechen Sie auf jeden Fall die Prüferin / den Prüfer an. Vielleicht ergibt sich die Möglichkeit zu einer „Sonderlösung“."
+		},
+		{
+			"frage":"Wann gilt eine Prüfungsleistung als angetreten?",
+			"antwort":"Hat die/der Studierende bei einer schriftlichen Prüfung das Aufgabenblatt erhalten, gilt die Prüfungsleistung als angetreten. Besteht die sonstige Prüfung z. B. aus einem Referat, gilt die Themenausgabe als Zeitpunkt des Antritts der Prüfungsleistung. Eine Projekt- oder Bachelorarbeit wird mit Ausgabe des Themas (Anmeldung in der Sitzung der Prüfungskommission) angetreten."
+		},
+		{
+			"frage":"Wann gilt eine Prüfungsleistung als abgelegt?",
+			"antwort":"Eine angetretene und abgeschlossene Prüfungsleistung gilt als abgelegt. Die Benotung spielt also keine Rolle. Bei der Bachelorarbeit ist ebenfalls die Abgabe der maßgebliche Zeitpunkt."
+		},
+		{
+			"frage":"Wann gilt eine Prüfungsleistung als erfolgreich bestanden?",
+			"antwort":"Für das Bestehen einer Prüfungsleistung muss mindestens die Note ausreichend (4,0) oder das Prädikat „mit Erfolg abgelegt“ erzielt werden."
+		},
+		{
+			"frage":"Welche Prüfungsleistungen führen nicht zu einer Endnote?",
+			"antwort":"Folgende Module sind (gemäß Anlagen 1) in dem Sinne „unbenotet“, d. h. werden bei Berechnung der Durchschnittsnote nicht berücksichtigt: „Algorithmen und Datenstrukturen I“ (nur Stg. Inf) sowie „English Communication“ (nur Stg. EC) und für alle Studiengänge das Praxismodul und das Modul „Soft und Professional Skills“. Die Prüfungsleistung zu „Algorithmen und Datenstrukturen I“ beruht auf einer schriftlichen oder semesterbegleitenden Prüfung, die benotet wird. Diese Note geht jedoch nicht als Endnote ins Bachelor-Zeugnis ein. Es wird jedoch ein „Schein“ ausgestellt, sodass Sie Ihre persönliche Leistung in dieser Modulprüfungsleistung nachweisen können."
+		},
+		{
+			"frage":"Welche Noten gibt es?",
+			"antwort":"Die ganzen Noten 1 bis 5 können um 0,3 erhöht oder erniedrigt werden, wobei die Noten 0,7; 4,3, 4,7 und 5,3 ausgeschlossen werden.\nSomit gibt es die Noten: 1; 1,3; 1,7; 2; 2,3; 2,7; 3; 3,3; 3,7; 4,0 und 5"
+		},
+		{
+			"frage":"Was ist ein Notengewicht?",
+			"antwort":"Jedes (benotete) Modul des Studiums hat ein sog. Notengewicht. Das Notengewicht ergibt sich aus dem Verhältnis der Kreditpunkte des Moduls zur Summe der Kreditpunkte aller benoteten Module (gewichtetes arithmetisches Mittel)."
+		},
+		{
+			"frage":"Welche Bewertungen/Noten stehen im Bachelor-Zeugnis?",
+			"antwort":"Bei (bestandenen) Prüfungsleistungen, die nicht zu Endnoten führen, wird „mit Erfolg abgelegt“ eingetragen. Für die Endnoten der einzelnen Fächer gilt folgende Zuordnung: <ul><li> 1,0 bis 1,5 sehr gut </li><li> 1,6 bis 2,5 gut </li><li> 2,6 bis 3,5 befriedigend </li><li> 3,6 bis 4,0 ausreichend </li><li> 4,1 bis 5,0 nicht bestanden</li></ul> Die Gesamtnote auf dem Bachelor-Zeugnis wird aus den Prüfungsnoten aller benoteten Module unter Berücksichtigung des jeweiligen Notengewichtes (s. o.) berechnet. Für die Gesamtnote werden folgende verbale Beurteilungen benutzt: <ul><li> Gesamtnote von 1,0 bis 1,2: mit Auszeichnung bestanden </li><li> Gesamtnote von 1,3 bis 1,5: sehr gut bestanden </li><li>Gesamtnote von 1,6 bis 2,5: gut bestanden </li><li>Gesamtnote von 2,6 bis 3,5: befriedigend bestanden </li><li>Gesamtnote von 3,6 bis 4,0: bestanden</li></ul>"
+		},
+		{
+			"frage":"Bis wann muss eine Prüfungsleistung des Studiums erstmals abgelegt (nicht notwendigerweise schon bestanden) sein?",
+			"antwort":"Folgende Prüfungsleistungen werden im jeweiligen <b>Studiengang als Grundlagen- und Orientierungsprüfungen</b> bezeichnet: <ul><li>Studiengang EC: Web-Programmierung I, Grundlagen Informatik und E-Commerce sowie Oberflächengestaltung und Usability </li><li>Studiengang Inf: Algebra, Programmieren I sowie Grundlagen der Technischen Informatik 2016-08-11 FAQs zu den Bachelor-SPOen EC, Inf und WInf Seite 10 / 20 </li><li>Studiengang WInf: Programmieren I, Grundlagen wer Wirtschaftsinformatik sowie Grundlagen der Wirtschaftswissenschaften</li></ul> Diese Prüfungsleistungen müssen bis zum Ende des zweiten Fachsemesters erstmals abgelegt werden. Ausnahmen bei Studium laut Anlagen 2 - 4 SPO Inf, Anlagen 2 - 5 SPO Winf Anlagen 2 - 4 SPO EC beachten. Jede weitere Prüfungsleistung des ersten Studienjahres ist innerhalb der ersten drei Fachsemester erstmals abzulegen. Ausnahme: Die Prüfungsleistungen zu Lehrveranstaltungen im Rahmen des AWPM sind bis zum Ende des sechsten Fachsemesters abzulegen. Jede Prüfungsleistung des dritten und vierten Studiensemesters ist innerhalb der ersten sechs Fachsemester erstmals abzulegen. Jede Prüfungsleistung des fünften bis siebten Studiensemesters ist innerhalb der ersten neun Fachsemester erstmals abzulegen. Für die Bachelorarbeit bedeutet dies, dass in diesem Zeitraum die Arbeit abgegeben und auch die Note festgestellt werden muss. Hat die/der Studierende aus Gründen, die sie/er selbst zu verantworten hat, bei einer Prüfungsleistung eine dieser Fristen überschritten, wird die entsprechende Prüfungsleistung als erstmals abgelegt und mit „nicht bestanden“ gewertet (Fristfünf). Diese Note wird wie jedes andere Prädikat „nicht bestanden“ behandelt. Insbesondere ist die Prüfung zu wiederholen."
+		},
+		{
+			"frage":"Wie oft kann man eine Prüfung wiederholen?",
+			"antwort":"Grundsätzlich darf jede nicht bestandene Prüfung zweimal wiederholt werden. Wird die erste Wiederholungsprüfung nicht bestanden oder nicht fristgerecht (s. weitere Frage) abgelegt,\nist in jedem Fall ohne Antrag eine zweite Wiederholung möglich. Ausnahmen: <ul><li>Die Bachelorarbeit kann nur einmal wiederholt werden. </li><li>Bei einem nicht bestandenen AWPF kann auch ein neues AWPF gewählt und abgelegt werden. </li><li>Prüfungsleistungen, die nicht zu einer Endnote führen, können im Rahmen einer (fiktiven) Studienhöchstdauer (s. separate Frage dazu) beliebig oft wiederholt werden.</li></ul> Eine dritte Wiederholung einer benoteten Prüfungsleistung ist nicht möglich."
+		},
+		{
+			"frage":"Gibt es Fristen für die Wiederholung nicht bestandener Prüfungsleistungen?",
+			"antwort":"Eine erstmals nicht bestandene Leistung (einschl. einer sogenannten Fristfünf) muss zum nächstmöglichen regulären Prüfungstermin, i. d. R. nach einem Semester, wiederholt werden. Wird die Prüfung nicht fristgerecht abgelegt, wird die Leistung als abgelegt und mit „nicht bestanden“ gewertet (Fristfünf). Eine zweite Wiederholungsprüfung ist innerhalb eines Jahres nach dem Nichtbestehen (einschließlich Fristfünf) der ersten Wiederholungsprüfung abzulegen. Falls eine sonstige Prüfung erst im Abstand eines Jahres angeboten werden sollte, wird von Amts wegen eine Fristverlängerung gewährt. Falls die Lehrveranstaltung überhaupt nicht mehr angeboten wird, muss zumindest die Prüfungsleistung angeboten oder von Amts wegen eine Übergangsregelung verabschiedet werden."
+		},
+		{
+			"frage":"Was geschieht, wenn jemand einen Täuschungsversuch begeht?",
+			"antwort":"Sofern eine Studierende / ein Studierender eine Täuschungshandlung versucht oder begeht, unzulässige Hilfsmittel (einschl. Mobiltelefon) benutzt oder aber den ordnungsgemäßen Ablauf einer Prüfung unmöglich macht, ist die Prüfungsleistung mit der Note „nicht ausreichend“ zu bewerten."
+		},
+		{
+			"frage":"Wo stehen Informationen über Prüfungsleistungen, Anmeldefristen, Prüfungstermine, Prüfungsorte, zugelassene Hilfsmittel, etc.?",
+			"antwort":"Die aktuellen Informationen zu Prüfungen werden vorrangig auf welearn (Rubrik: Prüfungsinformationen) bekannt gegeben. Außerdem werden wichtige Informationen auch am Glasbrett zwischen den beiden Eingängen zu den Räumen I.3.41 und I.3.42 ausgehängt. Außerdem werden verbindliche Informationen zur Anmeldung zu Prüfungsleistungen sowie zu Prüfungsterminen vom Hochschulservice Studium (Studenten- und Prüfungsamt) publiziert."
+		},
+		{
+			"frage":"Kann ich meine geschriebenen Klausuren nach der Korrektur noch einmal ansehen?",
+			"antwort":"Studierende haben ein Recht zur Prüfungseinsicht nach erfolgter Feststellung der Prüfungsergebnisse. Der Zeitraum zur Einsichtnahme in die Prüfungen wird vom Prüfungsausschuss bekannt gegeben. Die Einsichtnahme ist i. d. R. in den ersten drei Wochen des nächsten Semesters bei der Dozentin / dem Dozenten. Abweichungen werden zusammen mit dem Termin bekannt gemacht."
+		},
+		{
+			"frage":"Kann ich eine erfolgreich abgelegte Prüfungsleistung wiederholen?",
+			"antwort":"Eine bestandene benotete Prüfungsleistung kann, mit Ausnahme der Bachelorarbeit, aufgrund eines Antrags auf Notenverbesserung einmal wiederholt werden, wenn die Prüfungsleistung zum frühest möglichen Termin innerhalb des regulären Studienverlaufes laut SPO bestanden wurde. Es sind maximal vier Anträge auf Notenverbesserung im Laufe des Studiums möglich, davon maximal zwei Anträge in Bezug auf Prüfungsleistungen der beiden ersten Studiensemester. Wie der Name sagt, kann man sich durch die Wiederholung einer bestandenen Prüfungsleistung nicht verschlechtern!"
+		},
+		{
+			"frage":"Wie erfolgt die Durchführung der Notenverbesserung?",
+			"antwort":"Zeitnah zur Benotung der Prüfungsleistung, die Sie verbessern wollen, ist der schriftliche Antrag an den Hochschulservice Studium (Studenten- und Prüfungsamt) zu stellen. Dieser muss spätestens bis zum Ende der Prüfungsanmeldung im nächsten Semester vorliegen. Eine Ausnahme dafür ist nur in besonders begründeten Fällen (z. B. schwere Krankheit) möglich. In der Regel erfolgt die Teilnahme an der Prüfungsleistung im gleichen Semester. In besonders zu begründeten Fällen (z. B. Praxisphase im Ausland dauert bis in den Prüfungszeitraum) kann auch die Teilnahme an der Prüfungsleistung auf das folgende Semester verschoben werden. Hierzu ist zusammen mit dem Antrag auf Notenverbesserung ein Antrag auf Fristverlängerung zu stellen."
+		}
+	],
+	"Termine und Fristen":
+	[
+		{
+			"frage":"Wann erfolgt die Anmeldung zu Prüfungsleistungen?",
+			"antwort":"Die Anmeldung wird vom Hochschulservice Studium (Studenten- und Prüfungsamt) jeweils etwa vier bis sechs Wochen nach Beginn eines Semesters durchgeführt. Bitte beachten Sie die entsprechenden Ankündigungen (s. http://studienangelegenheiten.fhws.de/terminplaene.html)."
+		},
+		{
+			"frage":"Wann ist eine nicht bestandene Leistung zu wiederholen?",
+			"antwort":"Siehe dazu die Antworten im Abschnitt „Prüfungsleistungen“."
+		},
+		{
+			"frage":"Kann die Frist z. B. für die Wiederholung einer nicht bestandenen Leistung verlängert werden?",
+			"antwort":"Ja, aber nur aus Gründen, die Sie nicht zu verantworten haben. Dazu müssen Sie einen entsprechenden begründeten Antrag rechtzeitig vor Ablauf der Frist an die Prüfungskommission richten."
+		},
+		{
+			"frage":"Welche Nachweise sind zu erbringen?",
+			"antwort":"Grundsätzlich sind die Gründe für einen Antrag glaubhaft und überprüfbar darzulegen. Insbesondere ist darzulegen, dass Sie diese Gründe nicht zu verantworten haben. Im Falle einer Krankheit, ist ein aussagekräftiges Attest vorzulegen. Aussagekräftig heißt, Dritte müssen sich ein zutreffendes Bild von den gesundheitlichen Einschränkungen machen können. Die normale Arbeitsunfähigkeitsbescheinigung (für den Arbeitgeber) genügt daher nicht! Bei einem Antrag auf Gewährung einer Nachfrist wegen Krankheit ist im Attest zwar auch die Prüfungsunfähigkeit festzustellen, die Entscheidung über den Antrag und damit über die tatsächliche Prüfungsfähigkeit trifft jedoch die Prüfungskommission."
+		},
+		{
+			"frage":"Wann werden die Prüfungsleistungen angesetzt?",
+			"antwort":"Die regulären Prüfungen finden grundsätzlich im Prüfungszeitraum statt. Dieser Zeitraum wird vom Prüfungsausschuss festgelegt: <ul><li>Sommersemester: ca. 11. - 31.07. </li><li>Wintersemester: ca. 26.01. - 14.02.</li></ul> Auch Samstage sind Prüfungstage! Die genauen Termine finden Sie unter http://studienangelegenheiten. fhws.de/terminplaene.html Auf Antrag der Fakultät und Genehmigung durch die Hochschulleitung dürfen Prüfungsleistungen außerhalb dieses Zeitraums angesetzt werden, sofern dadurch keine Vorlesungszeiten verkürzt werden. Die Fakultät IW nutzt diese Möglichkeit, um Prüfungen zu Modulen, die im laufenden Semester nicht angeboten werden, vorzuziehen. Diese vorgezogenen Prüfungen werden in der Regel mindestens eine, maximal vier Vorlesungswochen vor Beginn des Prüfungszeitraumes angesetzt. Eine weitere Ausnahme betrifft Prüfungen zu Veranstaltungen der internationalen Woche. Diese werden immer am Ende der Blockveranstaltung angeboten."
+		},
+		{
+			"frage":"Wie lange darf in einem Bachelorstudiengang studiert werden?",
+			"antwort":"Laut SPO gibt es keine Obergrenze für die Studiendauer. Ohne Berücksichtigung von Fristverlängerungen kann man jedoch eine Obergrenze ableiten: Laut SPO wird für alle Prüfungsleistungen, die bis zum Ende des neunten Semesters noch nicht angetreten wurden, eine Fristfünf vergeben. Die erste Wiederholung ist nach einem Semester (10.), die ggf. zweite Wiederholung spätestens ein Jahr nach dem zweiten Fehlversuch „fällig“ (12. Sem.)."
+		},
+		{
+			"frage":"In welchen Fällen kann eine Rückmeldung unterbleiben?",
+			"antwort":"Wenn Sie bis zum Ende eines Semesters alle durch die SPO vorgeschriebenen Prüfungsleistungen erbracht haben und diese mind. mit „ausreichend“ bzw. „mit Erfolg“ bewertet wurden (Feststellung durch die PK), kann die Rückmeldung unterbleiben. Ein WS endet am 14.03., ein SS am 30.09. eines Jahres. Spezielle Fragen klären Sie bitte mit dem Hochschulservice Studium (Studenten- und Prüfungsamt). Speziell für den Fall, dass nur noch die Abschlussarbeit aussteht, besteht die Möglichkeit einer kurzfristigen Rückmeldung, wenn abzusehen ist, dass die Arbeit nicht bis zum Semesterende abgeschlossen und benotet sein wird. Auch in diesem Fall bitte rechtzeitig die Einzelheiten mit dem Hochschulservice Studium besprechen."
+		},
+		{
+			"frage":"Zu welchem Termin erfolgt die Exmatrikulation?",
+			"antwort":"Im Normalfall werden Sie zum Ende des Semesters, in dem das Ergebnis der letzten Prüfungsleistung durch die PK festgestellt wurde, exmatrikuliert. Deswegen sind auch bis zu diesem Zeitpunkt die Semestergebühren zu zahlen. Auf Antrag an den Hochschulservice Studium (Studenten- und Prüfungsamt) hin können Sie sich direkt nach Feststellung des Ergebnisses der letzten Prüfungsleistung exmatrikulieren lassen. Wenn Sie die Bachelorarbeit kurz vor Ende eines Semesters abgegeben haben, die Note aber erst durch die PK im folgenden Semester festgestellt wird, zählt das Folgesemester komplett (!) zu Ihrem Studium. Sie können sich jedoch auf Antrag an den Hochschulservice Studium eine Bescheinigung ausstellen lassen, dass Sie Ihre Leistungen bis zum Ende des vorangegangenen Semesters erbracht haben!"
+		}
+	],
+	
+	"Bachelorarbeit":
+	[
+		{
+			"frage":"Wann kann man mit einer Bachelorarbeit beginnen?",
+			"antwort":"Die Bearbeitung einer Bachelorarbeit kann frühestens begonnen werden, wenn mindestens 150 CP erreicht sowie die Praxisphase und die Projektarbeit erfolgreich abgelegt sind. Studierende des Studiengangs EC müssen zuvor auch das Modul „English Communications“ erfolgreich abgelegt haben."
+		},
+		{
+			"frage":"Welche Themen stehen für eine Bachelorarbeit zur Verfügung?",
+			"antwort":"Das Thema, das im Rahmen einer Bachelorarbeit zu bearbeiten ist, wird zwischen der/dem betreuenden Dozentin/Dozenten an der Hochschule und der/dem Studierenden vereinbart. Der Themenvorschlag kann dabei sowohl von der Dozentin/dem Dozenten als auch von der/dem Studierenden kommen. Vor Bearbeitung der Bachelorarbeit muss eine Anmeldung mit beabsichtigter Themenstellung der Prüfungskommission vorgelegt werden. Die Anmeldung erfolgt über ein elektronisches Verfahren (s. zusätzliches Merkblatt)."
+		},
+		{
+			"frage":"Wie viel Zeit steht zur Bearbeitung einer Bachelorarbeit zur Verfügung?",
+			"antwort":"Die Bearbeitungszeit für die Bachelorarbeit beträgt drei Monate. Falls die Arbeit spätestens ein Monat nach Beginn des 7. Studiensemesters (nicht: Fachsemesters!) angemeldet wird, beträgt die Bearbeitungszeit fünf Monate. Bei der Ermittlung des Studiensemesters werden auch angerechnete Studienzeiten (z. B. Anrechnung von anderenorts erbrachter Studienleistungen) berücksichtigt! Die Frist beginnt mit dem Tag der Anmeldung in der Prüfungskommission (= offizielle Ausgabe des Themas)."
+		},
+		{
+			"frage":"Was geschieht, wenn die Bearbeitungszeit für eine Bachelorarbeit nicht ausreicht?",
+			"antwort":"Sofern die Bearbeitungszeit nicht ausreicht, muss rechtzeitig an die Prüfungskommission ein Antrag auf Fristverlängerung gestellt werden, in dem die Gründe für eine Verlängerung der Bearbeitungsdauer glaubhaft darzulegen sind.. Die betreuende Dozentin/der betreuende Dozent muss eine Stellungnahme zu dem Antrag abgeben. Sofern die Prüfungskommission den Antrag nicht genehmigt, erfolgt bei Überschreitung der Bearbeitungsdauer eine Bewertung der Bachelorarbeit mit der Note „nicht ausreichend“ (Fristfünf). Bei einer Bearbeitungsdauer von drei Monaten ist eine Fristverlängerung um bis zu einem Monat, bei einer Bearbeitungszeit von fünf Monaten von bis zu zwei Monaten möglich."
+		},
+		{
+			"frage":"Ist es möglich, eine Bachelorarbeit zu wiederholen?",
+			"antwort":"Eine mit der Note „nicht ausreichend“ bewertete Bachelorarbeit muss auf jeden Fall wiederholt werden. Sie kann jedoch nur einmal mit einem neuen Thema wiederholt werden. Im Fall der Wiederholung muss die Ausgabe des neuen Themas für die Bachelorarbeit spätestens sechs Monate nach Bekanntgabe des Ergebnisses des ersten Prüfungsversuches erfolgen. Eine mit „ausreichend“ oder besser bewertete Bachelorarbeit kann nicht wiederholt werden."
+		},
+		{
+			"frage":"Ist es möglich, das Thema einer Bachelorarbeit zurückzugeben?",
+			"antwort":"Ja, das Thema darf einmal zurückgegeben werden. Die Rückgabe muss begründet werden und das vorsitzende Mitglied der Prüfungskommission muss der Rückgabe zustimmen. Je später die Rückgabe erfolgt, desto ausführlicher muss der Grund für die Rückgabe dargelegt werden."
+		},
+		{
+			"frage":"Sind extern durchgeführte Bachelorarbeiten möglich?",
+			"antwort":"Ja. Bei einer Themenstellung, die extern bei einem Unternehmen oder einer Einrichtung bearbeitet wird, muss - neben der/dem internen Betreuer(in) an der Hochschule - auch ein(e) externe(r) Betreuer(in) zur Verfügung stehen. Es muss zudem eine Betreuungsbestätigung des Unternehmens bzw. der Einrichtung vorliegen, damit eine externe Bachelorarbeit von der Prüfungskommission anerkannt werden kann."
+		},
+		{
+			"frage":"Was ist zu beachten, wenn das Unternehmen/die Einrichtung besondere Schutzinteressen geltend macht?",
+			"antwort":"In einem derartigen Fall ist ein entsprechender Sperrvermerk (s. separaten Vordruck) in die Arbeit aufzunehmen. Eine weitergehende Geheimhaltungsvereinbarung kann von Seiten der Hochschule nicht geschlossen werden."
+		},
+		{
+			"frage":"Wann ist das Bachelor-Seminar zu belegen?",
+			"antwort":"Dieses Seminar ist als Ergänzung zur Bachelorarbeit gedacht und bildet mit mit dieser zusammen ein Modul. Daher ist es in Verbindung mit dieser Arbeit abzulegen. Jede Dozentin bzw. jeder Dozent wird für die Studierenden, die bei ihr/ihm eine Bachelorarbeit schreiben, im Laufe eines Semesters verschiedene Termine für das Bachelor-Seminar festsetzen. Daher kann es sein, dass Sie ggf. schon vor Anmeldung der Arbeit an diesem Seminar teilnehmen. Die Abschlusspräsentation der Bachelorarbeit findet im Rahmen dieses Seminars statt und geht in die Benotung des Moduls ein."
+		},
+		{
+			"frage":"Welche Besonderheiten sind zu beachten, wenn die Arbeit vor Semesterende abgegeben, die Notenfeststellung aber erst im Folgesemester erfolgt?",
+			"antwort":"Bitte beachten Sie die Ausführungen in der Kategorie Termine / Fristen zu den Begriffen Rückmeldung und Exmatrikulation."
+		}
+	],
+	
+	"Projektarbeit":
+	[
+		{
+			"frage":"Welche Ziele werden mit der Projektarbeit verfolgt?",
+			"antwort":"Die bis dahin erworbenen theoretischen Kenntnisse sollen in einem praxistauglichen Projekt umgesetzt werden. Außerdem soll die Teamfähigkeit unter Beweis gestellt werden. Daher ist es erforderlich, dass die Projektarbeit von einer Gruppe (gleichgestellter) Studierender bearbeitet wird. Die Gruppengröße soll drei Personen nicht unterschreiten."
+		},
+		{
+			"frage":"Wann kann man mit der Projektarbeit beginnen?",
+			"antwort":"Die Projektarbeit ist dem letzten Studienabschnitt zugeordnet und muss vor der Bachelorarbeit abgeschlossen sein. Sie sollte daher im 6. Semester durchgeführt werden. Studierende können eine Projektarbeit beginnen, wenn sie mind. 100 CP nachweisen."
+		},
+		{
+			"frage":"Welche Themen stehen für eine Projektarbeit zur Verfügung?",
+			"antwort":"Im Prinzip gilt dieselbe Regelung wie bei der Bachelorarbeit. Die Projektarbeit wird für die gesamte Gruppe der Studierenden gestellt."
+		},
+		{
+			"frage":"Wie viel Zeit steht zur Bearbeitung einer Projektarbeit zur Verfügung?",
+			"antwort":"Die SPO weist einen Umfang von 4 SWS und 10 CP (Anlage 1) aus. Der reine Präsenzanteil, meist in Form von Besprechungen und Präsentationen, ist daher relativ gering. Der Gesamtaufwand für jede(n) Bearbeiter(in) entspricht ungefähr dem Aufwand für zwei „normale“ 4-stündige Lehrveranstaltungen, d. h. 300 Arbeitsstunden. Der Bearbeitungszeitraum ist auf max. ein Semester begrenzt, d. h. die Benotung muss spätestens in der letzten PKSitzung des Semesters, in dem die Arbeit ausgegeben wurde, erfolgen."
+		},
+		{
+			"frage":"Was geschieht, wenn die Bearbeitungszeit für eine Projektarbeit nicht ausreicht?",
+			"antwort":"Wenn Sie den Grund für die Verzögerung nicht zu vertreten haben, z B. infolge Erkrankung, können Sie einen Antrag auf Fristverlängerung an die Prüfungskommission stellen. Dieser formlose Antrag muss die Gründe glaubhaft darlegen. Außerdem ist die Zustimmung von der/dem Betreuer(in) der Hochschule erforderlich."
+		},
+		{
+			"frage":"Ist es möglich, eine Projektarbeit zu wiederholen?",
+			"antwort":"Die Projektarbeit ist in dieser Hinsicht wie eine normale Prüfungsleistung (sonstige Prüfung) zu betrachten (s. separate Frage)."
+		},
+		{
+			"frage":"Ist es möglich, das Thema einer Projektarbeit zurückzugeben?",
+			"antwort":"Nein. Mit dem Antreten der Projektarbeit (Anmeldung in der Prüfungskommission) wird die Prüfungsleistung angetreten. Falls Sie den Grund für den Abbruch der Arbeit nicht zu vertreten haben, ist eine Annullierung dieser Leistung nur aufgrund eines schriftlichen, begründeten Antrags an die Prüfungskommission möglich."
+		},
+		{
+			"frage":"Sind extern durchgeführte Projektarbeiten möglich?",
+			"antwort":"Im Prinzip gilt dieselbe Regelung wie bei einer externen Bachelorarbeit. Es ist jedoch sicherzustellen, dass auch eine externe Projektarbeit von einer studentischen Gruppe bearbeitet wird."
+		},
+		{
+			"frage":"Was ist zu beachten, wenn das Unternehmen/die Einrichtung besondere Schutzinteressen geltend macht?",
+			"antwort":"In einem derartigen Fall ist ein entsprechender Sperrvermerk (s. separaten Vordruck) in die Arbeit aufzunehmen. Eine weitergehende Geheimhaltungsvereinbarung kann von Seiten der Hochschule nicht geschlossen werden."
+		}
+	],
+	
+	"Dokumente":
+	[
+		{
+			"frage":"Welche Dokumente erhalte ich am Ende des Studiums?",
+			"antwort":"Sie erhalten ein Zeugnis, das Ihre Studienleistungen beschreibt, und eine Urkunde zur Verleihung des akademischen Grades „Bachelor of Engineering“ (Studiengang Informatik) bzw. „Bachelor of Science“ (Studiengänge E-Commerce und Wirtschaftsinformatik). Da die Bachelor-Studiengänge auf internationale Vergleichbarkeit ausgerichtet sind, wird zusätzlich ein „Transcript of Records“, im Wesentlichen eine Übersetzung des Zeugnisses, und ein „Diploma Supplement“ erstellt. Damit wird u. a. die Umrechnung der Noten in andere Bewertungssysteme beschrieben."
+		},
+		{
+			"frage":"Wann und wie erhalte ich diese Dokumente?",
+			"antwort":"Nach der Sitzung der Prüfungskommission, auf der die letzte Prüfungsleistung festgestellt wurde, werden die Dokumente ausgefertigt. Die Dokumente werden von einem Mitglied der Hochschulleitung, der Dekanin/dem Dekan und vom vorsitzenden Mitglied der Prüfungskommission unterschrieben. Der gesamte Vorgang nimmt etwas Zeit in Anspruch. Anschließend werden Sie benachrichtigt und können die Dokumente beim Hochschulservice Studium (Studenten- und Prüfungsamt) abholen."
+		},
+		{
+			"frage":"Welche Prüfungsleistungen werden im Zeugnis aufgeführt?",
+			"antwort":"Es werden alle durch die SPO vorgeschriebenen Module mit der jeweiligen Beurteilung aufgenommen. Außerdem können Wahlmodule zusammen mit der Beurteilung aufgenommen werden. Wenn Sie mehr FWPM oder AWPM belegt haben, als durch die SPO verlangt sind, können Sie entscheiden, welche Module für die Gesamtnote zählen und welche ggf. als Wahlmodule (mit Bewertung) im Zeugnis aufgeführt werden sollen."
+		},
+		{
+			"frage":"Welches Datum tragen diese Dokumente?",
+			"antwort":"Neben dem Ausstellungsdatum wird in diesen Dokumenten auch das Datum der Sitzung der Prüfungskommission (s. separate Fragen zu Gremien) genannt, auf der die letzte Prüfungsleistung festgestellt wurde. Das zuletzt genannte Datum gilt als das Schlussdatum Ihres Studiums."
+		}
+	],
+	
+	"Gremien":
+	[
+		{
+			"frage":"Wofür ist die Prüfungskommission zuständig?",
+			"antwort":"Prüfungskommissionen (PK) sind auf der Ebene der Fakultäten bzw. Studiengänge angesiedelt. Für alle Studiengänge der Fakultät Informatik und Wirtschaftsinformatik ist eine Prüfungskommission eingerichtet. Diese ist insbesondere zuständig für: <ul><li>zeitliche Organisation der Prüfungsleistungen (Prüfungsplan) </li><li>Bekanntgabe der Termine und Räume für die einzelnen Prüfungsleistungen </li><li>Bestellung der PrüferInnen (Erst- und Zweitkorrektur) </li><li>Beschluss über die zugelassenen Hilfsmittel für Prüfungen auf Vorschlag der PrüferInnen </li><li>Feststellung der Prüfungsergebnisse </li><li>Entscheidung über Anträge von Studierenden (z. B. Fristverlängerung, Genehmigung von Bachelorarbeiten, Anerkennung von anderweitig erbrachten Studienleistungen)</li></ul>"
+		},
+		{
+			"frage":"Wie oft tagt die Prüfungskommission?",
+			"antwort":"Es finden mindestens vier Sitzungen pro Semester statt, darunter eine nach Abschluss des Prüfungszeitraumes und eine i. d. R. am letzten Arbeitstag in einem Semester. Außerdem kann in dringenden Fällen ein Beschluss im Umlaufverfahren getroffen werden. Die Sitzungstermine werden für ein Semester im Voraus festgelegt und auf welearn (Prüfungsinformationen - Sitzungstermine) veröffentlicht."
+		},
+		{
+			"frage":"Wer ist in der Prüfungskommission?",
+			"antwort":"Der Prüfungskommission gehören fünf Professoren der Fakultät Informatik und Wirtschaftsinformatik an. Ab 15.03.2015 sind dies (in alphabetischer Reihenfolge): <ul><li>Prof. Dr. Balzer (stellvertretender Vorsitzende) </li><li>Prof. Dr. Hennermann </li><li>Prof. Dr. Huffstadt </li><li>Prof. Dr. Junker-Schilling (Vorsitzender) </li><li>Prof. Dr. Völkl-Wolf</li></ul> Die Amtszeit endet am 14.03.2018."
+		},
+		{
+			"frage":"Was ist der Prüfungsausschuss und wofür ist er zuständig?",
+			"antwort":"An der Hochschule existiert ein Prüfungsausschuss, der für die Prüfungsbelange der Hochschule zuständig ist. Zu seinen Aufgaben zählen z. B.: <ul><li>Festlegung und Bekanntgabe der Meldefristen </li><li>Entscheidung über grundsätzliche Fragen der Zulassungen zu Prüfungen </li><li>Entscheidungen über Prüfungszeitverlängerungen für Studierende (z. B. bei Erkrankungen, sog. Nachteilsausgleich) </li><li>Behandlung von Widersprüchen zu Entscheidungen der jeweiligen Prüfungskommission</li></ul>"
+		},
+		{
+			"frage":"Kann ich gegen Beschlüsse dieser Gremien vorgehen?",
+			"antwort":"Folgende Fälle sind zu unterscheiden: <ul><li>Widerspruch gegen eine (Einzel-)Note: Diese sogenannte Gegendarstellung wird als Antrag auf Nachkorrektur durch die Prüfungskommission behandelt. Dasselbe gilt für einen (nachträglich gestellten) Antrag auf Gewährung einer Nachfrist zur Abwehr einer sogenannten Fristfünf. </li><li>Es wurde ein Antrag (an die Prüfungskommission) gestellt und dieser wurde abgelehnt. Diese Ablehnung wird schriftlich mitgeteilt und enthält eine Rechtsbehelfsbelehrung. Je nach Situation ist durch Gesetz ein direkter Widerspruch oder nur eine Klage beim Verwaltungsgericht Würzburg möglich. Ein Widerspruch wird zunächst erneut von der Prüfungskommission behandelt. Falls die Prüfungskommission dem Widerspruch nicht stattgibt, wird dieser dem Prüfungsausschuss vorgelegt. Auch wenn nur eine Klage zulässig ist, sollten Sie dennoch zunächst einmal mit dem Hochschulservice Studium (Studenten- und Prüfungsamt) oder dem vorsitzenden Mitglied der Prüfungskommission sprechen. </li><li>Wurde ein Antrag auf Anrechnung von Studien- und Prüfungsleistungen ganz oder teilweise abgelehnt, können Sie eine Überprüfung durch die Hochschulleitung verlangen.</li></ul>"
+		},
+		{
+			"frage":"Wie erhalte ich Bescheid über das Ergebnis eines gestellten Antrags?",
+			"antwort":"Sie erhalten prinzipiell ausschließlich vom Hochschulservice Studium einen Bescheid mit vollständiger Belehrung über mögliche Rechtsmittel. Nur diese Bescheide sind verbindlich! Insbesondere darf kein Mitglied der PK einen Beschluss des Gremiums mitteilen."
+		},
+		{
+			"frage":"Was muss ich bei Anträgen beachten?",
+			"antwort":"Ein Antrag muss fristgerecht gestellt werden. Insbesondere muss ein Antrag sofort nach Eintritt des Ereignisses, dass Sie zu diesen Antrag veranlasst, gestellt werden, es sei denn Sie sind krankheitsbedingt nicht in der Lage diesen Antrag zu stellen bzw. stellen zu lassen. Nur Anträge auf Nachteilsausgleich sind an den Prüfungsausschuss zu stellen. In allen anderen Fällen richten Sie Ihren Antrag an die Prüfungskommission. Bitte informieren Sie sich über die Sitzungstermine der PK! Ein Antrag soll schriftlich vorliegen. Er soll Ihren Namen und Ihre Matrikelnummer enthalten und ist von Ihnen zu unterschreiben. Bei Anträgen auf Fristverlängerung für die Bearbeitungszeit einer Bachelor- oder Projektarbeit ist auch die Zustimmung der/des betreuenden ProfessorIn einzuholen. Die Gründe für den Antrag sind glaubhaft darzulegen und entsprechende Belege im Original beizufügen."
+		}
+	],
+	
+	"Sonstiges":
+	[
+		{
+			"frage":"Besteht Anwesenheitspflicht bei Lehrveranstaltungen?",
+			"antwort":"Nur bei den in den Anlagen zur SPO entsprechend gekennzeichneten Lehrveranstaltungen besteht Anwesenheitspflicht (Fußnote 3). Dies sind: Soft und Professional Skills, Vertiefungsseminar sowie Bachelor-Seminar. Im Studiengang EC besteht zusätzlich im Hauptseminar Anwesenheitspflicht. Die erfolgreiche Teilnahme kann nur festgestellt werden, wenn Sie an höchstens 25 % der angesetzten Termine aus selbst zu vertretenden Gründen nicht teilgenommen haben."
+		},
+		{
+			"frage":"Was sind Leistungspunkte?",
+			"antwort":"Mit Einführung der Bachelor- und Master-Studiengänge wird jede Studienleistung unter zwei Gesichtspunkten bewertet: Die Note gibt an, wie gut Sie eine Leistung erbracht haben. Die Leistungspunkte (credit points, CP) spiegeln den Arbeitsaufwand, den Sie im Mittel (!) aufwenden mussten, wieder. Ein Leistungspunkt entspricht ungefähr einem Arbeitsaufwand von 30 Stunden (à 60 min). Ein reguläres Semester entspricht einem Aufwand von 30 CP."
+		},
+		{
+			"frage":"Gibt es halbe Leistungspunkte?",
+			"antwort":"Da es sich ohnehin nur um einen durchschnittliche Angabe der Arbeitsbelastung handelt, ist es nicht sinnvoll, eine Scheingenauigkeit vorzutäuschen. Allerdings werden für das AWPM insgesamt 5 CP vergeben. Dies entspricht rechnerisch einem Anteil von 2,5 CP pro zweistündigem AWPF! Bitte beachten Sie, dass in der Notenauskunft nur ganze CP ausgewiesen werden! Zusammen mit dem zweiten zweistündigen AWPF werden dann erst die vollen 5 CP eingetragen."
+		},
+		{
+			"frage":"Sind die Bachelor-Studiengänge akkreditiert? ",
+			"antwort":"Für die Studiengänge Informatik und Wirtschaftsinformatik erfolgte die Reakkreditierung durch ASIIN - Akkreditierungsstelle Ingenieurwissenschaften, Informatik und Naturwissenschaften im April 2014. Zum gleichen Zeitpunkt wurde der Studiengang E-Commerce erstmals akkreditiert."
+		},
+		{
+			"frage":"Wo kann ich weitere Informationen finden?",
+			"antwort":"Weitere, vertiefte Informationen finden Sie in der: <ul> <li>Studien- und Prüfungsordnung (SPO) <ul> <li>für den Bachelor-Studiengang E-Commerce vom 28. Juli 2016, </li><li>für den Bachelor-Studiengang Informatik vom 28. Juli 2016 sowie </li> <li>für den Bachelor-Studiengang Wirtschaftsinformatik vom 28. Juli 2016.</li> </ul> Die nicht autorisierten, konsolidierten Fassungen auf welearn (Bachelor – jeweiliger Studiengang - SPO) geben den jeweils aktuellen Sachstand wieder.</li><li>Allgemeine Prüfungsordnung (APO) der Hochschule für angewandte Wissenschaften Würzburg-Schweinfurt vom 26. Oktober 2010 (in der jeweils aktuellen Fassung)</li><li>Rahmenprüfungsordnung (RaPO) für die Fachhochschulen in Bayern vom 17. Oktober 2001 (GVBl S. 686) in der Fassung der Änderungsverordnung vom 06. August 2010 (GVBl S. 688, in der jeweils aktuellen Fassung)</li> </ul>"
+		},
+		{
+			"frage":"Wer erteilt Auskünfte?",
+			"antwort":"Weitere verbindliche Auskünfte über Prüfungsangelegenheiten werden durch den Hochschulservice Studium (Studenten- und Prüfungsamt) (Frau Füri und Herr Hock, Raum I.1.45) sowie durch den Vorsitzenden der Prüfungskommission (Prof. Dr. Junker-Schilling, Raum I.3.41, E-Mail: klaus.junker-schilling@fhws.de) gegeben. Für allgemeine Fragen zur Studienorganisation stehen Ihnen auch die Studienfachberater zur Verfügung: <ul><li>für den Studiengang E-Commerce: Prof. Dr. Völkl-Wolf (Raum I.3.42, E-Mail: christina. voelkl-wolf@fhws.de) </li><li>für den Studiengang Informatik: Prof. Dr. Balzer (Raum I.3.26, E-Mail: arndt.balzer@fhws. de) </li><li>für den Studiengang Wirtschaftsinformatik: Prof. Dr. Wedlich (Raum I.3.35, E-Mail: eva.wedlich@fhws.de)</li></ul>"
+		}
+	]
+	
+}
+
+ 
