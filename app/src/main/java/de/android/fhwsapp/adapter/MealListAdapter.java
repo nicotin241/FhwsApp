@@ -47,7 +47,6 @@ public class MealListAdapter extends BaseAdapter {
 
         private ImageView foodtype_image;
         private TextView meal_name;
-        private TextView meal_description;
         private TextView meal_price;
 
     }
@@ -64,11 +63,8 @@ public class MealListAdapter extends BaseAdapter {
 
             viewHolder = new ViewHolder();
 
-
             viewHolder.foodtype_image = (ImageView) view.findViewById(R.id.foodtype_image);
-
             viewHolder.meal_name = (TextView) view.findViewById(R.id.meal_name);
-            viewHolder.meal_description = (TextView) view.findViewById(R.id.meal_description);
             viewHolder.meal_price = (TextView) view.findViewById(R.id.meal_price);
 
 
@@ -84,6 +80,38 @@ public class MealListAdapter extends BaseAdapter {
 
         viewHolder.meal_name.setText(meal.getName());
         viewHolder.meal_price.setText(meal.getPrice_students() + " €");
+        switch (meal.getFoodtype()) {
+            case "Schwein":
+                viewHolder.foodtype_image.setImageResource(R.drawable.schwein);
+                break;
+            case "Rind":
+                viewHolder.foodtype_image.setImageResource(R.drawable.rind);
+                break;
+            case "Gefluegel":
+                viewHolder.foodtype_image.setImageResource(R.drawable.gefluegel);
+                break;
+            case "Fisch":
+                viewHolder.foodtype_image.setImageResource(R.drawable.fisch);
+                break;
+            case "Fleischlos":
+                viewHolder.foodtype_image.setImageResource(R.drawable.fleischlos);
+                break;
+            case "Vegan":
+                viewHolder.foodtype_image.setImageResource(R.drawable.vegan);
+                break;
+            case "Kalb":
+                viewHolder.foodtype_image.setImageResource(R.drawable.kalb);
+                break;
+            case "Lamm":
+                viewHolder.foodtype_image.setImageResource(R.drawable.lamm);
+                break;
+            case "Vorderschinken":
+                viewHolder.foodtype_image.setImageResource(R.drawable.vorderschinken);
+                break;
+            case "Wild":
+                viewHolder.foodtype_image.setImageResource(R.drawable.wild);
+                break;
+        }
 
 
 

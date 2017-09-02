@@ -3,43 +3,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/white"
     tools:context="de.android.fhwsapp.fragments.MensaFragment">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/mensa_title"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:background="#e6e6e6">
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:gravity="left"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25dp" />
 
-        <ImageView
-            android:layout_width="0sp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="8dp"
-            android:src="@drawable/arrow_grey_left"/>
-
-        <TextView
-            android:layout_width="0sp"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:gravity="center"
-            android:textSize="25dp"
-            android:textColor="#000"
-            android:text="Heute" />
-
-        <ImageView
-            android:layout_width="0sp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="8dp"
-            android:src="@drawable/arrow_grey_right"/>
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/mensa_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:textColor="@android:color/black"
+        android:textSize="20dp"/>
 
     <ListView
         android:id="@+id/mealList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="16dp"
+        android:dividerHeight="0dp"
+        android:divider="@null">
 
     </ListView>
 

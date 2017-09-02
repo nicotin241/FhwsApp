@@ -1,8 +1,8 @@
 package de.android.fhwsapp.objects;
 
-/**
- * Created by alex on 24.06.17.
- */
+import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
 
 public class Meal {
 
@@ -13,13 +13,32 @@ public class Meal {
     *
     * */
 
+    @SerializedName("mensaid")
     private int mensa_id;
 
+    @SerializedName("name")
     private String name;
-    private String artname;
+
+    @SerializedName("date")
     private String date;
-    private String price_students;
+
+    @SerializedName("pricebed")
+    private String price_bed;
+
+    @SerializedName("additives")
+    private ArrayList<String> additives;
+
+    @SerializedName("artname")
+    private String artname;
+
+    @SerializedName("priceguest")
+    private String price_guest;
+
+    @SerializedName("foodtype")
     private String foodtype;
+
+    @SerializedName("price")
+    private String price_students;
 
     public Meal() {
 
@@ -71,5 +90,29 @@ public class Meal {
 
     public void setFoodtype(String foodtype) {
         this.foodtype = foodtype;
+    }
+
+    public String getPrice_bed() {
+        return price_bed;
+    }
+
+    public void setPrice_bed(String price_bed) {
+        this.price_bed = price_bed;
+    }
+
+    public ArrayList<String> getAdditives() {
+        return additives;
+    }
+
+    public void setAdditives(ArrayList<String> additives) {
+        this.additives = additives;
+    }
+
+    public String getPrice_guest() {
+        return price_guest;
+    }
+
+    public void setPrice_guest(String price_guest) {
+        this.price_guest = price_guest;
     }
 }

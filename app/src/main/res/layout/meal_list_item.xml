@@ -5,50 +5,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/foodtype_image"
+    <LinearLayout
         android:layout_width="0sp"
-        android:layout_height="60dp"
-        android:layout_gravity="center_vertical"
-        android:layout_margin="8dp"
-        android:adjustViewBounds="true"
-        android:layout_weight="2"
-        android:src="@drawable/bus"/>
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingTop="16dp">
+
+        <ImageView
+            android:id="@+id/foodtype_image"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:paddingBottom="8dp"
+            android:adjustViewBounds="true" />
+
+        <ImageView
+            android:id="@+id/info"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:adjustViewBounds="true"
+            android:layout_gravity="bottom"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:src="@drawable/info"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="0sp"
         android:layout_height="match_parent"
-        android:layout_weight="7"
+        android:layout_weight="8"
         android:padding="8dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/meal_name"
-            android:layout_width="wrap_content"
-            android:layout_height="0sp"
-            android:layout_weight="3"
-            android:textSize="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:textStyle="bold"
             android:textColor="#000"/>
 
         <TextView
-            android:id="@+id/meal_description"
-            android:layout_width="wrap_content"
-            android:layout_height="0sp"
-            android:layout_weight="1"
-            android:textColor="#737373"
-            android:gravity="top"
-            android:visibility="gone"/>
+            android:id="@+id/meal_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom|end"
+            android:textColor="#000"
+            android:padding="10dp" />
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/meal_price"
-        android:layout_width="0sp"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:gravity="bottom"
-        android:textColor="#000"
-        android:padding="10dp"
-        />
 
 </LinearLayout>
