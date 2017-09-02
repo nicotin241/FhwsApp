@@ -245,6 +245,7 @@ public class MainActivity extends AppCompatActivity
         setFragment(mFragment);
     }
     public void startNotenverlaufWebView(View view){
+
         mFragment = new MyWebView();
         Bundle bundle = new Bundle();
 
