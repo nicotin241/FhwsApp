@@ -123,6 +123,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_grades) {
 
+            startNotenWebView(null);
+
         } else if (id == R.id.nav_mensa) {
 
             mFragment = new MensaFragment();

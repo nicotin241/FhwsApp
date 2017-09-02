@@ -63,25 +63,30 @@ public class MyWebView extends Fragment implements View.OnClickListener {
             public void onPageFinished(WebView view, String url2) {
                 super.onPageFinished(view, url2);
 
-                if(didOnce)
+                if(didOnce) {
+
+                    //wird verwendet um von der Startseite nach dem Login zu der eigentlichen Seite zu gelangen
+                    if(!url2.equals(url))
+                        webView.loadUrl(url);
+
+                    //button logik
+                    if(url.equals("https://studentenportal.fhws.de/history")){
+                        btnDownloadView.setText(btnDownloadView.getText()+"\nStudienverlauf");
+                        btnDownloadView.setVisibility(View.VISIBLE);
+                    } else if(url.equals("https://studentenportal.fhws.de/cert")){
+                        btnDownloadView.setText(btnDownloadView.getText()+"\nImmatrikulationsbescheinigung\n");
+                        btnDownloadView.setVisibility(View.VISIBLE);
+                        imma = true;
+                    }
+
                     return;
+                }
 
                 didOnce = true;
 
+                //führt bei login screen das javascript aus
                 view.loadUrl(js);
 
-                if(!url2.equals(url))
-                    webView.loadUrl(url);
-
-
-                if(url.equals("https://studentenportal.fhws.de/history")){
-                    btnDownloadView.setText(btnDownloadView.getText()+"\nStudienverlauf");
-                    btnDownloadView.setVisibility(View.VISIBLE);
-                } else if(url.equals("https://studentenportal.fhws.de/cert")){
-                    btnDownloadView.setText(btnDownloadView.getText()+"\nImmatrikulationsbescheinigung\n");
-                    btnDownloadView.setVisibility(View.VISIBLE);
-                    imma = true;
-                }
             }
         });
 
