@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity
         editor = mPrefs.edit();
 
         manager = getSupportFragmentManager();
-        mFragment = new SpoFragment();
+        mFragment = new MainFragment();
         setFragment(mFragment);
 
 
