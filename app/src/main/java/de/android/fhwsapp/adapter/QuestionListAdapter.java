@@ -23,6 +23,9 @@ public class QuestionListAdapter extends BaseAdapter {
     Context context;
     ArrayList<SpoQuestionObject> listData;
 
+    final int arrowUp = R.drawable.arrow_grey_top;
+    final int arrowDown = R.drawable.arrow_grey_bottom;
+
     public QuestionListAdapter(Context context, ArrayList<SpoQuestionObject> listData) {
 
         this.context = context;
@@ -88,7 +91,7 @@ public class QuestionListAdapter extends BaseAdapter {
 
         SpoQuestionObject question = listData.get(position);
 
-        viewHolder.question.setText(question.getQuestion());
+        viewHolder.question.setText((position + 1) + ". " + question.getQuestion());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             viewHolder.answer.setText(Html.fromHtml(question.getAnswer(), Build.VERSION.SDK_INT));
@@ -96,7 +99,7 @@ public class QuestionListAdapter extends BaseAdapter {
             viewHolder.answer.setText(Html.fromHtml(question.getAnswer()));
         }
 
-        viewHolder.arrow.setImageResource(R.drawable.arrow_grey_bottom);
+        viewHolder.arrow.setImageResource(arrowDown);
         final ViewHolder finalViewHolder = viewHolder;
         viewHolder.element.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,12 +108,12 @@ public class QuestionListAdapter extends BaseAdapter {
                 if(finalViewHolder.answer.getVisibility() == View.GONE) {
 
                     finalViewHolder.answer.setVisibility(View.VISIBLE);
-                    finalViewHolder.arrow.setImageResource(R.drawable.arrow_grey_top);
+                    finalViewHolder.arrow.setImageResource(arrowUp);
 
                 } else {
 
                     finalViewHolder.answer.setVisibility(View.GONE);
-                    finalViewHolder.arrow.setImageResource(R.drawable.arrow_grey_bottom);
+                    finalViewHolder.arrow.setImageResource(arrowDown);
 
                 }
 

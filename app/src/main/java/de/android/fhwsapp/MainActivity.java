@@ -25,6 +25,8 @@ import de.android.fhwsapp.Timetable.Timetable;
 import de.android.fhwsapp.busplaene.Busplaene;
 import de.android.fhwsapp.fragments.MainFragment;
 import de.android.fhwsapp.fragments.MensaFragment;
+import de.android.fhwsapp.fragments.SpoFragment;
+import de.android.fhwsapp.fragments.WebViewFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -136,6 +138,11 @@ public class MainActivity extends AppCompatActivity
             }
 
         } else if (id == R.id.nav_progress) {
+
+        } else if (id == R.id.nav_spo) {
+
+            mFragment = new SpoFragment();
+            setFragment(mFragment);
 
         } else if (id == R.id.nav_imma) {
 
