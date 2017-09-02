@@ -16,6 +16,7 @@
             android:layout_height="160dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
+            android:onClick="startLVFragment"
             card_view:cardCornerRadius="2dp">
 
                 <LinearLayout
@@ -99,6 +100,67 @@
                 android:textSize="50sp" />
 
         </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/Noten"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="2dp"
+            android:onClick="startNotenWebView">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:text="Noten"
+                android:textColor="@android:color/white"
+                android:textSize="50sp" />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/studienverlauf"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="2dp"
+            android:onClick="startNotenverlaufWebView">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:text="Studienverlauf"
+                android:textColor="@android:color/white"
+                android:textSize="50sp" />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/Immatrik"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="2dp"
+            android:onClick="startImmatrikWebView">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:text="Immatrikulationsbescheinigung"
+                android:textColor="@android:color/white"
+                android:textSize="50sp" />
+
+        </android.support.v7.widget.CardView>
+
 
         <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/mensa"

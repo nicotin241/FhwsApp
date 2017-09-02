@@ -69,6 +69,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
 
+    public static final String K_NUMBER = "kNumber";
+    public static final String PASSWORD = "password";
+
+
     private SharedPreferences mPrefs;
     private SharedPreferences.Editor editor;
 
@@ -122,6 +126,11 @@ public class LoginActivity extends AppCompatActivity {
         editor.putBoolean("signedIn", true);
         editor.apply();
         //new LoginTask().execute();
+
+
+        //save kNumber and Password
+        editor.putString(K_NUMBER,mK_Nummer.getText().toString()).apply();
+        editor.putString(PASSWORD,mPasswordView.getText().toString()).apply();
 
     }
 
