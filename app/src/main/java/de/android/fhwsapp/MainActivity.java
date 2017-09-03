@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import de.android.fhwsapp.Timetable.Timetable;
 import de.android.fhwsapp.busplaene.Busplaene;
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity
     private SharedPreferences mPrefs;
     private SharedPreferences.Editor editor;
 
-    private ScrollView scrollView;
+    private DrawerLayout drawer_layout;
 
     private Context mContext;
 
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity
 
         mContext = this;
 
-        scrollView = (ScrollView) findViewById(R.id.svMain);
+        drawer_layout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         initToolbar();
 
@@ -67,8 +69,8 @@ public class MainActivity extends AppCompatActivity
         mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         editor = mPrefs.edit();
 
-        password = mPrefs.getString(LoginActivity.PASSWORD,"");
-        username = mPrefs.getString(LoginActivity.K_NUMBER,"");
+        password = mPrefs.getString(LoginActivity.PASSWORD, "");
+        username = mPrefs.getString(LoginActivity.K_NUMBER, "");
 
 
         manager = getSupportFragmentManager();
@@ -86,28 +88,6 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -190,15 +170,16 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void setFragment (Fragment fragment){
+    private void setFragment(Fragment fragment) {
         String backStateName = fragment.getClass().getName();
 
-        boolean fragmentPopped = manager.popBackStackImmediate (backStateName, 0);
+        boolean fragmentPopped = manager.popBackStackImmediate(backStateName, 0);
 
-        if (!fragmentPopped){ //fragment not in back stack, create it.
+        if (!fragmentPopped) { //fragment not in back stack, create it.
             android.support.v4.app.FragmentTransaction ft = manager.beginTransaction();
             ft.replace(R.id.content_frame, fragment);
-            if(!(fragment instanceof MainFragment)) ft.addToBackStack(backStateName);  //do this to avoid white screen after backPressed
+            if (!(fragment instanceof MainFragment))
+                ft.addToBackStack(backStateName);  //do this to avoid white screen after backPressed
             ft.commit();
         }
     }
@@ -217,60 +198,96 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void startBuslinienFragment(View view){
+    public void startBuslinienFragment(View view) {
         mFragment = new Busplaene();
         setFragment(mFragment);
     }
 
-    public void startImmatrikWebView(View view){
-        mFragment = new MyWebView();
-        Bundle bundle = new Bundle();
+    public void startImmatrikWebView(View view) {
 
-        final String js = "javascript:" +
-                "document.getElementsByName('password')[0].value = '" + password + "';"  +
-                "document.getElementsByName('username')[0].value = '" + username + "';"  +
-                "document.getElementsByClassName('btn btn-primary')[0].click()";
+        if (loginDataFilled()) {
 
-        bundle.putString("url","https://studentenportal.fhws.de/cert");
-        bundle.putString("js",js);
-        mFragment.setArguments(bundle);
-        setFragment(mFragment);
+            mFragment = new MyWebView();
+            Bundle bundle = new Bundle();
+
+            final String js = "javascript:" +
+                    "document.getElementsByName('password')[0].value = '" + password + "';" +
+                    "document.getElementsByName('username')[0].value = '" + username + "';" +
+                    "document.getElementsByClassName('btn btn-primary')[0].click()";
+
+            bundle.putString("url", "https://studentenportal.fhws.de/cert");
+            bundle.putString("js", js);
+            mFragment.setArguments(bundle);
+            setFragment(mFragment);
+
+        } else showSnackbar();
+
     }
 
-    public void startNotenverlaufWebView(View view){
+    public void startNotenverlaufWebView(View view) {
 
-        mFragment = new MyWebView();
-        Bundle bundle = new Bundle();
+        if (loginDataFilled()) {
 
-        final String js = "javascript:" +
-                "document.getElementsByName('password')[0].value = '" + password + "';"  +
-                "document.getElementsByName('username')[0].value = '" + username + "';"  +
-                "document.getElementsByClassName('btn btn-primary')[0].click()";
+            mFragment = new MyWebView();
+            Bundle bundle = new Bundle();
 
-        bundle.putString("url","https://studentenportal.fhws.de/history");
-        bundle.putString("js",js);
-        mFragment.setArguments(bundle);
-        setFragment(mFragment);
+            final String js = "javascript:" +
+                    "document.getElementsByName('password')[0].value = '" + password + "';" +
+                    "document.getElementsByName('username')[0].value = '" + username + "';" +
+                    "document.getElementsByClassName('btn btn-primary')[0].click()";
+
+            bundle.putString("url", "https://studentenportal.fhws.de/history");
+            bundle.putString("js", js);
+            mFragment.setArguments(bundle);
+            setFragment(mFragment);
+
+        } else showSnackbar();
     }
 
-    public void startNotenWebView(View view){
-        mFragment = new MyWebView();
+    public void startNotenWebView(View view) {
 
-        final String js = "javascript:" +
-                "document.getElementsByName('password')[0].value = '" + password + "';"  +
-                "document.getElementsByName('username')[0].value = '" + username + "';"  +
-                "document.getElementsByClassName('btn btn-primary')[0].click()";
+        if (loginDataFilled()) {
+            mFragment = new MyWebView();
 
-        Bundle bundle = new Bundle();
-        bundle.putString("url","https://studentenportal.fhws.de/grades");
-        bundle.putString("js",js);
-        mFragment.setArguments(bundle);
-        setFragment(mFragment);
+            final String js = "javascript:" +
+                    "document.getElementsByName('password')[0].value = '" + password + "';" +
+                    "document.getElementsByName('username')[0].value = '" + username + "';" +
+                    "document.getElementsByClassName('btn btn-primary')[0].click()";
+
+            Bundle bundle = new Bundle();
+            bundle.putString("url", "https://studentenportal.fhws.de/grades");
+            bundle.putString("js", js);
+            mFragment.setArguments(bundle);
+            setFragment(mFragment);
+
+        } else showSnackbar();
+    }
+
+    private void showSnackbar() {
+
+        Snackbar bar = Snackbar.make(drawer_layout, "Anmeldung notwendig", Snackbar.LENGTH_LONG)
+                .setAction("LogIn", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(getApplication(), LoginActivity.class));
+                        finish();
+                    }
+                });
+
+        bar.show();
+
     }
 
     public static boolean isNetworkConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null;
+    }
+
+    private boolean loginDataFilled() {
+
+        if (username.equals("") || password.equals("")) return false;
+        else return true;
+
     }
 
 }
