@@ -26,7 +26,7 @@ public class PdfViewer {
     private Context context;
     private FragmentActivity activity;
 
-    public PdfViewer(Context context, FragmentActivity activity){
+    public PdfViewer(Context context, FragmentActivity activity) {
         this.context = context;
         this.activity = activity;
     }

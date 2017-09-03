@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.HashMap;
 
 import de.android.fhwsapp.Database;
+import de.android.fhwsapp.adapter.BuslinienListAdapter;
 import de.android.fhwsapp.objects.Meal;
 
 
@@ -115,13 +116,7 @@ public class BusplanDataFetcher extends AsyncTask<Void, Void, Void> {
 
         map = database.getBusLinien();
 
-
-        //dummy daten
-        //map.put("Linie 10","http://www.zoo2.biozentrum.uni-wuerzburg.de/fileadmin/07020200/zoo2/Eingebundene_Dateien/Konferenzen/Bus_No_10_to_Biocenter.pdf");
-
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, map.keySet().toArray(new String[map.keySet().size()]));
-        listView.setAdapter(adapter);
+        listView.deferNotifyDataSetChanged();
 
         super.onPostExecute(aVoid);
 
