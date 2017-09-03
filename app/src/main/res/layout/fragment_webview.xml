@@ -9,8 +9,11 @@
     <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/webView"
-        />
+        android:layout_marginTop="-86dp"
+        android:layout_marginBottom="-200dp"
+        android:layout_marginLeft="-32dp"
+        android:layout_marginRight="-32dp"
+        android:id="@+id/webView" />
 
     <Button
         android:id="@+id/btnDownloadView"

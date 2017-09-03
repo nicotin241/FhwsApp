@@ -16,12 +16,14 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -212,12 +214,32 @@ public class MensaFragment extends Fragment {
 
                 URL url = new URL(URL_AUSSTELLER);
                 urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                urlConnection.setRequestMethod("GET");
+                urlConnection.setRequestProperty("Content-Type", "application/json");
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
+                if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+
+                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+                } else {
+
+                    getActivity().runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            try {
+                                Toast.makeText(getContext(), "Server-Fehler: " + urlConnection.getResponseCode() + "-" + urlConnection.getResponseMessage(), Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+
                 }
 
             } catch (Exception e) {
@@ -241,10 +263,15 @@ public class MensaFragment extends Fragment {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 allMeals = gson.fromJson(result.toString(), Meal[].class);
 
-                getTodayMeals();
+                if (allMeals != null) {
 
-                mAdapter = new MealListAdapter(mContext, todayMeals);
-                mListView.setAdapter(mAdapter);
+                    getTodayMeals();
+                    mAdapter = new MealListAdapter(mContext, todayMeals);
+                    mListView.setAdapter(mAdapter);
+
+                }
+
+
 
             }
         }
