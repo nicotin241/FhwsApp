@@ -1,10 +1,13 @@
 package de.android.fhwsapp.webView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
 import android.webkit.JsResult;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -18,16 +21,15 @@ import java.io.UnsupportedEncodingException;
 import de.android.fhwsapp.R;
 import de.android.fhwsapp.pdfDownloaderViewer.PdfViewer;
 
-public class MyWebView extends Fragment implements View.OnClickListener {
+public class MyWebView extends Fragment {
 
     private WebView webView = null;
-    private Button btnDownloadView;
-    private boolean didOnce = false;
-    private boolean imma = false;
     private View view;
     private String url;
     private String js;
 
+    private SharedPreferences mPrefs;
+    private SharedPreferences.Editor editor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,42 +41,45 @@ public class MyWebView extends Fragment implements View.OnClickListener {
         js = getArguments().getString("js");
 
         webView = (WebView) view.findViewById(R.id.webView);
-        btnDownloadView = (Button) view.findViewById(R.id.btnDownloadView);
 
-        btnDownloadView.setOnClickListener(this);
-
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        editor = mPrefs.edit();
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
         webView.loadUrl(url);
-        webView.setWebViewClient(new WebViewClient(){
+        webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url2) {
                 super.onPageFinished(view, url2);
 
-                if(didOnce) {
+                String myCookies = CookieManager.getInstance().getCookie(url);
+                editor.putString("Cookie", myCookies);
+                editor.apply();
 
-                    //wird verwendet um von der Startseite nach dem Login zu der eigentlichen Seite zu gelangen
-                    if(!url2.equals(url))
-                        webView.loadUrl(url);
+                if (url2.equals("https://studentenportal.fhws.de/login")) {
 
-                    //button logik
-                    if(url.equals("https://studentenportal.fhws.de/history")){
-                        btnDownloadView.setText("Download/View\nStudienverlauf");
-                        btnDownloadView.setVisibility(View.VISIBLE);
-                    } else if(url.equals("https://studentenportal.fhws.de/cert")){
-                        btnDownloadView.setText("Download/View\nImmatrikulationsbescheinigung\n");
-                        btnDownloadView.setVisibility(View.VISIBLE);
-                        imma = true;
-                    }
+                    //führt bei login screen das javascript aus
+                    view.loadUrl(js);
 
-                    return;
+                } else if(url2.contains("pdf?semester=")) {
+
+                    String semester = url2.substring(url2.length() - 6);
+                    downloadPdf(url2, "FHWS-Dokumente", "Immatrikulation " + semester);
+
+                } else if(url2.contains("history/pdf")) {
+
+                    downloadPdf(url2, "FHWS-Dokumente", "Studienverlauf");
+
+                } else if(url2.contains("grades/pdf")) {
+
+                    downloadPdf(url2, "FHWS-Dokumente", "Notenauszug");
+
+                } else if(!url2.equals(url)) {
+
+                    webView.loadUrl(url);
+
                 }
-
-                didOnce = true;
-
-                //führt bei login screen das javascript aus
-                view.loadUrl(js);
 
             }
         });
@@ -82,55 +87,8 @@ public class MyWebView extends Fragment implements View.OnClickListener {
         return view;
     }
 
-    public void prepareDownload(){
-        if(imma) {
-
-            //get Semester
-
-            final String folderName = "Immatrikulationsbescheinigung";
-
-            String myJsString = "document.getElementsByName('semester')[0].options[document.getElementsByName('semester')[0].selectedIndex].value";
-
-            if (android.os.Build.VERSION.SDK_INT >= 19) {
-                webView.evaluateJavascript("(function() { return getStringToMyAndroid('" + myJsString + "'); })();", new ValueCallback<String>() {
-                    @Override
-                    public void onReceiveValue(String semester) {
-                        downloadPdf("https://studentenportal.fhws.de/cert/pdf?semester="+semester,folderName,semester);
-                    }
-                });
-            }else{
-                WebChromeClient MyWebChromeClient = new WebChromeClient() {
-                    @Override
-                    public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
-                        try {
-                            String semester = java.net.URLDecoder.decode(message, "UTF-8");
-                            downloadPdf("https://studentenportal.fhws.de/cert/pdf?semester="+semester,folderName,semester);
-                        } catch (UnsupportedEncodingException e) {
-                            Toast.makeText(getContext(),"Es ist leider ein Fehler aufgetreten",Toast.LENGTH_LONG).show();
-                        }
-                        return true;
-                    }
-                };
-
-                webView.setWebChromeClient(MyWebChromeClient);
-
-                webView.loadUrl("javascript:" +"alert("+myJsString+")");
-            }
-        }else{
-            downloadPdf("https://studentenportal.fhws.de/history/pdf", "Studienverlauf","studienverlauf");
-        }
+    private void downloadPdf(String url, String folderName, String fileName) {
+        new PdfViewer(getContext(), getActivity()).viewPdf(url, folderName, fileName);
     }
 
-    private void downloadPdf(String url, String folderName, String fileName){
-        new PdfViewer(getContext(),getActivity()).viewPdf(url,folderName,fileName);
-    }
-
-    @Override
-    public void onClick(View v) {
-        try {
-            prepareDownload();
-        }catch (Exception e){
-            Toast.makeText(getContext(),"Es ist leider ein Fehler aufgetreten",Toast.LENGTH_LONG).show();
-        }
-    }
 }

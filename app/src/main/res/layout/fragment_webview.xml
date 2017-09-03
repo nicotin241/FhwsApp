@@ -14,15 +14,4 @@
         android:layout_marginRight="-32dp"
         android:id="@+id/webView" />
 
-    <Button
-        android:id="@+id/btnDownloadView"
-        android:background="@drawable/rounded_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Download/View"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="8dp"
-        android:padding="2dp"
-        android:visibility="gone"
-        />
 </FrameLayout>

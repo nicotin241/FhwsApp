@@ -104,7 +104,7 @@ public class PdfViewer {
             }catch (IOException e){
                 e.printStackTrace();
             }
-            FileDownloader.downloadFile(fileUrl, pdfFile);
+            FileDownloader.downloadFile(fileUrl, pdfFile, context);
 
             view(pdfFile.getAbsolutePath());
             return null;
