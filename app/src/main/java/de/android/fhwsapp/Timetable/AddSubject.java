@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -22,8 +21,8 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.util.Calendar;
 
-import de.android.fhwsapp.R;
 import de.android.fhwsapp.Database;
+import de.android.fhwsapp.R;
 
 public class AddSubject extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
 

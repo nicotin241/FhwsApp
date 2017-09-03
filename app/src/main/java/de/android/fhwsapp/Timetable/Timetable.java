@@ -22,7 +22,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -37,13 +36,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
+import de.android.fhwsapp.Database;
 import de.android.fhwsapp.MainActivity;
 import de.android.fhwsapp.R;
 import de.android.fhwsapp.Timetable.BTGridPager.BTFragmentGridPager;
-import de.android.fhwsapp.Database;
-import de.android.fhwsapp.fragments.MainFragment;
 
 public class Timetable extends FragmentActivity {
 

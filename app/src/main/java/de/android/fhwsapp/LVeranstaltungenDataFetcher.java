@@ -10,10 +10,8 @@ import android.widget.ProgressBar;
 
 import org.joda.time.DateTime;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,10 +24,8 @@ import java.util.List;
 
 import de.android.fhwsapp.Timetable.MyListAdapter;
 import de.android.fhwsapp.Timetable.Subject;
-import de.android.fhwsapp.objects.Meal;
 
 import static android.content.Context.MODE_PRIVATE;
-import static java.security.AccessController.getContext;
 
 /**
  * Created by admin on 01.09.17.

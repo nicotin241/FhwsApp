@@ -3,7 +3,6 @@ package de.android.fhwsapp.Timetable;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.json.JSONObject;
 
 
 public class Subject {

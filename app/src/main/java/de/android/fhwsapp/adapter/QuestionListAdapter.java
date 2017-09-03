@@ -14,7 +14,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import de.android.fhwsapp.R;
-import de.android.fhwsapp.objects.Meal;
 import de.android.fhwsapp.objects.SpoQuestionObject;
 
 

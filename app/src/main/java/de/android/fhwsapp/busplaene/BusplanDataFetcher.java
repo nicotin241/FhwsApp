@@ -2,7 +2,6 @@ package de.android.fhwsapp.busplaene;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -18,8 +17,6 @@ import java.net.URL;
 import java.util.HashMap;
 
 import de.android.fhwsapp.Database;
-import de.android.fhwsapp.adapter.BuslinienListAdapter;
-import de.android.fhwsapp.objects.Meal;
 
 
 public class BusplanDataFetcher extends AsyncTask<Void, Void, Void> {

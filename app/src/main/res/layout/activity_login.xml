@@ -1,95 +1,90 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="de.android.fhwsapp.LoginActivity">
 
-    <!-- Login progress -->
-    <ProgressBar
-        android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
+
+    <ImageView
+
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginTop="64dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/logo_orange" />
 
-    <ScrollView
-        android:id="@+id/login_form"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="16dp">
 
-        <LinearLayout
-            android:id="@+id/email_login_form"
+        <EditText
+            android:id="@+id/kNummer"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/orange_button_pressed"
+            android:hint="K - Nummer"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:padding="16dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="17dp" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/orange_button_pressed"
+            android:hint="Passwort"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:padding="16dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="17dp" />
+
+        <Button
+            android:id="@+id/email_sign_in_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="16dp"
+            android:background="@drawable/orange_button"
+            android:textColor="@android:color/white"
+            android:text="Anmelden"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="0sp"
-                android:layout_weight="2">
+        <Button
+            android:id="@+id/skip_login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/orange_button"
+            android:textColor="@android:color/white"
+            android:text="Überspringen"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
 
-                <ImageView
+        <TextView
+            android:id="@+id/skip_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:textSize="12dp"
+            android:text="Hinweis: Du kannst den Login überspringen, um bestimmte Funktionen nutzen zu können, musst du dich jedoch später anmelden."/>
 
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/logo_orange"
-                    android:layout_marginLeft="64dp"
-                    android:layout_marginRight="64dp"
-                    android:layout_marginTop="64dp"
-                    android:layout_marginBottom="64dp"
-                    android:adjustViewBounds="true"/>
+    </LinearLayout>
 
-            </FrameLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <AutoCompleteTextView
-                    android:id="@+id/kNummer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="k-Nummer"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/prompt_password"
-                    android:imeActionId="@+id/login"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
-                    android:maxLines="1"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <Button
-                android:id="@+id/email_sign_in_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/button_states"
-                android:text="Anmelden"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-    </ScrollView>
-
-</LinearLayout>
+</FrameLayout>

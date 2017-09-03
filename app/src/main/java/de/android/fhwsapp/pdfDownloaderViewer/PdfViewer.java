@@ -15,8 +15,6 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 
-import de.android.fhwsapp.busplaene.Busplaene;
-
 /**
  * Created by admin on 02.09.17.
  */

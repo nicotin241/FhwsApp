@@ -4,5 +4,7 @@
     <color name="colorPrimaryDark">#cc5f00</color>
     <color name="colorAccent">#000</color>
 
+    <color name="orange_transp">#33ED6E00</color>
+
 
 </resources>

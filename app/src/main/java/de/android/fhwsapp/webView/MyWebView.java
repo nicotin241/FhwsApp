@@ -1,18 +1,10 @@
 package de.android.fhwsapp.webView;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -23,11 +15,8 @@ import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 
-import de.android.fhwsapp.LoginActivity;
 import de.android.fhwsapp.R;
 import de.android.fhwsapp.pdfDownloaderViewer.PdfViewer;
-
-import static android.content.ContentValues.TAG;
 
 public class MyWebView extends Fragment implements View.OnClickListener {
 

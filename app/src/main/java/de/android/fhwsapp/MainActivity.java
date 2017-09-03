@@ -6,12 +6,9 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ScrollView;
 
 import de.android.fhwsapp.Timetable.Timetable;
@@ -119,8 +117,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_timetable) {
+
             Intent intent = new Intent(this, Timetable.class);
             startActivity(intent);
+
         } else if (id == R.id.nav_grades) {
 
             startNotenWebView(null);
@@ -135,17 +135,6 @@ public class MainActivity extends AppCompatActivity
             setFragment(mFragment);
 
         } else if (id == R.id.nav_veranst) {
-//            if(mFragment instanceof MainFragment) {
-//                if (scrollView == null)
-//                    scrollView = (ScrollView) findViewById(R.id.svMain);
-//
-//                scrollView.setSmoothScrollingEnabled(true);
-//                scrollView.smoothScrollTo(0, 0);
-//            }
-//            else{
-//                mFragment = new MainFragment();
-//                setFragment(mFragment);
-//            }
 
             mFragment = new LaufendeVeranstaltungenFragment();
             setFragment(mFragment);
@@ -166,7 +155,10 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_signout) {
 
             editor.putBoolean("signedIn", false);
+            editor.putString(LoginActivity.K_NUMBER, "");
+            editor.putString(LoginActivity.PASSWORD, "");
             editor.apply();
+
             startActivity(new Intent(mContext, SplashScreen.class));
             finish();
 
@@ -244,6 +236,7 @@ public class MainActivity extends AppCompatActivity
         mFragment.setArguments(bundle);
         setFragment(mFragment);
     }
+
     public void startNotenverlaufWebView(View view){
 
         mFragment = new MyWebView();
@@ -259,6 +252,7 @@ public class MainActivity extends AppCompatActivity
         mFragment.setArguments(bundle);
         setFragment(mFragment);
     }
+
     public void startNotenWebView(View view){
         mFragment = new MyWebView();
 
