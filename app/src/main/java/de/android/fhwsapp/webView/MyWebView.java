@@ -71,10 +71,10 @@ public class MyWebView extends Fragment implements View.OnClickListener {
 
                     //button logik
                     if(url.equals("https://studentenportal.fhws.de/history")){
-                        btnDownloadView.setText(btnDownloadView.getText()+"\nStudienverlauf");
+                        btnDownloadView.setText("Download/View\nStudienverlauf");
                         btnDownloadView.setVisibility(View.VISIBLE);
                     } else if(url.equals("https://studentenportal.fhws.de/cert")){
-                        btnDownloadView.setText(btnDownloadView.getText()+"\nImmatrikulationsbescheinigung\n");
+                        btnDownloadView.setText("Download/View\nImmatrikulationsbescheinigung\n");
                         btnDownloadView.setVisibility(View.VISIBLE);
                         imma = true;
                     }
