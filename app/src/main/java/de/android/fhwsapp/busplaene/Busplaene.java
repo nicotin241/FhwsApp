@@ -76,5 +76,18 @@ public class Busplaene extends Fragment {
         new PdfViewer(getContext(),getActivity()).viewPdf(url,"FHWS_Buslinien", name);
     }
 
+
+    /*
+    *
+    * 6 - Kettelerstraße 1 97074 Würzburg
+    *
+    * 214 Sanderheinrichsleitenweg 20, 97074 Würzburg - 49°46'39.6"N 9°57'47.1"E - 49.777657, 9.963075
+    *
+    * 114 - Hubland Mensa - 49°46'54.4"N 9°58'01.0"E - 49.781774, 9.966943
+    *
+    * 10 - 49°46'49.5"N 9°57'57.8"E -49.780404, 9.966058
+    *
+    * */
+
 }
 
