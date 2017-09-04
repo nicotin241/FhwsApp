@@ -15,6 +15,8 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 
+import de.android.fhwsapp.MainActivity;
+
 /**
  * Created by admin on 02.09.17.
  */
@@ -84,7 +86,7 @@ public class PdfViewer {
 
             File pdfFile = new File(folder, fileName + ".pdf");
 
-            if(pdfFile.exists() && !isNetworkConnected(context)){
+            if(pdfFile.exists() && !MainActivity.isNetworkConnected(context)){
                 view(pdfFile.getAbsolutePath());
                 return null;
             }
@@ -94,7 +96,7 @@ public class PdfViewer {
 
 
             try{
-                if(!isNetworkConnected(context)){
+                if(!MainActivity.isNetworkConnected(context)){
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(context, "Es besteht keine Internetverbindung. Die Datei konnte nicht heruntergeladen werden!", Toast.LENGTH_LONG).show();
@@ -112,11 +114,6 @@ public class PdfViewer {
             view(pdfFile.getAbsolutePath());
             return null;
         }
-    }
-
-    public static boolean isNetworkConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null;
     }
 
 }

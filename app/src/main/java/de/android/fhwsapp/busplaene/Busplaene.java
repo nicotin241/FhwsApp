@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.util.HashMap;
 
 import de.android.fhwsapp.Database;
+import de.android.fhwsapp.NutzungsdatenTransfer;
 import de.android.fhwsapp.R;
 import de.android.fhwsapp.adapter.BuslinienListAdapter;
 import de.android.fhwsapp.pdfDownloaderViewer.PdfViewer;
@@ -67,6 +68,9 @@ public class Busplaene extends Fragment {
 
             }
         });
+
+        new NutzungsdatenTransfer(context).execute("busplan");
+
 
         return view;
     }

@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity
         mFragment = new MainFragment();
         setFragment(mFragment);
 
+        new NutzungsdatenTransfer(this).execute("app");
 
     }
 

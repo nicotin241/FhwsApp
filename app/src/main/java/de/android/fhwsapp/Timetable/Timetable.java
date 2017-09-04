@@ -39,6 +39,7 @@ import java.util.List;
 
 import de.android.fhwsapp.Database;
 import de.android.fhwsapp.MainActivity;
+import de.android.fhwsapp.NutzungsdatenTransfer;
 import de.android.fhwsapp.R;
 import de.android.fhwsapp.Timetable.BTGridPager.BTFragmentGridPager;
 
@@ -97,6 +98,8 @@ public class Timetable extends FragmentActivity {
         colorAccent = a.getColor(0, 0);
 
         progressBar = (ProgressBar) findViewById(R.id.timeTableProgress);
+
+        new NutzungsdatenTransfer(this).execute("veranstaltungen");
 
     }
 
