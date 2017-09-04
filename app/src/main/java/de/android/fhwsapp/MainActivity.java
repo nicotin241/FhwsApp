@@ -215,8 +215,10 @@ public class MainActivity extends AppCompatActivity
                     "document.getElementsByName('username')[0].value = '" + username + "';" +
                     "document.getElementsByClassName('btn btn-primary')[0].click()";
 
-            bundle.putString("url", "https://studentenportal.fhws.de/cert");
-            bundle.putString("js", js);
+//            bundle.putString("url", "https://studentenportal.fhws.de/cert");
+//            bundle.putString("js", js);
+            MyWebView.URL = "https://studentenportal.fhws.de/cert";
+            MyWebView.JS = js;
             mFragment.setArguments(bundle);
             setFragment(mFragment);
 
@@ -236,8 +238,10 @@ public class MainActivity extends AppCompatActivity
                     "document.getElementsByName('username')[0].value = '" + username + "';" +
                     "document.getElementsByClassName('btn btn-primary')[0].click()";
 
-            bundle.putString("url", "https://studentenportal.fhws.de/history");
-            bundle.putString("js", js);
+//            bundle.putString("url", "https://studentenportal.fhws.de/history");
+//            bundle.putString("js", js);
+            MyWebView.URL = "https://studentenportal.fhws.de/history";
+            MyWebView.JS = js;
             mFragment.setArguments(bundle);
             setFragment(mFragment);
 
@@ -255,8 +259,10 @@ public class MainActivity extends AppCompatActivity
                     "document.getElementsByClassName('btn btn-primary')[0].click()";
 
             Bundle bundle = new Bundle();
-            bundle.putString("url", "https://studentenportal.fhws.de/grades");
-            bundle.putString("js", js);
+//            bundle.putString("url", "https://studentenportal.fhws.de/grades");
+//            bundle.putString("js", js);
+            MyWebView.URL = "https://studentenportal.fhws.de/grades";
+            MyWebView.JS = js;
             mFragment.setArguments(bundle);
             setFragment(mFragment);
 

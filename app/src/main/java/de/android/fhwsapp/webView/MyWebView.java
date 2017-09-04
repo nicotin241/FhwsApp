@@ -36,14 +36,20 @@ public class MyWebView extends Fragment {
     private SharedPreferences mPrefs;
     private SharedPreferences.Editor editor;
 
+    public static String URL;
+    public static String JS;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_webview, container, false);
 
-        url = getArguments().getString("url");
-        js = getArguments().getString("js");
+//        url = getArguments().getString("url");
+//        js = getArguments().getString("js");
+
+        url = URL;
+        js = JS;
 
         webView = (WebView) view.findViewById(R.id.webView);
 
