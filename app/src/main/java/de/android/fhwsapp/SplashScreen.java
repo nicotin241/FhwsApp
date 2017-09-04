@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import de.android.fhwsapp.Timetable.Subject;
+import de.android.fhwsapp.busplaene.BusplanDataFetcher;
 
 public class SplashScreen extends FragmentActivity {
 
@@ -69,6 +70,7 @@ public class SplashScreen extends FragmentActivity {
             // Server Sync
              //new MensaDataFetcher(this).execute();
             new MensaDataFetcher(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new BusplanDataFetcher(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         }
