@@ -2,9 +2,10 @@
 <resources>
     <color name="colorPrimary">#ED6E00</color>
     <color name="colorPrimaryDark">#cc5f00</color>
-    <color name="colorAccent">#000</color>
+    <color name="colorAccent">#ED6E00</color>
 
     <color name="orange_transp">#33ED6E00</color>
+    <color name="black_transp">#77000000</color>
 
 
 </resources>

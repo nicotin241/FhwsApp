@@ -1,36 +1,113 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@android:color/white"
+    android:fitsSystemWindows="true"
     tools:context="de.android.fhwsapp.fragments.MensaFragment">
 
-    <TextView
-        android:id="@+id/mensa_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:gravity="left"
-        android:textColor="@color/colorPrimary"
-        android:textSize="25dp" />
-
-    <TextView
-        android:id="@+id/mensa_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:textColor="@android:color/black"
-        android:textSize="20dp"/>
-
-    <ListView
-        android:id="@+id/mealList"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="16dp"
-        android:dividerHeight="0dp"
-        android:divider="@null">
+        android:background="@android:color/white">
 
-    </ListView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/mensa_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:padding="16dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/mensa_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:textColor="@android:color/black"
+                android:textSize="20dp" />
+
+            <ListView
+                android:id="@+id/mealList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:paddingTop="16dp" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/mensa_select_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black_transp"
+            android:visibility="gone">
+
+            <ListView
+                android:id="@+id/mensa_item_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:clipToPadding="false"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:paddingBottom="46dp"
+                android:paddingTop="46dp"
+                android:scrollbars="none" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="#BBffffff"
+                android:gravity="center"
+                android:letterSpacing="0.05"
+                android:text="Bitte wähle eine Mensa aus"
+                android:textColor="@android:color/black"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_gravity="bottom"
+                android:background="#BBffffff"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:gravity="center_vertical"
+                    android:letterSpacing="0.05"
+                    android:paddingLeft="32dp"
+                    android:text="Auswahl speichern"
+                    android:textColor="@android:color/black" />
+
+                <CheckBox
+                    android:id="@+id/saveMensaCheckBox"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/location_icon"
+            />
+
+    </FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>

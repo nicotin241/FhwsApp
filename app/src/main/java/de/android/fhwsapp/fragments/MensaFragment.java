@@ -3,16 +3,22 @@ package de.android.fhwsapp.fragments;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,11 +43,17 @@ import java.util.TimeZone;
 import de.android.fhwsapp.Database;
 import de.android.fhwsapp.R;
 import de.android.fhwsapp.adapter.MealListAdapter;
+import de.android.fhwsapp.adapter.MensaListAdapter;
 import de.android.fhwsapp.objects.Meal;
+import de.android.fhwsapp.objects.Mensa;
 
 public class MensaFragment extends Fragment {
 
     private View view;
+    private FrameLayout mensa_select_layout;
+
+    private SharedPreferences mPrefs;
+    private SharedPreferences.Editor editor;
 
     private Database database;
     private Context mContext;
@@ -52,38 +64,21 @@ public class MensaFragment extends Fragment {
     private ListView mListView;
     private MealListAdapter mAdapter;
 
+    private ListView mensa_list;
+    private MensaListAdapter mensaListAdapter;
+
     private int mensaId;
 
     private TextView title;
     private TextView date;
-    private ListView mealList;
+    private CheckBox saveMensaCheckBox;
+    private FloatingActionButton fab;
+
+    private ArrayList<Mensa> mensaItems;
 
     public MensaFragment() {
 
     }
-
-    /*
-    *
-    * Mensa IDs:
-    *
-    * 1 -
-    * 2 -
-    * 3 -
-    * 4 - Mensateria Campus Nord (?)
-    * 5 - Mensa am Hubland Würzburg
-    * 6 - Mensa am Studentenwerk -> Hinweis auf Burse
-    * 7 -
-    * 8 - Burse Würzburg
-    * 9 - Mensa Röntgenring Würzburg
-    * 10 -
-    *
-    * ?? - Mensa Josef-Schneider-Straße
-    * ?? - Frankenstube Würzburg
-    *
-    *
-    *
-    *
-    * */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,21 +88,76 @@ public class MensaFragment extends Fragment {
 
         mContext = getContext();
         database = new Database(mContext);
-        mensaId = getMensaId();
+        mensaItems = Mensa.getAllMensas();
 
-        setTitleAndDate();
-        setOnClickListener();
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        editor = mPrefs.edit();
 
-        allMeals = database.getMealsById(4);
-
-        getTodayMeals();
-//
+        mensa_select_layout = (FrameLayout) view.findViewById(R.id.mensa_select_layout);
+        mensa_list = (ListView) view.findViewById(R.id.mensa_item_list);
         mListView = (ListView) view.findViewById(R.id.mealList);
-        mAdapter = new MealListAdapter(mContext, todayMeals);
-        mListView.setAdapter(mAdapter);
+        saveMensaCheckBox = (CheckBox) view.findViewById(R.id.saveMensaCheckBox);
 
-//        new DataFetcher(getContext(), mensaId).execute();
+        mensaListAdapter = new MensaListAdapter(getContext());
+        mensa_list.setAdapter(mensaListAdapter);
 
+        mensa_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                mensaId = mensaItems.get(i).getMensaId();
+
+                setTitleAndDate();
+
+                allMeals = database.getMealsById(mensaId);
+
+                getTodayMeals();
+
+                mAdapter = new MealListAdapter(mContext, todayMeals);
+                mListView.setAdapter(mAdapter);
+
+                mensa_select_layout.setVisibility(View.GONE);
+                fab.setVisibility(View.VISIBLE);
+
+                if(saveMensaCheckBox.isChecked()) {
+
+                    editor.putInt("MENSAID", mensaId).apply();
+
+                }
+
+            }
+        });
+
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mensa_select_layout.setVisibility(View.VISIBLE);
+                fab.setVisibility(View.GONE);
+
+            }
+        });
+
+        mensaId = mPrefs.getInt("MENSAID", -1);
+
+        if(mensaId != -1) {
+
+            setTitleAndDate();
+
+            allMeals = database.getMealsById(mensaId);
+
+            getTodayMeals();
+
+            mAdapter = new MealListAdapter(mContext, todayMeals);
+            mListView.setAdapter(mAdapter);
+
+        } else {
+
+            mensa_select_layout.setVisibility(View.VISIBLE);
+            fab.setVisibility(View.GONE);
+
+        }
 
         return view;
     }
@@ -135,26 +185,14 @@ public class MensaFragment extends Fragment {
 
     }
 
-    private int getMensaId() {
-
-        //TODO: Get Fav MensaID or start MensaChoice
-
-        return 9;
-
-    }
-
     private void setTitleAndDate() {
 
         title = (TextView) view.findViewById(R.id.mensa_title);
         date = (TextView) view.findViewById(R.id.mensa_date);
 
-        switch (mensaId) {
+        for(Mensa mensa : mensaItems) {
 
-            case 9:
-                title.setText("Speiseplan für Burse Würzburg");
-                break;
-            default:
-                title.setText("Speiseplan");
+            if(mensa.getMensaId() == mensaId) title.setText("Speiseplan für " + mensa.getName());
 
         }
 
@@ -162,46 +200,28 @@ public class MensaFragment extends Fragment {
 
     }
 
-    private void setOnClickListener() {
-
-        mealList = (ListView) view.findViewById(R.id.mealList);
-        mealList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                showDetails(todayMeals.get(i));
-
-            }
-        });
-
-    }
-
-    private void showDetails(Meal meal) {
-
-        Dialog alertDialog = new Dialog(getContext());
-        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        alertDialog.setContentView(R.layout.meal_details);
-
-        TextView meal_name = (TextView) alertDialog.findViewById(R.id.meal_name);
-        meal_name.setText(meal.getName());
-
-        TextView additives = (TextView) alertDialog.findViewById(R.id.additives);
-
-        String additivesList = "Enthält:\n";
-
-        for(int i = 0; i < meal.getAdditives().size(); i++) {
-
-            additivesList += "   - " + meal.getAdditives().get(i) + "\n";
-
-        }
-
-        additives.setText(additivesList);
-
-        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        alertDialog.show();
-
-    }
-
+     /*
+    *
+    * Mensa IDs:
+    *
+    * 1 -
+    * 2 -
+    * 3 -
+    * 4 - Mensateria Campus Nord (?)
+    * 5 - Mensa am Hubland Würzburg
+    * 6 - Mensa am Studentenwerk -> Hinweis auf Burse
+    * 7 -
+    * 8 - Burse Würzburg
+    * 9 - Mensa Röntgenring Würzburg
+    * 10 -
+    *
+    * ?? - Mensa Josef-Schneider-Straße
+    * ?? - Frankenstube Würzburg
+    *
+    *
+    *
+    *
+    * */
 
     public class DataFetcher extends AsyncTask<Void, Void, Void> {
 

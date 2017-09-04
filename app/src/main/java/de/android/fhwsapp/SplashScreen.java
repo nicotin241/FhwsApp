@@ -68,13 +68,11 @@ public class SplashScreen extends FragmentActivity {
             }
 
             // Server Sync
-             //new MensaDataFetcher(this).execute();
             new MensaDataFetcher(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new BusplanDataFetcher(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         }
-
 
         mCallback = new Runnable() {
             @Override

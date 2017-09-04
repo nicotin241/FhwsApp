@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -45,9 +46,13 @@ public class MealListAdapter extends BaseAdapter {
 
     class ViewHolder {
 
+        private LinearLayout meal_layout;
+        private LinearLayout info_layout;
+
         private ImageView foodtype_image;
         private TextView meal_name;
         private TextView meal_price;
+        private TextView meal_additives;
 
     }
 
@@ -63,9 +68,13 @@ public class MealListAdapter extends BaseAdapter {
 
             viewHolder = new ViewHolder();
 
+            viewHolder.meal_layout = (LinearLayout) view.findViewById(R.id.meal_layout);
+            viewHolder.info_layout = (LinearLayout) view.findViewById(R.id.info_layout);
+
             viewHolder.foodtype_image = (ImageView) view.findViewById(R.id.foodtype_image);
             viewHolder.meal_name = (TextView) view.findViewById(R.id.meal_name);
             viewHolder.meal_price = (TextView) view.findViewById(R.id.meal_price);
+            viewHolder.meal_additives = (TextView) view.findViewById(R.id.additives_list);
 
 
             view.setTag(viewHolder);
@@ -80,6 +89,8 @@ public class MealListAdapter extends BaseAdapter {
 
         viewHolder.meal_name.setText(meal.getName());
         viewHolder.meal_price.setText(meal.getPrice_students() + " €");
+        viewHolder.meal_additives.setText(getAdditivesList(meal.getAdditives()));
+
         switch (meal.getFoodtype()) {
             case "Schwein":
                 viewHolder.foodtype_image.setImageResource(R.drawable.schwein);
@@ -113,9 +124,39 @@ public class MealListAdapter extends BaseAdapter {
                 break;
         }
 
+        final ViewHolder finalViewHolder = viewHolder;
+        viewHolder.meal_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(finalViewHolder.info_layout.getVisibility() == View.GONE) {
+
+                    finalViewHolder.info_layout.setVisibility(View.VISIBLE);
+
+                } else {
+
+                    finalViewHolder.info_layout.setVisibility(View.GONE);
+
+                }
+
+            }
+        });
 
 
         return view;
+    }
+
+    private String getAdditivesList(ArrayList<String> additivesArray) {
+
+        String additivesList = "Enthält:\n";
+
+        for(int i = 0; i < additivesArray.size(); i++) {
+
+            additivesList += "   - " + additivesArray.get(i) + "\n";
+
+        }
+
+        return additivesList;
     }
 
 }
