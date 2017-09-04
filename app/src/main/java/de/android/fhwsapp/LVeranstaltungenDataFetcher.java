@@ -79,14 +79,6 @@ public class LVeranstaltungenDataFetcher extends AsyncTask<String, Void, String>
             e.printStackTrace();
         }
 
-        return null;
-    }
-
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-
-        pbEvents.setVisibility(View.GONE);
 
         //nur zu testzwecken
         //TODO für release löschen
@@ -158,16 +150,23 @@ public class LVeranstaltungenDataFetcher extends AsyncTask<String, Void, String>
                 addEvent(jsonObject);
             }
 
-            MyListAdapter arrayAdapter = new MyListAdapter(context, subjectList);
-
-            listView.setAdapter(arrayAdapter);
-
             preferences.edit().putString("todaysEvents", server_response).apply();
-        } catch (Exception e) {
+
+        }catch (Exception e){
             Log.e("Response error", e.getMessage());
         }
 
-        Log.e("Response", "" + server_response);
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+
+        pbEvents.setVisibility(View.GONE);
+
+        MyListAdapter arrayAdapter = new MyListAdapter(context, subjectList);
+        listView.setAdapter(arrayAdapter);
 
     }
 

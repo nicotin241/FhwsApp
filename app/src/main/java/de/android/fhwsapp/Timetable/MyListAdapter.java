@@ -43,7 +43,9 @@ public class MyListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        //if(convertView == null){
+
+        if(convertView==null){
+
             convertView = LayoutInflater.from(context).inflate(R.layout.activity_list_adapter,parent,false);
 
             TextView tvTime = (TextView) convertView.findViewById(R.id.tvTime);
@@ -56,19 +58,22 @@ public class MyListAdapter extends BaseAdapter {
             tvTeacher.setSelected(true);
 
             if(position+1 <= objects.size()) {
-                tvTime.setText(objects.get(position).getTimeStart() + " - " + objects.get(position).getTimeEnd());
-                tvName.setText(objects.get(position).getType() + " " + objects.get(position).getSubjectName());
-                if(objects.get(position).getStudiengang() != null && !objects.get(position).getStudiengang().equals(""))
-                    tvName.setText(tvName.getText()+ " [" + objects.get(position).getStudiengang() + "]");
 
-                tvRoom.setText(objects.get(position).getRoom());
-                tvTeacher.setText(objects.get(position).getTeacher());
+                Subject subject = objects.get(position);
+
+                tvTime.setText(subject.getTimeStart() + " - " + subject.getTimeEnd());
+                tvName.setText(subject.getType() + " " + subject.getSubjectName());
+                if(subject.getStudiengang() != null && !subject.getStudiengang().equals(""))
+                    tvName.setText(tvName.getText()+ " [" + subject.getStudiengang() + "]");
+
+                tvRoom.setText(subject.getRoom());
+                tvTeacher.setText(subject.getTeacher());
             }
 
             if(position == 0 || position % 2 == 0)
                 convertView.setBackgroundColor(Color.parseColor("#AAAAAA"));
 
-       // }
+        }
         return convertView;
     }
 }

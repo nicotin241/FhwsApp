@@ -84,17 +84,20 @@ public class PdfViewer {
 
             File pdfFile = new File(folder, fileName + ".pdf");
 
-            if(pdfFile.exists()){
+            if(pdfFile.exists() && !isNetworkConnected(context)){
                 view(pdfFile.getAbsolutePath());
                 return null;
             }
+
+            if(pdfFile.exists())
+                pdfFile.delete();
 
 
             try{
                 if(!isNetworkConnected(context)){
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
-                            Toast.makeText(context, "Es besteht keine Internetverbindung. Der Busplan konnte nicht heruntergeladen werden!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, "Es besteht keine Internetverbindung. Die Datei konnte nicht heruntergeladen werden!", Toast.LENGTH_LONG).show();
                         }
                     });
                     return null;

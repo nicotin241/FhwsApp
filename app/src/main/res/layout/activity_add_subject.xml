@@ -50,7 +50,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="Findet jede Woche statt: " />
+                android:text="Findet jede folgende Woche statt: " />
 
             <TextView
                 android:layout_width="match_parent"
