@@ -38,7 +38,7 @@ public class SplashScreen extends FragmentActivity {
         if(utils.isConnectingToInternet()) {
 
             // Server Sync
-            new MensaDataFetcher(this, 9).execute();
+            new MensaDataFetcher(this).execute();
 
         }
 

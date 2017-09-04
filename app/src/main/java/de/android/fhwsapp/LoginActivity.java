@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -18,6 +19,20 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import de.android.fhwsapp.adapter.MealListAdapter;
+import de.android.fhwsapp.objects.Meal;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -34,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog mDialog;
 
     private boolean didOnce = false;
-    private String url, js;
+    private String url, js, cookies;
 
     // UI references.
     private EditText mK_Nummer;
@@ -180,6 +195,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 } else if (url2.equals(url)) {
 
+                    cookies = CookieManager.getInstance().getCookie(url2);
+                    //new UserDataFetcher(mContext).execute();
                     stopDialog();
                     Toast.makeText(mContext, "Login erfolgreich!", Toast.LENGTH_SHORT).show();
                     login();
@@ -214,6 +231,91 @@ public class LoginActivity extends AppCompatActivity {
             });
         } else cookieManager.removeAllCookie();
 
+    }
+
+    private void getUserDataFromHTML(String html) {
+
+        for (int i = 0; i < html.length(); i++) {
+
+
+
+        }
+
+    }
+
+    public class UserDataFetcher extends AsyncTask<Void, Void, Void> {
+
+        private HttpURLConnection urlConnection;
+        private Context mContext;
+
+        StringBuilder result;
+
+        public UserDataFetcher(Context context) {
+
+            mContext = context;
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            result = new StringBuilder();
+
+            try {
+
+                URL dataUrl = new URL(url);
+                urlConnection = (HttpURLConnection) dataUrl.openConnection();
+                urlConnection.setRequestProperty("Cookie", cookies);
+                urlConnection.setRequestProperty("Referer", "https://studentenportal.fhws.de/home");
+
+                if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+
+                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+                } else {
+
+                    runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            try {
+                                Toast.makeText(mContext, "Server-Fehler: " + urlConnection.getResponseCode() + "-" + urlConnection.getResponseMessage(), Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                urlConnection.disconnect();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+            super.onPostExecute(aVoid);
+
+            if (result != null) {
+
+                getUserDataFromHTML(result.toString());
+
+            }
+        }
     }
 
 }

@@ -110,6 +110,44 @@ public class LVeranstaltungenDataFetcher extends AsyncTask<String, Void, String>
                     "      }\n" +
                     "    ],\n" +
                     "    \"type\":\"Tutorial\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"endTime\":\"2017-07-14T11:30:00+02:00\",\n" +
+                    "    \"lecturerView\":[\n" +
+                    "    ],\n" +
+                    "    \"name\":\"Datenbanken 1\",\n" +
+                    "    \"roomsView\":[\n" +
+                    "      {\n" +
+                    "        \"name\":\"H.1.5\"\n" +
+                    "      }\n" +
+                    "    ],\n" +
+                    "    \"startTime\":\"2017-07-14T10:00:00+02:00\",\n" +
+                    "    \"studentsView\":[\n" +
+                    "      {\n" +
+                    "        \"program\":\"ANY\",\n" +
+                    "        \"semester\":0\n" +
+                    "      }\n" +
+                    "    ],\n" +
+                    "    \"type\":\"Vorlesung\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"endTime\":\"2017-07-14T13:00:00+02:00\",\n" +
+                    "    \"lecturerView\":[\n" +
+                    "    ],\n" +
+                    "    \"name\":\"Programmieren 2\",\n" +
+                    "    \"roomsView\":[\n" +
+                    "      {\n" +
+                    "        \"name\":\"H.1.5\"\n" +
+                    "      }\n" +
+                    "    ],\n" +
+                    "    \"startTime\":\"2017-07-14T11:30:00+02:00\",\n" +
+                    "    \"studentsView\":[\n" +
+                    "      {\n" +
+                    "        \"program\":\"ANY\",\n" +
+                    "        \"semester\":0\n" +
+                    "      }\n" +
+                    "    ],\n" +
+                    "    \"type\":\"Vorlesung\"\n" +
                     "  }\n" +
                     "]";
 

@@ -1,9 +1,13 @@
 package de.android.fhwsapp.webView;
 
+import android.Manifest;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +31,7 @@ public class MyWebView extends Fragment {
     private View view;
     private String url;
     private String js;
+    private String[] savedDataForPermissionRequest;
 
     private SharedPreferences mPrefs;
     private SharedPreferences.Editor editor;
@@ -53,7 +58,7 @@ public class MyWebView extends Fragment {
             public void onPageFinished(WebView view, String url2) {
                 super.onPageFinished(view, url2);
 
-                String myCookies = CookieManager.getInstance().getCookie(url);
+                String myCookies = CookieManager.getInstance().getCookie(url2);
                 editor.putString("Cookie", myCookies);
                 editor.apply();
 
@@ -88,7 +93,50 @@ public class MyWebView extends Fragment {
     }
 
     private void downloadPdf(String url, String folderName, String fileName) {
-        new PdfViewer(getContext(), getActivity()).viewPdf(url, folderName, fileName);
+
+        if(checkIfAlreadyhavePermission()) new PdfViewer(getContext(), getActivity()).viewPdf(url, folderName, fileName);
+        else {
+
+            savedDataForPermissionRequest = new String[] {url, folderName, fileName };
+            requestForSpecificPermission();
+        }
+
+    }
+
+    private boolean checkIfAlreadyhavePermission() {
+
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void requestForSpecificPermission() {
+        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+    }
+
+
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+
+        switch (requestCode) {
+            case 1: {
+
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    if(savedDataForPermissionRequest != null) {
+
+                        new PdfViewer(getContext(), getActivity()).viewPdf(savedDataForPermissionRequest[0], savedDataForPermissionRequest[1], savedDataForPermissionRequest[2]);
+
+                    }
+
+                } else {
+
+                    Toast.makeText(getContext(), "Berechtigungen werden benötigt, um die Dokumente zu speichern.", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+        }
     }
 
 }

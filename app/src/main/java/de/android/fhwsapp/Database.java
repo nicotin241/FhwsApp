@@ -14,6 +14,7 @@ import org.joda.time.format.DateTimeFormat;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -124,6 +125,9 @@ public class Database extends SQLiteOpenHelper {
     private static final String MEALS_ARTNAME = "_artname";
     private static final String MEALS_DATE = "_date";
     private static final String MEALS_PRICE_STUDENTS = "_pricestudents";
+    private static final String MEALS_PRICE_BED = "_pricebed";
+    private static final String MEALS_PRICE_GUEST = "_priceguest";
+    private static final String MEALS_ADDITIVES = "_additives";
     private static final String MEALS_FOODTYPE = "_foodtype";
 
     String CREATE_MEALS_TABLE = "CREATE TABLE " + MEALS_TABLE + " ("
@@ -132,6 +136,9 @@ public class Database extends SQLiteOpenHelper {
             + MEALS_ARTNAME + " TEXT,"
             + MEALS_DATE + " TEXT,"
             + MEALS_PRICE_STUDENTS + " TEXT,"
+            + MEALS_PRICE_BED + " TEXT,"
+            + MEALS_PRICE_GUEST + " TEXT,"
+            + MEALS_ADDITIVES + " TEXT,"
             + MEALS_FOODTYPE + " TEXT);";
 
     String DROP_MEALS_TABLE = "DROP TABLE IF EXISTS " + MEALS_TABLE;
@@ -517,7 +524,6 @@ public class Database extends SQLiteOpenHelper {
         return subject;
     }
 
-
     public List<Subject> getAllSubjects() {
         List<Subject> subjects = new ArrayList<Subject>();
         String selectQuery = "SELECT  * FROM " + TABLE_SUBJECTS;
@@ -720,7 +726,6 @@ public class Database extends SQLiteOpenHelper {
                 new String[]{String.valueOf(subject.getSubjectName()), subject.getGruppe(), subject.getDate()});
     }
 
-
     public void deleteSingleSubject(Subject subject) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_SUBJECTS, KEY_Name + " = ?" + " AND " + KEY_Group + " = ?" + " AND " + KEY_Date + " = ?",
@@ -738,7 +743,6 @@ public class Database extends SQLiteOpenHelper {
         db.delete(TABLE_SUBJECTS, KEY_Type + " <> ?",
                 new String[]{"Custom"});
     }
-
 
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
@@ -1051,9 +1055,12 @@ public class Database extends SQLiteOpenHelper {
             values.put(MEALS_ARTNAME, meal.getArtname());
             values.put(MEALS_DATE, meal.getDate());
             values.put(MEALS_PRICE_STUDENTS, meal.getPrice_students());
+            values.put(MEALS_PRICE_BED, meal.getPrice_bed());
+            values.put(MEALS_PRICE_GUEST, meal.getPrice_guest());
+            values.put(MEALS_ADDITIVES, getAdditivesString(meal.getAdditives()));
             values.put(MEALS_FOODTYPE, meal.getFoodtype());
 
-            db.insert(MEALS_TABLE, null, values);
+            db.insertWithOnConflict(MEALS_TABLE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
             db.close();
 
         } catch (Exception e) {
@@ -1085,7 +1092,10 @@ public class Database extends SQLiteOpenHelper {
                     tempMeal.setArtname(cursor.getString(2));
                     tempMeal.setDate(cursor.getString(3));
                     tempMeal.setPrice_students(cursor.getString(4));
-                    tempMeal.setFoodtype(cursor.getString(5));
+                    tempMeal.setPrice_bed(cursor.getString(5));
+                    tempMeal.setPrice_guest(cursor.getString(6));
+                    tempMeal.setAdditives(getAdditivesArrayList(cursor.getString(7)));
+                    tempMeal.setFoodtype(cursor.getString(8));
 
                     allMeals.add(tempMeal);
 
@@ -1107,6 +1117,27 @@ public class Database extends SQLiteOpenHelper {
     public void deleteOldMeals() {
 
         this.getWritableDatabase().delete(MEALS_TABLE, null, null);
+
+    }
+
+    private String getAdditivesString(ArrayList<String> array) {
+
+        String additives = "";
+
+        for(int i = 0; i < array.size(); i++) {
+
+            if(i == array.size() -1) additives += array.get(i);
+            else additives += array.get(i) + ";";
+
+        }
+
+        return additives;
+
+    }
+
+    private ArrayList<String> getAdditivesArrayList(String additives) {
+
+        return new ArrayList<String>(Arrays.asList(additives.split(";")));
 
     }
 

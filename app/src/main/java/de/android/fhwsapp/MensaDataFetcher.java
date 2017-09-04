@@ -2,6 +2,10 @@ package de.android.fhwsapp;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,11 +13,13 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import de.android.fhwsapp.adapter.MealListAdapter;
 import de.android.fhwsapp.objects.Meal;
 
 public class MensaDataFetcher extends AsyncTask<Void, Void, Void> {
@@ -21,17 +27,14 @@ public class MensaDataFetcher extends AsyncTask<Void, Void, Void> {
     private HttpURLConnection urlConnection;
     private Database dataBaseHelper;
     private Context mContext;
+    private StringBuilder result;
 
-    private int mensa_id;
 
+    private String URL_MENSA = "http://54.93.76.71:8080/FHWS/mensaplan";
 
-    private static String URL_AUSSTELLER = "https://www.studentenwerk-wuerzburg.de/index.php?type=4249&tx_thmensamenu_pi3[controller]=Speiseplan&tx_thmensamenu_pi3[action]=showjson&tx_thmensamenu_pi3[mensen]=";
-
-    public MensaDataFetcher(Context context, int mensa_id) {
+    public MensaDataFetcher(Context context) {
 
         mContext = context;
-        URL_AUSSTELLER += mensa_id;
-        this.mensa_id = mensa_id;
 
     }
 
@@ -46,74 +49,33 @@ public class MensaDataFetcher extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
 
-        StringBuilder result = new StringBuilder();
+        result = new StringBuilder();
 
         try {
 
-            URL url = new URL(URL_AUSSTELLER);
+            URL url = new URL(URL_MENSA);
             urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestProperty("Content-Type", "application/json");
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+            } else {
+
+                Toast.makeText(mContext, "Mensa-Serverfehler: " + urlConnection.getResponseCode() + "-" + urlConnection.getResponseMessage(), Toast.LENGTH_SHORT).show();
+
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             urlConnection.disconnect();
-        }
-
-        String serverData = result.toString();
-        try {
-            dataBaseHelper.deleteOldMeals();
-        }catch (Exception e){}
-
-        try {
-
-            JSONArray jsonArray = new JSONArray(serverData);
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-
-                JSONObject meal = jsonArray.getJSONObject(i);
-
-                String name = "";
-                if(meal.has("name")) name = meal.getString("name");
-
-                String artname = "";
-                if(meal.has("artname")) artname = meal.getString("artname");
-
-                String date = "";
-                if(meal.has("date")) date = meal.getString("date");
-
-                String price_students = "";
-                if(meal.has("price")) price_students = meal.getString("price");
-
-                String foodtype = "";
-                if(meal.has("foodtype")) foodtype = meal.getString("foodtype");
-
-
-                Meal temp_meal = new Meal();
-
-                temp_meal.setMensa_id(mensa_id);
-                temp_meal.setName(name);
-                temp_meal.setArtname(artname);
-                temp_meal.setDate(date);
-                temp_meal.setPrice_students(price_students);
-                temp_meal.setFoodtype(foodtype);
-
-                try {
-                    dataBaseHelper.addMeal(temp_meal);
-                }catch (Exception e){}
-
-            }
-
-        } catch (JSONException e) {
-
-            e.printStackTrace();
-
         }
 
         return null;
@@ -123,6 +85,29 @@ public class MensaDataFetcher extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
 
         super.onPostExecute(aVoid);
+
+        if (result != null) {
+
+            dataBaseHelper.deleteOldMeals();
+
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            Meal[][] allMeals = gson.fromJson(result.toString(), Meal[][].class);
+
+            if (allMeals != null) {
+
+                for (Meal meal[] : allMeals) {
+
+                    for (Meal meal2 : meal) {
+
+                        dataBaseHelper.addMeal(meal2);
+
+                    }
+
+                }
+
+            }
+
+        }
 
     }
 

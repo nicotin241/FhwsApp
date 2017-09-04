@@ -29,7 +29,6 @@ public class FileDownloader {
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestProperty("Cookie", PreferenceManager.getDefaultSharedPreferences(context).getString("Cookie",""));
             urlConnection.setRequestProperty("Referer", "https://studentenportal.fhws.de/cert");
-            urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {

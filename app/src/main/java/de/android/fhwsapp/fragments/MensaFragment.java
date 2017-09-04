@@ -29,6 +29,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -45,7 +46,7 @@ public class MensaFragment extends Fragment {
     private Database database;
     private Context mContext;
 
-    private Meal[] allMeals;
+    private ArrayList<Meal> allMeals;
     private ArrayList<Meal> todayMeals;
 
     private ListView mListView;
@@ -61,6 +62,28 @@ public class MensaFragment extends Fragment {
 
     }
 
+    /*
+    *
+    * Mensa IDs:
+    *
+    * 1 -
+    * 2 -
+    * 3 -
+    * 4 -
+    * 5 -
+    * 6 -
+    * 7 -
+    * 8 - Burse Würzburg
+    * 9 -
+    * 10 -
+    *
+    *
+    *
+    *
+    *
+    *
+    * */
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -74,15 +97,15 @@ public class MensaFragment extends Fragment {
         setTitleAndDate();
         setOnClickListener();
 
-//        allMeals = database.getMealsById(9);
-//
-//        getTodayMeals();
+        allMeals = database.getMealsById(1);
+
+        getTodayMeals();
 //
         mListView = (ListView) view.findViewById(R.id.mealList);
-//        mAdapter = new MealListAdapter(mContext, todayMeals);
-//        mListView.setAdapter(mAdapter);
+        mAdapter = new MealListAdapter(mContext, todayMeals);
+        mListView.setAdapter(mAdapter);
 
-        new DataFetcher(getContext(), mensaId).execute();
+//        new DataFetcher(getContext(), mensaId).execute();
 
 
         return view;
@@ -92,9 +115,9 @@ public class MensaFragment extends Fragment {
 
         todayMeals = new ArrayList<>();
 
-        for (int i = 0; i < allMeals.length; i++) {
+        for (int i = 0; i < allMeals.size(); i++) {
 
-            long meal_date = Long.parseLong(allMeals[i].getDate()) * 1000L;
+            long meal_date = Long.parseLong(allMeals.get(i).getDate()) * 1000L;
             Calendar now = Calendar.getInstance(TimeZone.getTimeZone("CET"));
             Calendar timeToCheck = Calendar.getInstance(TimeZone.getTimeZone("CET"));
             timeToCheck.setTimeInMillis(meal_date);
@@ -102,7 +125,7 @@ public class MensaFragment extends Fragment {
             if (now.get(Calendar.YEAR) == timeToCheck.get(Calendar.YEAR)) {
                 if (now.get(Calendar.DAY_OF_YEAR) == timeToCheck.get(Calendar.DAY_OF_YEAR)) {
 
-                    todayMeals.add(allMeals[i]);
+                    todayMeals.add(allMeals.get(i));
 
                 }
             }
@@ -182,25 +205,22 @@ public class MensaFragment extends Fragment {
     public class DataFetcher extends AsyncTask<Void, Void, Void> {
 
         private HttpURLConnection urlConnection;
-        private Database dataBaseHelper;
         private Context mContext;
 
-        private String URL_AUSSTELLER = "http://54.93.76.71:8080/FHWS/mensaplan?mensaId=";
+        private String URL_MENSA = "http://54.93.76.71:8080/FHWS/mensaplan?mensaId=";
 
         StringBuilder result;
 
         public DataFetcher(Context context, int mensa_id) {
 
             mContext = context;
-            URL_AUSSTELLER += mensa_id;
+            URL_MENSA += mensa_id;
 
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
-            dataBaseHelper = new Database(mContext);
 
         }
 
@@ -211,7 +231,7 @@ public class MensaFragment extends Fragment {
 
             try {
 
-                URL url = new URL(URL_AUSSTELLER);
+                URL url = new URL(URL_MENSA);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.setRequestProperty("Content-Type", "application/json");
@@ -260,7 +280,7 @@ public class MensaFragment extends Fragment {
 //                dataBaseHelper.deleteOldMeals();
 
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                allMeals = gson.fromJson(result.toString(), Meal[].class);
+                allMeals = new ArrayList<Meal>(Arrays.asList(gson.fromJson(result.toString(), Meal[].class)));
 
                 if (allMeals != null) {
 
