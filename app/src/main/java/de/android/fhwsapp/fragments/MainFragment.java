@@ -3,6 +3,7 @@ package de.android.fhwsapp.fragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -62,7 +63,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
         if(MainActivity.isNetworkConnected(getContext())) {
             //new LoadEventsFromServer().execute("https://apistaging.fiw.fhws.de/mo/api/events/today");
-            lvDataFetcher.execute("https://apistaging.fiw.fhws.de/mo/api/events/today");
+            //lvDataFetcher.execute("https://apistaging.fiw.fhws.de/mo/api/events/today");
+
+            lvDataFetcher.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "https://apistaging.fiw.fhws.de/mo/api/events/today");
+
         }else{
 
            lvDataFetcher.offlineUse();

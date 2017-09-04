@@ -3,11 +3,14 @@ package de.android.fhwsapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.view.WindowManager;
+
+import java.lang.ref.WeakReference;
 
 public class SplashScreen extends FragmentActivity {
 
@@ -24,6 +27,8 @@ public class SplashScreen extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash_screen);
 
@@ -38,7 +43,9 @@ public class SplashScreen extends FragmentActivity {
         if(utils.isConnectingToInternet()) {
 
             // Server Sync
-            new MensaDataFetcher(this).execute();
+             //new MensaDataFetcher(this).execute();
+            new MensaDataFetcher(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
 
         }
 
@@ -63,8 +70,6 @@ public class SplashScreen extends FragmentActivity {
         };
         mHandler.postDelayed(mCallback, 1500);
 
-
-
-
     }
+
 }

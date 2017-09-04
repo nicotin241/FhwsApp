@@ -78,14 +78,6 @@ public class MensaDataFetcher extends AsyncTask<Void, Void, Void> {
             urlConnection.disconnect();
         }
 
-        return null;
-    }
-
-    @Override
-    protected void onPostExecute(Void aVoid) {
-
-        super.onPostExecute(aVoid);
-
         if (result != null) {
 
             dataBaseHelper.deleteOldMeals();
@@ -109,7 +101,15 @@ public class MensaDataFetcher extends AsyncTask<Void, Void, Void> {
 
         }
 
+        return null;
     }
 
+    @Override
+    protected void onPostExecute(Void aVoid) {
+
+        super.onPostExecute(aVoid);
+
+
+    }
 
 }

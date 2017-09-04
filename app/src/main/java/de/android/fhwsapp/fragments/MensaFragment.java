@@ -69,15 +69,16 @@ public class MensaFragment extends Fragment {
     * 1 -
     * 2 -
     * 3 -
-    * 4 -
-    * 5 -
-    * 6 -
+    * 4 - Mensateria Campus Nord (?)
+    * 5 - Mensa am Hubland Würzburg
+    * 6 - Mensa am Studentenwerk -> Hinweis auf Burse
     * 7 -
     * 8 - Burse Würzburg
-    * 9 -
+    * 9 - Mensa Röntgenring Würzburg
     * 10 -
     *
-    *
+    * ?? - Mensa Josef-Schneider-Straße
+    * ?? - Frankenstube Würzburg
     *
     *
     *
@@ -97,7 +98,7 @@ public class MensaFragment extends Fragment {
         setTitleAndDate();
         setOnClickListener();
 
-        allMeals = database.getMealsById(1);
+        allMeals = database.getMealsById(4);
 
         getTodayMeals();
 //
