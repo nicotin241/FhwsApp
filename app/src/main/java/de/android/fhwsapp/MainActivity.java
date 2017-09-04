@@ -21,7 +21,10 @@ import android.view.View;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import org.joda.time.DateTime;
+
 import de.android.fhwsapp.Timetable.Timetable;
+import de.android.fhwsapp.Timetable.TimetableDataFetcher;
 import de.android.fhwsapp.busplaene.Busplaene;
 import de.android.fhwsapp.fragments.LaufendeVeranstaltungenFragment;
 import de.android.fhwsapp.fragments.MainFragment;
@@ -37,6 +40,8 @@ public class MainActivity extends AppCompatActivity
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private Toolbar toolbar;
+
+    private static NetworkUtils utils;
 
     //Fragments
     private Fragment mFragment;
@@ -62,6 +67,8 @@ public class MainActivity extends AppCompatActivity
 
         drawer_layout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
+        utils = new NetworkUtils(this);
+
         initToolbar();
 
         initNavigationDrawer();
@@ -77,7 +84,18 @@ public class MainActivity extends AppCompatActivity
         mFragment = new MainFragment();
         setFragment(mFragment);
 
-        new NutzungsdatenTransfer(this).execute("app");
+        if(utils.isConnectingToInternet()) {
+            new NutzungsdatenTransfer(this).execute("app");
+
+            long lastUpdate = mPrefs.getLong("lastUpdate", 300001);
+            long timeDiff = DateTime.now().getMillis() - lastUpdate;
+
+            //update nur alle 5 Minuten
+            if (timeDiff > 300000) {
+                if(!Timetable.isLoading)
+                    new TimetableDataFetcher(mContext).execute();
+            }
+        }
 
     }
 
@@ -286,8 +304,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     public static boolean isNetworkConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null;
+//        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+//        return cm.getActiveNetworkInfo() != null;
+
+        if(utils == null)
+            utils = new NetworkUtils(context);
+
+        return utils.isConnectingToInternet();
     }
 
     private boolean loginDataFilled() {
