@@ -61,7 +61,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         LVeranstaltungenDataFetcher lvDataFetcher = new LVeranstaltungenDataFetcher(getContext(), pbEvents, listView, todaysEvents);
 
         if(MainActivity.isNetworkConnected(getContext())) {
-            //new LoadEventsFromServer().execute("https://apistaging.fiw.fhws.de/mo/api/events/today");
             lvDataFetcher.execute("https://apistaging.fiw.fhws.de/mo/api/events/today");
         }else{
 
