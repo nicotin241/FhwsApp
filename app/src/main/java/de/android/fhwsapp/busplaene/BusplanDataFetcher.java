@@ -17,6 +17,7 @@ import java.net.URL;
 import java.util.HashMap;
 
 import de.android.fhwsapp.Database;
+import de.android.fhwsapp.adapter.BuslinienListAdapter;
 
 
 public class BusplanDataFetcher extends AsyncTask<Void, Void, Void> {
@@ -113,7 +114,12 @@ public class BusplanDataFetcher extends AsyncTask<Void, Void, Void> {
 
         map = database.getBusLinien();
 
+        String[] lineNames = map.keySet().toArray(new String[map.keySet().size()]);
+        BuslinienListAdapter adapter = new BuslinienListAdapter(mContext, lineNames);
+        listView.setAdapter(adapter);
+
         listView.deferNotifyDataSetChanged();
+
 
         super.onPostExecute(aVoid);
 
