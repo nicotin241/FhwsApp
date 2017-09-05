@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.joda.time.DateTime;
@@ -57,13 +58,14 @@ public class MainActivity extends AppCompatActivity
     private String password;
     private String username;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mContext = this;
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        editor = mPrefs.edit();
 
         drawer_layout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -72,9 +74,6 @@ public class MainActivity extends AppCompatActivity
         initToolbar();
 
         initNavigationDrawer();
-
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-        editor = mPrefs.edit();
 
         password = mPrefs.getString(LoginActivity.PASSWORD, "");
         username = mPrefs.getString(LoginActivity.K_NUMBER, "");
@@ -158,11 +157,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_signout) {
 
-            editor.putBoolean("signedIn", false);
-            editor.putInt("MENSAID", -1);
-            editor.putString(LoginActivity.K_NUMBER, "");
-            editor.putString(LoginActivity.PASSWORD, "");
-            editor.apply();
+            deleteUserData();
 
             startActivity(new Intent(mContext, SplashScreen.class));
             finish();
@@ -192,6 +187,25 @@ public class MainActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.getHeaderView(0);
+
+        TextView matrikelnummer = (TextView)header.findViewById(R.id.matrikelnummer);
+        TextView email = (TextView)header.findViewById(R.id.email);
+        matrikelnummer.setText(mPrefs.getString("matrikelnummer", "123 4567"));
+        email.setText(mPrefs.getString("email", "vorname.nachname@student.fhws.de"));
+
+    }
+
+    private void deleteUserData() {
+
+        editor.putBoolean("signedIn", false);
+        editor.putInt("MENSAID", -1);
+        editor.putString("matrikelnummer", "");
+        editor.putString("email", "");
+        editor.putString(LoginActivity.K_NUMBER, "");
+        editor.putString(LoginActivity.PASSWORD, "");
+        editor.apply();
 
     }
 
@@ -310,8 +324,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public static boolean isNetworkConnected(Context context) {
-//        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-//        return cm.getActiveNetworkInfo() != null;
 
         if(utils == null)
             utils = new NetworkUtils(context);

@@ -23,6 +23,11 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -196,10 +201,10 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (url2.equals(url)) {
 
                     cookies = CookieManager.getInstance().getCookie(url2);
-                    //new UserDataFetcher(mContext).execute();
-                    stopDialog();
-                    Toast.makeText(mContext, "Login erfolgreich!", Toast.LENGTH_SHORT).show();
-                    login();
+                    new UserDataFetcher(mContext).execute();
+//                    stopDialog();
+//                    Toast.makeText(mContext, "Login erfolgreich!", Toast.LENGTH_SHORT).show();
+//                    login();
 
                 }
             }
@@ -235,11 +240,22 @@ public class LoginActivity extends AppCompatActivity {
 
     private void getUserDataFromHTML(String html) {
 
-        for (int i = 0; i < html.length(); i++) {
+        Document doc = Jsoup.parse(html);
 
+        Element table = doc.select("table").get(0);
+        Elements rows = table.select("tr");
 
+        String matrikelnummer = rows.get(1).select("td").get(0).text();
+        String email = rows.get(6).select("td").get(0).text();
 
-        }
+        editor.putString("matrikelnummer", matrikelnummer);
+        editor.putString("email", email);
+        editor.apply();
+
+        stopDialog();
+        Toast.makeText(mContext, "Login erfolgreich!", Toast.LENGTH_SHORT).show();
+        login();
+
 
     }
 
@@ -281,6 +297,7 @@ public class LoginActivity extends AppCompatActivity {
                     while ((line = reader.readLine()) != null) {
                         result.append(line);
                     }
+
                 } else {
 
                     runOnUiThread(new Runnable() {
@@ -288,7 +305,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             try {
-                                Toast.makeText(mContext, "Server-Fehler: " + urlConnection.getResponseCode() + "-" + urlConnection.getResponseMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, "Userdata-Serverfehler: " + urlConnection.getResponseCode() + "-" + urlConnection.getResponseMessage(), Toast.LENGTH_SHORT).show();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
