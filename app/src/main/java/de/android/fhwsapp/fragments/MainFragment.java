@@ -37,6 +37,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
     private List<Subject> subjectList;
 
+
+
     public MainFragment() {
         // Required empty public constructor
     }
@@ -62,8 +64,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         LVeranstaltungenDataFetcher lvDataFetcher = new LVeranstaltungenDataFetcher(getContext(), pbEvents, listView, todaysEvents);
 
         if(MainActivity.isNetworkConnected(getContext())) {
-            //new LoadEventsFromServer().execute("https://apistaging.fiw.fhws.de/mo/api/events/today");
-            //lvDataFetcher.execute("https://apistaging.fiw.fhws.de/mo/api/events/today");
 
             lvDataFetcher.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "https://apistaging.fiw.fhws.de/mo/api/events/today");
 

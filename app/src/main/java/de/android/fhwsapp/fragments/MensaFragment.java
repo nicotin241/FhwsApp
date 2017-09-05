@@ -1,6 +1,8 @@
 package de.android.fhwsapp.fragments;
 
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -101,6 +103,10 @@ public class MensaFragment extends Fragment {
         mensaListAdapter = new MensaListAdapter(getContext());
         mensa_list.setAdapter(mensaListAdapter);
 
+        mensa_select_layout.animate()
+                .translationY(mensa_select_layout.getHeight())
+                .setDuration(300);
+
         mensa_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -116,7 +122,10 @@ public class MensaFragment extends Fragment {
                 mAdapter = new MealListAdapter(mContext, todayMeals);
                 mListView.setAdapter(mAdapter);
 
-                mensa_select_layout.setVisibility(View.GONE);
+                mensa_select_layout.animate()
+                        .translationY(mensa_select_layout.getHeight())
+                        .setDuration(300);
+
                 fab.setVisibility(View.VISIBLE);
 
                 if(saveMensaCheckBox.isChecked()) {
@@ -133,7 +142,12 @@ public class MensaFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+
+                mensa_select_layout.animate()
+                        .translationY(0)
+                        .setDuration(300);
                 mensa_select_layout.setVisibility(View.VISIBLE);
+
                 fab.setVisibility(View.GONE);
 
             }
@@ -206,19 +220,14 @@ public class MensaFragment extends Fragment {
     *
     * 1 -
     * 2 -
-    * 3 -
-    * 4 - Mensateria Campus Nord (?)
-    * 5 - Mensa am Hubland Würzburg
+    * 3 - Mensateria Campus Nord (?) (AbrufID: 54)
+    * 4 -
+    * 5 - Mensa am Hubland Würzburg (AbrufID 7)
     * 6 - Mensa am Studentenwerk -> Hinweis auf Burse
-    * 7 -
-    * 8 - Burse Würzburg
-    * 9 - Mensa Röntgenring Würzburg
-    * 10 -
-    *
-    * ?? - Mensa Josef-Schneider-Straße
-    * ?? - Frankenstube Würzburg
-    *
-    *
+    * 7 - Frankenstube Würzburg (AbrufID 6)
+    * 8 - Burse Würzburg (AbrufID: 9)
+    * 9 - Mensa Röntgenring Würzburg (AbrufID 8)
+    * 10 - Mensa Josef-Schneider-Straße (AbrufID 5)
     *
     *
     * */

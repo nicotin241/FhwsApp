@@ -50,11 +50,11 @@ public class Mensa {
         ArrayList<Mensa> allMensas = new ArrayList<>();
 
         allMensas.add(new Mensa(8, "Burse Würzburg", "Mo - Fr    11.00 - 14.15 Uhr\nMo - Do    15.00 - 18.30 Uhr\n(Nur in der Vorlesungszeit!)"));
-        allMensas.add(new Mensa(4, "Mensateria Campus Nord", "Mo - Fr    11.00 - 14.15 Uhr"));
+        allMensas.add(new Mensa(3, "Mensateria Campus Nord", "Mo - Fr    11.00 - 14.15 Uhr"));
         allMensas.add(new Mensa(5, "Mensa am Hubland Würzburg", "Mo - Fr    11.00 - 14.15 Uhr \nMo - Do    15.30 - 19.00 Uhr\n(Essensausgabe über Frankenstube)"));
         allMensas.add(new Mensa(9, "Mensa Röntgenring Würzburg", "Mo - Fr    11.30 - 14.00 Uhr"));
-        allMensas.add(new Mensa(1, "Mensa Josef-Schneider-Straße Würzburg", "Mo - Fr    11.30 - 14.00 Uhr"));
-        allMensas.add(new Mensa(2, "Frankenstube Würzburg", "Mo - Do    15.30 - 19.00 Uhr\n(Nur in der Vorlesungszeit!)"));
+        allMensas.add(new Mensa(10, "Mensa Josef-Schneider-Straße Würzburg", "Mo - Fr    11.30 - 14.00 Uhr"));
+        allMensas.add(new Mensa(7, "Frankenstube Würzburg", "Mo - Do    15.30 - 19.00 Uhr\n(Nur in der Vorlesungszeit!)"));
 
         return allMensas;
 

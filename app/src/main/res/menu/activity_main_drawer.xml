@@ -3,8 +3,12 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_home"
+            android:title="News"
+            android:icon="@drawable/home"/>
+        <item
             android:id="@+id/nav_timetable"
-            android:title="Stundenplan"
+            android:title="Veranstaltungen"
             android:icon="@drawable/timetable_icon"/>
         <item
             android:id="@+id/nav_grades"

@@ -115,7 +115,12 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_timetable) {
+        if(id == R.id.nav_home) {
+
+            mFragment = new MainFragment();
+            setFragment(mFragment);
+
+        } else if (id == R.id.nav_timetable) {
 
             Intent intent = new Intent(this, Timetable.class);
             startActivity(intent);
@@ -154,6 +159,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_signout) {
 
             editor.putBoolean("signedIn", false);
+            editor.putInt("MENSAID", -1);
             editor.putString(LoginActivity.K_NUMBER, "");
             editor.putString(LoginActivity.PASSWORD, "");
             editor.apply();
