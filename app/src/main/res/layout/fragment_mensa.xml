@@ -47,7 +47,8 @@
             android:id="@+id/mensa_select_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/black_transp">
+            android:background="@color/black_transp"
+            android:visibility="gone">
 
             <ListView
                 android:id="@+id/mensa_item_list"

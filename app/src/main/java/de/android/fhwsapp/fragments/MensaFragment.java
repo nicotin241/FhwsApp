@@ -220,7 +220,7 @@ public class MensaFragment extends Fragment {
     *
     * 1 -
     * 2 -
-    * 3 - Mensateria Campus Nord (?) (AbrufID: 54)
+    * 3 -
     * 4 -
     * 5 - Mensa am Hubland Würzburg (AbrufID 7)
     * 6 - Mensa am Studentenwerk -> Hinweis auf Burse
@@ -228,6 +228,7 @@ public class MensaFragment extends Fragment {
     * 8 - Burse Würzburg (AbrufID: 9)
     * 9 - Mensa Röntgenring Würzburg (AbrufID 8)
     * 10 - Mensa Josef-Schneider-Straße (AbrufID 5)
+    * 11 - Mensateria Campus Nord (?) (AbrufID: 54)
     *
     *
     * */
