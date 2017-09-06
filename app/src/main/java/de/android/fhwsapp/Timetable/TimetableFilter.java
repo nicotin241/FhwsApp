@@ -30,6 +30,7 @@ public class TimetableFilter extends AppCompatActivity {
     private Database database;
     private Button addSubject;
     private Button done;
+    private Button checkedSubjects;
 
     private boolean nothingChecked = false;
 
@@ -61,6 +62,15 @@ public class TimetableFilter extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(TimetableFilter.this, Timetable.class);
                 intent.putExtra("from_filter",true);
+                startActivity(intent);
+            }
+        });
+
+        checkedSubjects = (Button) findViewById(R.id.btnCheckedSubjects);
+        checkedSubjects.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TimetableFilter.this, CheckedSubjectsOverview.class);
                 startActivity(intent);
             }
         });

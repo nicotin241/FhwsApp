@@ -461,6 +461,25 @@ public class Database extends SQLiteOpenHelper {
         return names;
     }
 
+    public List<String> getAllCheckedSubjectNames() {
+        List<String> names = new ArrayList<>();
+        String selectQuery = "SELECT DISTINCT " + KEY_Name + " FROM "
+                + TABLE_SUBJECTS+ " WHERE "+KEY_Selected+" = 'true'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c.moveToFirst()) {
+            do {
+                String name = c.getString(c.getColumnIndex(KEY_Name));
+
+                names.add(name);
+            } while (c.moveToNext());
+        }
+
+        return names;
+    }
+
     public Subject getSubjectWithName(String name) {
         Subject subject = new Subject();
         String selectQuery = "SELECT  * FROM " + TABLE_SUBJECTS + " WHERE " + KEY_Name + " = '" + name + "'";
@@ -581,40 +600,12 @@ public class Database extends SQLiteOpenHelper {
     }
 
     public List<Subject> getAllCheckedSubjects() {
-        List<Subject> subjects = new ArrayList<Subject>();
-        String selectQuery = "SELECT  * FROM " + TABLE_SUBJECTS + " WHERE " + KEY_Selected + " = true";
 
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery(selectQuery, null);
+        LinkedList<Subject> subjects = new LinkedList<>();
 
-
-        // looping through all rows and adding to list
-        if (c.moveToFirst()) {
-            do {
-                Subject subject = new Subject();
-                subject.setId(c.getInt(c.getColumnIndex(KEY_ID)));
-                subject.setDate(c.getString(c.getColumnIndex(KEY_Date)));
-                subject.setGruppe(c.getString(c.getColumnIndex(KEY_Group)));
-                subject.setInfo(c.getString(c.getColumnIndex(KEY_Info)));
-                subject.setRoom(c.getString(c.getColumnIndex(KEY_Room)));
-                subject.setSubjectName(c.getString(c.getColumnIndex(KEY_Name)));
-                subject.setTeacher(c.getString(c.getColumnIndex(KEY_Teacher)));
-                subject.setType(c.getString(c.getColumnIndex(KEY_Type)));
-                subject.setTimeStart(c.getString(c.getColumnIndex(KEY_Start_Time)));
-                subject.setTimeEnd(c.getString(c.getColumnIndex(KEY_End_Time)));
-                subject.setStudiengang(c.getString(c.getColumnIndex(KEY_STUDIENGANG)));
-                subject.setYear(c.getString(c.getColumnIndex(KEY_YEAR)));
-                subject.setSemester(c.getString(c.getColumnIndex(KEY_Semester)));
-                subject.setUrl(c.getString(c.getColumnIndex(KEY_Url)));
-                if (c.getString(c.getColumnIndex(KEY_Selected)).equals("true"))
-                    subject.setChecked(true);
-                else
-                    subject.setChecked(false);
-
-                subjects.add(subject);
-
-
-            } while (c.moveToNext());
+        List<String> allCheckedSubjects = getAllCheckedSubjectNames();
+        for(String s : allCheckedSubjects){
+            subjects.add(getSubjectWithName(s));
         }
 
         return subjects;
@@ -798,7 +789,38 @@ public class Database extends SQLiteOpenHelper {
         return weeks;
     }
 
-    private LinkedList<Subject> getOrderedSubjects(){
+    public LinkedList<Subject> getComingSubjects(){
+        LinkedList<Subject> result = new LinkedList<>();
+
+        LinkedList<Subject> allSubjects = getOrderedSubjects();
+        LinkedList<String> subjectNames = new LinkedList<>();
+        DateTime firstDay = null;
+
+        for(Subject s : allSubjects){
+
+            if(result.isEmpty()) {
+                result.add(s);
+                subjectNames.add(s.getSubjectName());
+                firstDay = s.getDateAsDateTime();
+                continue;
+            }
+
+            //only 1 day
+            if(s.getDateAsDateTime().isAfter(firstDay))
+                break;
+
+            if(!subjectNames.contains(s.getSubjectName())){
+                result.add(s);
+                subjectNames.add(s.getSubjectName());
+                continue;
+            }
+        }
+
+        return result;
+
+    }
+
+    private LinkedList<Subject> getOrderedSubjects() {
         String selectQuery = "SELECT  * FROM " + TABLE_SUBJECTS + " WHERE " + KEY_Selected + " = 'true'";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -826,6 +848,12 @@ public class Database extends SQLiteOpenHelper {
                 subject.setSemester(c.getString(c.getColumnIndex(KEY_Semester)));
                 subject.setUrl(c.getString(c.getColumnIndex(KEY_Url)));
                 subject.setChecked(true);
+
+                //delete out of date entries
+                if (subject.getDateAsDateTime().isBeforeNow()) {
+                    deleteSingleSubject(subject);
+                    continue;
+                }
 
                 //löscht kopien von anderen semestern, studiengaengen
                 if (lastSubject != null)
@@ -866,26 +894,22 @@ public class Database extends SQLiteOpenHelper {
         }
 
         Collections.sort(list, new Comparator<Subject>() {
-                @Override
-                public int compare(Subject o1, Subject o2) {
-                    if(o1.getDateAsDateTime().isBefore(o2.getDateAsDateTime()))
-                        return -1;
-                    if(o1.getDateAsDateTime().isAfter(o2.getDateAsDateTime()))
-                        return 1;
+            @Override
+            public int compare(Subject o1, Subject o2) {
+                if (o1.getDateAsDateTime().isBefore(o2.getDateAsDateTime()))
+                    return -1;
+                if (o1.getDateAsDateTime().isAfter(o2.getDateAsDateTime()))
+                    return 1;
 
-                    return 0;
-                }
-            });
+                return 0;
+            }
+        });
 
         return list;
     }
 
     public ArrayList<Subject>[][] getSortedSubjects(int days, int weeks) {
         ArrayList<Subject>[][] subjects = new ArrayList[weeks][days];
-//        String selectQuery = "SELECT  * FROM " + TABLE_SUBJECTS + " WHERE " + KEY_Selected + " = 'true'";
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor c = db.rawQuery(selectQuery, null);
 
         LinkedList<Subject> list = getOrderedSubjects();
 
@@ -896,122 +920,86 @@ public class Database extends SQLiteOpenHelper {
         int w = 0, d = 0, index = 0;
         DateTime lastDate = null;
 
-        for(Subject subject: list){
+        for (Subject subject : list) {
 
-       // Subject lastSubject = null;
+            //erster Durchlauf
+            if (lastDate == null) {
 
-//        if (c.moveToFirst()) {
-//            do {
-//
-//                Subject subject = new Subject();
-//                subject.setDate(c.getString(c.getColumnIndex(KEY_Date)));
-//
-//                subject.setId(c.getInt(c.getColumnIndex(KEY_ID)));
-//                subject.setGruppe(c.getString(c.getColumnIndex(KEY_Group)));
-//                subject.setInfo(c.getString(c.getColumnIndex(KEY_Info)));
-//                subject.setRoom(c.getString(c.getColumnIndex(KEY_Room)));
-//                subject.setSubjectName(c.getString(c.getColumnIndex(KEY_Name)));
-//                subject.setTeacher(c.getString(c.getColumnIndex(KEY_Teacher)));
-//                subject.setType(c.getString(c.getColumnIndex(KEY_Type)));
-//                subject.setTimeStart(c.getString(c.getColumnIndex(KEY_Start_Time)));
-//                subject.setTimeEnd(c.getString(c.getColumnIndex(KEY_End_Time)));
-//                subject.setStudiengang(c.getString(c.getColumnIndex(KEY_STUDIENGANG)));
-//                subject.setYear(c.getString(c.getColumnIndex(KEY_YEAR)));
-//                subject.setSemester(c.getString(c.getColumnIndex(KEY_Semester)));
-//                subject.setUrl(c.getString(c.getColumnIndex(KEY_Url)));
-//                subject.setChecked(true);
-//
-//                //löscht kopien von anderen semestern, studiengaengen
-//                if (lastSubject != null)
-//                    if (lastSubject.getSubjectName().equals(subject.getSubjectName())
-//                            && lastSubject.getDate().equals(subject.getDate())
-//                            && lastSubject.getRoom().equals(subject.getRoom())
-//                            && lastSubject.getTimeStart().equals(subject.getTimeStart())
-//                            && lastSubject.getTimeEnd().equals(subject.getTimeEnd())
-//                            && lastSubject.getGruppe().equals(subject.getGruppe())
-//                            && lastSubject.getTeacher().equals(subject.getTeacher()))
-//                        continue;
-//
-//                lastSubject = subject;
+                int length = subject.getDateAsDateTime().dayOfWeek().get() - 1;
+                for (int i = 0; i < length; i++) {
+                    DateTime currentDay = subject.getDateAsDateTime().minusDays(length - i);
 
-                //erster Durchlauf
-                if (lastDate == null) {
+                    Subject emptySubject = new Subject();
+                    emptySubject.setDateAsDateTime(currentDay);
+                    subjects[w][d].add(index, emptySubject);
 
-                    int length = subject.getDateAsDateTime().dayOfWeek().get() - 1;
-                    for (int i = 0; i < length; i++) {
-                        DateTime currentDay = subject.getDateAsDateTime().minusDays(length - i);
+                    d++;
+                }
 
-                        Subject emptySubject = new Subject();
-                        emptySubject.setDateAsDateTime(currentDay);
-                        subjects[w][d].add(index, emptySubject);
 
+                lastDate = subject.getDateAsDateTime();
+                subjects[w][d].add(index, subject);
+
+            } else {
+                int diff = Days.daysBetween(subject.getDateAsDateTime().toLocalDate(), lastDate.toLocalDate()).getDays() * (-1);
+
+                switch (diff) {
+                    //gleicher Tag
+                    case 0:
+                        index++;
+                        break;
+                    //nächster Tag
+                    case 1:
+                        index = 0;
                         d++;
-                    }
+                        break;
+                    //rest
+                    default:
+                        //add empty Subjects
 
+                        index = 0;
 
-                    lastDate = subject.getDateAsDateTime();
-                    subjects[w][d].add(index, subject);
+                        for (int i = 0; i < diff - 1; i++) {
 
-                } else {
-                    int diff = Days.daysBetween(subject.getDateAsDateTime().toLocalDate(), lastDate.toLocalDate()).getDays() * (-1);
+                            DateTime currentDay = subject.getDateAsDateTime().minusDays((diff - 1) - i);
 
-                    switch (diff) {
-                        //gleicher Tag
-                        case 0:
-                            index++;
-                            break;
-                        //nächster Tag
-                        case 1:
-                            index = 0;
                             d++;
-                            break;
-                        //rest
-                        default:
-                            //add empty Subjects
 
-                            index = 0;
+                            Subject emptySubject = new Subject();
 
-                            for (int i = 0; i < diff - 1; i++) {
+                            emptySubject.setDateAsDateTime(currentDay);
 
-                                DateTime currentDay = subject.getDateAsDateTime().minusDays((diff - 1) - i);
-
-                                d++;
-
-                                Subject emptySubject = new Subject();
-
-                                emptySubject.setDateAsDateTime(currentDay);
-
+                            try {
+                                subjects[w][d].add(index, emptySubject);
+                            } catch (Exception e) {
+                                w++;
+                                d = 0;
                                 try {
                                     subjects[w][d].add(index, emptySubject);
-                                } catch (Exception e) {
-                                    w++;
-                                    d = 0;
-                                    try {
-                                        subjects[w][d].add(index, emptySubject);
-                                    } catch (Exception ex) {
-                                    }
+                                } catch (Exception ex) {
                                 }
-
                             }
 
-                            d++;
+                        }
 
-                            break;
-                    }
+                        d++;
 
-                    lastDate = subject.getDateAsDateTime();
+                        break;
+                }
+
+                lastDate = subject.getDateAsDateTime();
+                try {
+                    subjects[w][d].add(index, subject);
+                } catch (Exception e) {
+                    w++;
+                    d = 0;
                     try {
                         subjects[w][d].add(index, subject);
-                    } catch (Exception e) {
-                        w++;
-                        d = 0;
-                        try {
-                            subjects[w][d].add(index, subject);
-                        } catch (Exception ex) {
-                        }
+                    } catch (Exception ex) {
                     }
-
                 }
+
+            }
 
 
             //} while (c.moveToNext());
@@ -1124,9 +1112,9 @@ public class Database extends SQLiteOpenHelper {
 
         String additives = "";
 
-        for(int i = 0; i < array.size(); i++) {
+        for (int i = 0; i < array.size(); i++) {
 
-            if(i == array.size() -1) additives += array.get(i);
+            if (i == array.size() - 1) additives += array.get(i);
             else additives += array.get(i) + ";";
 
         }
