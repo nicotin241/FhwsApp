@@ -157,26 +157,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
         }
 
-        switch (mensaId) {
-            case 11:
-                overview_mensa_pic.setImageResource(R.drawable.mensa_campus_nord);
-                break;
-            case 5:
-                overview_mensa_pic.setImageResource(R.drawable.mensa_am_hubland);
-                break;
-            case 8:
-                overview_mensa_pic.setImageResource(R.drawable.burse);
-                break;
-            case 9:
-                overview_mensa_pic.setImageResource(R.drawable.mensa_roentgenring);
-                break;
-            case 10:
-                overview_mensa_pic.setImageResource(R.drawable.mensa_josef_schneider_strasse);
-                break;
-            case 7:
-                overview_mensa_pic.setImageResource(R.drawable.mensa_frankenstube);
-
-        }
+        overview_mensa_pic.setImageResource(Mensa.getMensaPic(mensaId));
 
         overview_mensa_meal.setText(todayMeals.get(0).getName());
 
@@ -188,24 +169,40 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void run() {
-                    try {
-                        while (!isInterrupted()) {
-                            Thread.sleep(10000);
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
 
-                                    overview_mensa_meal.setText(todayMeals.get(meals_counter).getName());
-                                    if (meals_counter == todayMeals.size() - 1) meals_counter = 0;
-                                    else meals_counter++;
 
-                                }
-                            });
+                    if(getActivity() == null) {
+                        return;
+                    } else {
+                        try {
+                            while (!isInterrupted()) {
+                                Thread.sleep(10000);
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        overview_mensa_meal.setText(todayMeals.get(meals_counter).getName());
+                                        if (meals_counter == todayMeals.size() - 1) meals_counter = 0;
+                                        else meals_counter++;
+
+                                    }
+                                });
+                            }
+                        } catch (InterruptedException e) {
+
+                        } catch (NullPointerException e) {
+
+                            //Bad solution - for Debugging!
+                            Log.d("THREAD", "Exception: + " + e.toString());
+                            meal_thread.interrupt();
+
                         }
-                    } catch (InterruptedException e) {
+
                     }
+
                 }
             };
+
 
             meal_thread.start();
 
@@ -213,9 +210,20 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+
+        Log.d("THREAD", "onPause");
+        if (meal_thread != null)
+            meal_thread.interrupt();
+
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
 
+        Log.d("THREAD", "onStop");
         if (meal_thread != null)
             meal_thread.interrupt();
 

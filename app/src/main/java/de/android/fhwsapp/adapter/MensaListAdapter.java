@@ -79,27 +79,7 @@ public class MensaListAdapter extends BaseAdapter {
 
         viewHolder.mensa_name.setText(mensa.getName());
         viewHolder.mensa_zeiten.setText(mensa.getZeiten());
-
-        switch (mensa.getMensaId()) {
-            case 11:
-                viewHolder.mensa_image.setImageResource(R.drawable.mensa_campus_nord);
-                break;
-            case 5:
-                viewHolder.mensa_image.setImageResource(R.drawable.mensa_am_hubland);
-                break;
-            case 8:
-                viewHolder.mensa_image.setImageResource(R.drawable.burse);
-                break;
-            case 9:
-                viewHolder.mensa_image.setImageResource(R.drawable.mensa_roentgenring);
-                break;
-            case 10:
-                viewHolder.mensa_image.setImageResource(R.drawable.mensa_josef_schneider_strasse);
-                break;
-            case 7:
-                viewHolder.mensa_image.setImageResource(R.drawable.mensa_frankenstube);
-
-        }
+        viewHolder.mensa_image.setImageResource(Mensa.getMensaPic(mensa.getMensaId()));
 
         return view;
     }

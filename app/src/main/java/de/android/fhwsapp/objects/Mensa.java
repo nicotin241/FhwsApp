@@ -3,6 +3,8 @@ package de.android.fhwsapp.objects;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import de.android.fhwsapp.R;
+
 public class Mensa {
 
     private int mensaId;
@@ -57,6 +59,28 @@ public class Mensa {
         allMensas.add(new Mensa(7, "Frankenstube Würzburg", "Mo - Do    15.30 - 19.00 Uhr\n(Nur in der Vorlesungszeit!)"));
 
         return allMensas;
+
+    }
+
+    public static int getMensaPic(int mensaId) {
+
+        switch (mensaId) {
+            case 11:
+                return R.drawable.mensa_campus_nord;
+            case 5:
+                return R.drawable.mensa_am_hubland;
+            case 8:
+                return R.drawable.burse;
+            case 9:
+                return R.drawable.mensa_roentgenring;
+            case 10:
+                return R.drawable.mensa_josef_schneider_strasse;
+            case 7:
+                return R.drawable.mensa_frankenstube;
+            default:
+                return R.drawable.mensa_burse;
+
+        }
 
     }
 
