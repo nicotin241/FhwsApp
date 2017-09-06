@@ -1,39 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
     android:orientation="vertical"
-    android:weightSum="10"
-    android:layout_margin="10dp">
+    android:weightSum="10">
 
 
     <ListView
-        android:layout_weight="9"
         android:id="@+id/lvNExp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#f4f4f4" >
+        android:layout_weight="9"
+        android:background="#f4f4f4">
 
     </ListView>
 
     <LinearLayout
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
+        android:weightSum="3"
         android:orientation="horizontal">
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnAddCustomSubject"
-        android:text="Eigenes Fach hinzufügen"/>
+        <Button
+            android:id="@+id/btnAddCustomSubject"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Eigenes Fach hinzufügen"
+            android:padding="3dp"
+            android:background="@drawable/rounded_button"/>
+
+        <Button
+            android:id="@+id/btnCheckedSubjects"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Meine Vorlesungen"
+            android:layout_marginRight="3dp"
+            android:layout_marginLeft="3dp"
+            android:padding="3dp"
+            android:background="@drawable/rounded_button"/>
 
         <Button
             android:id="@+id/btnDone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Fertig" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Fertig"
+            android:padding="3dp"
+            android:background="@drawable/rounded_button"/>
     </LinearLayout>
 
 </LinearLayout>
