@@ -23,6 +23,7 @@ import java.util.Date;
 
 import de.android.fhwsapp.Connect;
 import de.android.fhwsapp.Database;
+import de.android.fhwsapp.fragments.MainFragment;
 
 /**
  * Created by admin on 04.09.17.
@@ -217,9 +218,7 @@ public class TimetableDataFetcher extends AsyncTask<String, Void, String> {
             mPrefs.edit().putLong("lastUpdate",DateTime.now().getMillis()).apply();
 
             //reload
-            if(Timetable.isOpen){
-                Connect.sendToAllListeners();
-            }
+            Connect.sendToAllListeners();
 
         }
 

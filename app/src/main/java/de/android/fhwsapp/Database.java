@@ -789,34 +789,14 @@ public class Database extends SQLiteOpenHelper {
         return weeks;
     }
 
-    public LinkedList<Subject> getComingSubjects(){
-        LinkedList<Subject> result = new LinkedList<>();
+    public Subject getComingLecture(){
 
-        LinkedList<Subject> allSubjects = getOrderedSubjects();
-        LinkedList<String> subjectNames = new LinkedList<>();
-        DateTime firstDay = null;
+        LinkedList<Subject> list = getOrderedSubjects();
 
-        for(Subject s : allSubjects){
+        if(!list.isEmpty())
+            return list.getFirst();
 
-            if(result.isEmpty()) {
-                result.add(s);
-                subjectNames.add(s.getSubjectName());
-                firstDay = s.getDateAsDateTime();
-                continue;
-            }
-
-            //only 1 day
-            if(s.getDateAsDateTime().isAfter(firstDay))
-                break;
-
-            if(!subjectNames.contains(s.getSubjectName())){
-                result.add(s);
-                subjectNames.add(s.getSubjectName());
-                continue;
-            }
-        }
-
-        return result;
+        return null;
 
     }
 

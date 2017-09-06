@@ -16,6 +16,7 @@
         android:ellipsize="marquee"
         android:gravity="left"
         android:marqueeRepeatLimit="marquee_forever"
+        android:layout_marginRight="2dp"
         android:singleLine="true" />
 
     <TextView

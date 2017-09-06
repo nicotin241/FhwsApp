@@ -100,9 +100,11 @@ public class Timetable extends FragmentActivity {
         Connect.addListener(new ConnectionListener() {
             @Override
             public void onChanged() {
-                Log.e("Timetable", "onChanged");
-                init();
-                progressBar.setVisibility(View.GONE);
+                if(isOpen) {
+                    Log.e("Timetable", "onChanged");
+                    init();
+                    progressBar.setVisibility(View.GONE);
+                }
             }
         });
 

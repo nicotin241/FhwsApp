@@ -24,15 +24,11 @@ public class MyListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if(objects.size() < 5)
-            return 5;
         return objects.size();
     }
 
     @Override
     public Object getItem(int position) {
-        if(position+1 > objects.size())
-            return null;
         return objects.get(position);
     }
 
@@ -57,8 +53,6 @@ public class MyListAdapter extends BaseAdapter {
             TextView tvTeacher = (TextView) convertView.findViewById(R.id.tvTeacher);
             tvTeacher.setSelected(true);
 
-            if(position+1 <= objects.size()) {
-
                 Subject subject = objects.get(position);
 
                 tvTime.setText(subject.getTimeStart() + " - " + subject.getTimeEnd());
@@ -68,7 +62,7 @@ public class MyListAdapter extends BaseAdapter {
 
                 tvRoom.setText(subject.getRoom());
                 tvTeacher.setText(subject.getTeacher());
-            }
+
 
             if(position == 0 || position % 2 == 0)
                 convertView.setBackgroundColor(Color.parseColor("#AAAAAA"));

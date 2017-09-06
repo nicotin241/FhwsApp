@@ -17,11 +17,15 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
+import de.android.fhwsapp.Connect;
+import de.android.fhwsapp.ConnectionListener;
 import de.android.fhwsapp.Database;
 import de.android.fhwsapp.LVeranstaltungenDataFetcher;
 import de.android.fhwsapp.MainActivity;
@@ -46,6 +50,17 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private String todaysEvents = "";
     private ListView listView;
     private ProgressBar pbEvents;
+
+    //next lecture
+    private TextView tvDay;
+    private TextView tvName;
+    private TextView tvTime;
+    private TextView tvType;
+    private TextView tvRoom;
+    private TextView tvTeacher;
+    private ProgressBar pbNextLecture;
+    private Database database;
+    public static boolean isOpen = false;
 
     private List<Subject> subjectList;
     private ArrayList<Meal> todayMeals;
@@ -94,6 +109,36 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             lvDataFetcher.offlineUse();
         }
 
+        //next Lecture
+        isOpen = true;
+        database = new Database(getContext());
+        Subject nextLecture = database.getComingLecture();
+        initNextLectureViews();
+
+        if(!MainActivity.isNetworkConnected(getContext()) || !Timetable.isLoading)
+            pbNextLecture.setVisibility(View.GONE);
+
+        if(nextLecture == null)
+            timeTable.setVisibility(View.GONE);
+        else{
+
+            fillNextLectureViews(nextLecture);
+
+            Connect.addListener(new ConnectionListener() {
+                @Override
+                public void onChanged() {
+                    if(isOpen) {
+                        fillNextLectureViews(database.getComingLecture());
+                        pbNextLecture.setVisibility(View.GONE);
+                    }
+                }
+            });
+
+        }
+
+
+
+
         mensaId = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt("MENSAID", -1);
 
         if (mensaId != -1) {
@@ -105,6 +150,35 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
         return layout;
     }
+
+
+    private void fillNextLectureViews(Subject nextLecture){
+        int today = DateTime.now().getDayOfYear();
+        int lectureDay = nextLecture.getDateAsDateTime().getDayOfYear();
+
+        if(today == lectureDay)
+            tvDay.setText("Heute");
+        else
+            tvDay.setText(nextLecture.getDate());
+
+        tvName.setText(nextLecture.getSubjectName());
+        tvTime.setText(nextLecture.getTimeStart()+" - "+nextLecture.getTimeEnd()+ " Uhr");
+        tvType.setText(nextLecture.getType());
+        tvRoom.setText(nextLecture.getRoom());
+        tvTeacher.setText(nextLecture.getTeacher());
+
+    }
+
+    private void initNextLectureViews() {
+        tvDay = (TextView) layout.findViewById(R.id.tvDay);
+        tvName = (TextView) layout.findViewById(R.id.tvName);
+        tvTime = (TextView) layout.findViewById(R.id.tvTime);
+        tvType = (TextView) layout.findViewById(R.id.tvType);
+        tvRoom = (TextView) layout.findViewById(R.id.tvRoom);
+        tvTeacher = (TextView) layout.findViewById(R.id.tvTeacher);
+        pbNextLecture = (ProgressBar) layout.findViewById(R.id.pbNextLecture);
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -212,6 +286,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onPause() {
         super.onPause();
+
+        isOpen = false;
 
         Log.d("THREAD", "onPause");
         if (meal_thread != null)
