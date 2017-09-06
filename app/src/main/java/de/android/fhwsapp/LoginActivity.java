@@ -202,9 +202,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     cookies = CookieManager.getInstance().getCookie(url2);
                     new UserDataFetcher(mContext).execute();
-//                    stopDialog();
-//                    Toast.makeText(mContext, "Login erfolgreich!", Toast.LENGTH_SHORT).show();
-//                    login();
 
                 }
             }

@@ -3,7 +3,6 @@ package de.android.fhwsapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
@@ -15,12 +14,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
@@ -31,7 +28,7 @@ import de.android.fhwsapp.fragments.LaufendeVeranstaltungenFragment;
 import de.android.fhwsapp.fragments.MainFragment;
 import de.android.fhwsapp.fragments.MensaFragment;
 import de.android.fhwsapp.fragments.SpoFragment;
-import de.android.fhwsapp.webView.MyWebView;
+import de.android.fhwsapp.fragments.WebViewFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -123,6 +120,7 @@ public class MainActivity extends AppCompatActivity
 
             Intent intent = new Intent(this, Timetable.class);
             startActivity(intent);
+            this.overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
 
         } else if (id == R.id.nav_grades) {
 
@@ -195,6 +193,13 @@ public class MainActivity extends AppCompatActivity
         matrikelnummer.setText(mPrefs.getString("matrikelnummer", "123 4567"));
         email.setText(mPrefs.getString("email", "vorname.nachname@student.fhws.de"));
 
+        if(mPrefs.getBoolean("firststart", true)) {
+
+            drawer.openDrawer((int) Gravity.LEFT, true);
+            editor.putBoolean("firststart", false).apply();
+
+        }
+
     }
 
     private void deleteUserData() {
@@ -203,6 +208,7 @@ public class MainActivity extends AppCompatActivity
         editor.putInt("MENSAID", -1);
         editor.putString("matrikelnummer", "");
         editor.putString("email", "");
+        editor.putBoolean("firststart", true);
         editor.putString(LoginActivity.K_NUMBER, "");
         editor.putString(LoginActivity.PASSWORD, "");
         editor.apply();
@@ -246,7 +252,7 @@ public class MainActivity extends AppCompatActivity
 
         if (loginDataFilled()) {
 
-            mFragment = new MyWebView();
+            mFragment = new WebViewFragment();
             Bundle bundle = new Bundle();
 
             final String js = "javascript:" +
@@ -256,8 +262,8 @@ public class MainActivity extends AppCompatActivity
 
 //            bundle.putString("url", "https://studentenportal.fhws.de/cert");
 //            bundle.putString("js", js);
-            MyWebView.URL = "https://studentenportal.fhws.de/cert";
-            MyWebView.JS = js;
+            WebViewFragment.URL = "https://studentenportal.fhws.de/cert";
+            WebViewFragment.JS = js;
             mFragment.setArguments(bundle);
             setFragment(mFragment);
 
@@ -269,7 +275,7 @@ public class MainActivity extends AppCompatActivity
 
         if (loginDataFilled()) {
 
-            mFragment = new MyWebView();
+            mFragment = new WebViewFragment();
             Bundle bundle = new Bundle();
 
             final String js = "javascript:" +
@@ -279,8 +285,8 @@ public class MainActivity extends AppCompatActivity
 
 //            bundle.putString("url", "https://studentenportal.fhws.de/history");
 //            bundle.putString("js", js);
-            MyWebView.URL = "https://studentenportal.fhws.de/history";
-            MyWebView.JS = js;
+            WebViewFragment.URL = "https://studentenportal.fhws.de/history";
+            WebViewFragment.JS = js;
             mFragment.setArguments(bundle);
             setFragment(mFragment);
 
@@ -290,19 +296,15 @@ public class MainActivity extends AppCompatActivity
     public void startNotenWebView(View view) {
 
         if (loginDataFilled()) {
-            mFragment = new MyWebView();
+            mFragment = new WebViewFragment();
 
             final String js = "javascript:" +
                     "document.getElementsByName('password')[0].value = '" + password + "';" +
                     "document.getElementsByName('username')[0].value = '" + username + "';" +
                     "document.getElementsByClassName('btn btn-primary')[0].click()";
 
-            Bundle bundle = new Bundle();
-//            bundle.putString("url", "https://studentenportal.fhws.de/grades");
-//            bundle.putString("js", js);
-            MyWebView.URL = "https://studentenportal.fhws.de/grades";
-            MyWebView.JS = js;
-            mFragment.setArguments(bundle);
+            WebViewFragment.URL = "https://studentenportal.fhws.de/grades";
+            WebViewFragment.JS = js;
             setFragment(mFragment);
 
         } else showSnackbar();

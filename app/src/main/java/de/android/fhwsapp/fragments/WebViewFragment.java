@@ -1,6 +1,7 @@
-package de.android.fhwsapp.webView;
+package de.android.fhwsapp.fragments;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.pdf.PdfDocument;
@@ -25,7 +26,7 @@ import java.io.UnsupportedEncodingException;
 import de.android.fhwsapp.R;
 import de.android.fhwsapp.pdfDownloaderViewer.PdfViewer;
 
-public class MyWebView extends Fragment {
+public class WebViewFragment extends Fragment {
 
     private WebView webView = null;
     private View view;
@@ -35,6 +36,7 @@ public class MyWebView extends Fragment {
 
     private SharedPreferences mPrefs;
     private SharedPreferences.Editor editor;
+    private ProgressDialog mDialog;
 
     public static String URL;
     public static String JS;
@@ -55,6 +57,11 @@ public class MyWebView extends Fragment {
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         editor = mPrefs.edit();
+        mDialog = new ProgressDialog(getContext());
+
+        mDialog.setMessage("Lade Daten...");
+        mDialog.show();
+        webView.setVisibility(View.INVISIBLE);
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
@@ -90,12 +97,27 @@ public class MyWebView extends Fragment {
 
                     webView.loadUrl(url);
 
+                } else {
+
+                    stopDialog();
+
                 }
 
             }
         });
 
         return view;
+    }
+
+    private void stopDialog() {
+
+        if (mDialog != null) {
+            if (mDialog.isShowing()) {
+                mDialog.dismiss();
+            }
+        }
+        webView.setVisibility(View.VISIBLE);
+
     }
 
     private void downloadPdf(String url, String folderName, String fileName) {
@@ -121,7 +143,6 @@ public class MyWebView extends Fragment {
     private void requestForSpecificPermission() {
         requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
     }
-
 
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
 
