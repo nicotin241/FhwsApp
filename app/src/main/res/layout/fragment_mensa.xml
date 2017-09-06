@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:animateLayoutChanges="true"
     tools:context="de.android.fhwsapp.fragments.MensaFragment">
 
     <FrameLayout
@@ -22,7 +23,7 @@
                 android:gravity="left"
                 android:padding="16dp"
                 android:textColor="@color/colorPrimary"
-                android:textSize="25dp" />
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/mensa_date"
@@ -40,6 +41,16 @@
                 android:dividerHeight="0dp"
                 android:scrollbars="none"
                 android:paddingTop="16dp" />
+
+            <TextView
+                android:id="@+id/mensa_no_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:paddingTop="64dp"
+                android:textSize="22dp"
+                android:text="Aktuell keine Daten vorhanden.\nBitte beachte auch die Öffnungszeiten."
+                android:visibility="gone"/>
 
         </LinearLayout>
 

@@ -25,6 +25,7 @@ import java.util.Locale;
 
 import de.android.fhwsapp.Timetable.Subject;
 import de.android.fhwsapp.objects.Meal;
+import de.android.fhwsapp.objects.NewsItem;
 
 public class Database extends SQLiteOpenHelper {
 
@@ -143,7 +144,33 @@ public class Database extends SQLiteOpenHelper {
 
     String DROP_MEALS_TABLE = "DROP TABLE IF EXISTS " + MEALS_TABLE;
 
- /*
+    /*
+    *
+    * Newsitems - Strings
+    *
+    * */
+
+    private static final String NEWS_TABLE = "news_table";
+    private static final String NEWS_ID = "_id";
+    private static final String NEWS_TITLE = "_title";
+    private static final String NEWS_TEXT = "_text";
+    private static final String NEWS_CATEGORY = "_category";
+    private static final String NEWS_TAGS = "_tags";
+    private static final String NEWS_TIMESTAMP = "_timestamp";
+
+
+    String CREATE_NEWS_TABLE = "CREATE TABLE " + NEWS_TABLE + " ("
+            + NEWS_ID + " INTEGER PRIMARY KEY,"
+            + NEWS_TITLE + " TEXT,"
+            + NEWS_TEXT + " TEXT,"
+            + NEWS_CATEGORY + " TEXT,"
+            + NEWS_TAGS + " TEXT,"
+            + NEWS_TIMESTAMP + " REAL);";
+
+    String DROP_NEWS_TABLE = "DROP TABLE IF EXISTS " + NEWS_TABLE;
+
+
+    /*
     *
     * Busplan - Strings
     *
@@ -174,8 +201,8 @@ public class Database extends SQLiteOpenHelper {
 //        db.execSQL(CREATE_TABLE_TODO_TAG);
 
         db.execSQL(CREATE_MEALS_TABLE);
-
         db.execSQL(CREATE_BUS_TABLE);
+        db.execSQL(CREATE_NEWS_TABLE);
 
     }
 
@@ -187,11 +214,9 @@ public class Database extends SQLiteOpenHelper {
 //        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TODO_TAG);
 
         db.execSQL(DROP_MEALS_TABLE);
-
         db.execSQL(DROP_BUS_TABLE);
+        db.execSQL(DROP_NEWS_TABLE);
 
-
-        // create new tables
         onCreate(db);
     }
 
@@ -464,7 +489,7 @@ public class Database extends SQLiteOpenHelper {
     public List<String> getAllCheckedSubjectNames() {
         List<String> names = new ArrayList<>();
         String selectQuery = "SELECT DISTINCT " + KEY_Name + " FROM "
-                + TABLE_SUBJECTS+ " WHERE "+KEY_Selected+" = 'true'";
+                + TABLE_SUBJECTS + " WHERE " + KEY_Selected + " = 'true'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -604,7 +629,7 @@ public class Database extends SQLiteOpenHelper {
         LinkedList<Subject> subjects = new LinkedList<>();
 
         List<String> allCheckedSubjects = getAllCheckedSubjectNames();
-        for(String s : allCheckedSubjects){
+        for (String s : allCheckedSubjects) {
             subjects.add(getSubjectWithName(s));
         }
 
@@ -789,11 +814,11 @@ public class Database extends SQLiteOpenHelper {
         return weeks;
     }
 
-    public Subject getComingLecture(){
+    public Subject getComingLecture() {
 
         LinkedList<Subject> list = getOrderedSubjects();
 
-        if(!list.isEmpty())
+        if (!list.isEmpty())
             return list.getFirst();
 
         return null;
@@ -1025,14 +1050,14 @@ public class Database extends SQLiteOpenHelper {
             values.put(MEALS_PRICE_STUDENTS, meal.getPrice_students());
             values.put(MEALS_PRICE_BED, meal.getPrice_bed());
             values.put(MEALS_PRICE_GUEST, meal.getPrice_guest());
-            values.put(MEALS_ADDITIVES, getAdditivesString(meal.getAdditives()));
+            values.put(MEALS_ADDITIVES, getArrayListAsString(meal.getAdditives()));
             values.put(MEALS_FOODTYPE, meal.getFoodtype());
 
             db.insertWithOnConflict(MEALS_TABLE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
             db.close();
 
         } catch (Exception e) {
-            Log.e("DB_HOTEL_PROBLEM", e + "");
+            Log.e("DB_MEAL_ERROR: ", e + "");
         }
     }
 
@@ -1062,7 +1087,7 @@ public class Database extends SQLiteOpenHelper {
                     tempMeal.setPrice_students(cursor.getString(4));
                     tempMeal.setPrice_bed(cursor.getString(5));
                     tempMeal.setPrice_guest(cursor.getString(6));
-                    tempMeal.setAdditives(getAdditivesArrayList(cursor.getString(7)));
+                    tempMeal.setAdditives(getStringAsArrayList(cursor.getString(7)));
                     tempMeal.setFoodtype(cursor.getString(8));
 
                     allMeals.add(tempMeal);
@@ -1088,28 +1113,83 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
-    private String getAdditivesString(ArrayList<String> array) {
+    /*
+    *
+    * NewsItems functions
+    *
+    * */
 
-        String additives = "";
+    public void addNewsItem(NewsItem newsItem) {
 
-        for (int i = 0; i < array.size(); i++) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
-            if (i == array.size() - 1) additives += array.get(i);
-            else additives += array.get(i) + ";";
+        try {
 
+            ContentValues values = new ContentValues();
+            values.put(NEWS_ID, newsItem.getId());
+            values.put(NEWS_TITLE, newsItem.getTitle());
+            values.put(NEWS_TEXT, newsItem.getText());
+            values.put(NEWS_CATEGORY, newsItem.getCategory());
+            values.put(NEWS_TAGS, getArrayListAsString(newsItem.getTags()));
+            values.put(NEWS_TIMESTAMP, newsItem.getTimestamp());
+
+            db.insertWithOnConflict(NEWS_TABLE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+            db.close();
+
+        } catch (Exception e) {
+            Log.e("DB_NEWS_PROBLEM", e + "");
+        }
+    }
+
+    public ArrayList<NewsItem> getAllNews() {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<NewsItem> allNews  = null;
+
+        try {
+
+            allNews = new ArrayList<NewsItem>();
+            String QUERY = "SELECT * FROM " + NEWS_TABLE; // + " ORDER BY "+ NEWS_ID + " DESC";
+
+            Cursor cursor = db.rawQuery(QUERY, null);
+
+            if(!cursor.isLast()) {
+
+                while (cursor.moveToNext()) {
+
+                    NewsItem newsItem = new NewsItem();
+
+                    newsItem.setId(cursor.getString(0));
+                    newsItem.setTitle(cursor.getString(1));
+                    newsItem.setText(cursor.getString(2));
+                    newsItem.setCategory(cursor.getString(3));
+                    newsItem.setTags(getStringAsArrayList(cursor.getString(4)));
+                    newsItem.setTimestamp(cursor.getLong(5));
+
+                    allNews.add(newsItem);
+
+                }
+
+            }
+
+            db.close();
+
+
+        } catch (Exception e) {
+            Log.e("DB_NEWS_PROBLEM", e+"");
         }
 
-        return additives;
+        return allNews;
 
     }
 
-    private ArrayList<String> getAdditivesArrayList(String additives) {
+    public void deleteOldNews() {
 
-        return new ArrayList<String>(Arrays.asList(additives.split(";")));
+        this.getWritableDatabase().delete(NEWS_TABLE, null, null);
 
     }
 
-     /*
+    /*
     *
     * busplan functions
     *
@@ -1157,6 +1237,33 @@ public class Database extends SQLiteOpenHelper {
     public void deleteOldBusLinien() {
 
         this.getWritableDatabase().delete(BUS_TABLE, null, null);
+
+    }
+
+    /*
+    *
+    * helpful functions
+    *
+    * */
+
+    private String getArrayListAsString(ArrayList<String> array) {
+
+        String stringList = "";
+
+        for (int i = 0; i < array.size(); i++) {
+
+            if (i == array.size() - 1) stringList += array.get(i);
+            else stringList += array.get(i) + ";";
+
+        }
+
+        return stringList;
+
+    }
+
+    private ArrayList<String> getStringAsArrayList(String stringList) {
+
+        return new ArrayList<String>(Arrays.asList(stringList.split(";")));
 
     }
 

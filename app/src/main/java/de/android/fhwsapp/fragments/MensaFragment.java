@@ -28,6 +28,8 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.w3c.dom.Text;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -73,6 +75,7 @@ public class MensaFragment extends Fragment {
 
     private TextView title;
     private TextView date;
+    private TextView mensa_no_data;
     private CheckBox saveMensaCheckBox;
     private FloatingActionButton fab;
 
@@ -95,14 +98,9 @@ public class MensaFragment extends Fragment {
         mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         editor = mPrefs.edit();
 
-        mensa_select_layout = (FrameLayout) view.findViewById(R.id.mensa_select_layout);
-        mensa_list = (ListView) view.findViewById(R.id.mensa_item_list);
-        mListView = (ListView) view.findViewById(R.id.mealList);
-        saveMensaCheckBox = (CheckBox) view.findViewById(R.id.saveMensaCheckBox);
+        initLayout();
 
-        mensaListAdapter = new MensaListAdapter(getContext());
-        mensa_list.setAdapter(mensaListAdapter);
-
+        //TODO: Animation is not working first time - WHY?
         mensa_select_layout.animate()
                 .translationY(mensa_select_layout.getHeight())
                 .setDuration(300);
@@ -113,14 +111,7 @@ public class MensaFragment extends Fragment {
 
                 mensaId = mensaItems.get(i).getMensaId();
 
-                setTitleAndDate();
-
-                allMeals = database.getMealsById(mensaId);
-
-                getTodayMeals();
-
-                mAdapter = new MealListAdapter(mContext, todayMeals);
-                mListView.setAdapter(mAdapter);
+                initMealsList();
 
                 mensa_select_layout.animate()
                         .translationY(mensa_select_layout.getHeight())
@@ -157,14 +148,7 @@ public class MensaFragment extends Fragment {
 
         if(mensaId != -1) {
 
-            setTitleAndDate();
-
-            allMeals = database.getMealsById(mensaId);
-
-            getTodayMeals();
-
-            mAdapter = new MealListAdapter(mContext, todayMeals);
-            mListView.setAdapter(mAdapter);
+            initMealsList();
 
         } else {
 
@@ -174,6 +158,22 @@ public class MensaFragment extends Fragment {
         }
 
         return view;
+    }
+
+    private void initLayout() {
+
+        mensa_select_layout = (FrameLayout) view.findViewById(R.id.mensa_select_layout);
+        mensa_list = (ListView) view.findViewById(R.id.mensa_item_list);
+        mListView = (ListView) view.findViewById(R.id.mealList);
+        saveMensaCheckBox = (CheckBox) view.findViewById(R.id.saveMensaCheckBox);
+
+        title = (TextView) view.findViewById(R.id.mensa_title);
+        date = (TextView) view.findViewById(R.id.mensa_date);
+        mensa_no_data = (TextView) view.findViewById(R.id.mensa_no_data);
+
+        mensaListAdapter = new MensaListAdapter(getContext());
+        mensa_list.setAdapter(mensaListAdapter);
+
     }
 
     private void getTodayMeals() {
@@ -201,9 +201,6 @@ public class MensaFragment extends Fragment {
 
     private void setTitleAndDate() {
 
-        title = (TextView) view.findViewById(R.id.mensa_title);
-        date = (TextView) view.findViewById(R.id.mensa_date);
-
         for(Mensa mensa : mensaItems) {
 
             if(mensa.getMensaId() == mensaId) title.setText("Speiseplan für " + mensa.getName());
@@ -214,117 +211,34 @@ public class MensaFragment extends Fragment {
 
     }
 
-     /*
-    *
-    * Mensa IDs:
-    *
-    * 1 -
-    * 2 -
-    * 3 -
-    * 4 -
-    * 5 - Mensa am Hubland Würzburg (AbrufID 7)
-    * 6 - Mensa am Studentenwerk -> Hinweis auf Burse
-    * 7 - Frankenstube Würzburg (AbrufID 6)
-    * 8 - Burse Würzburg (AbrufID: 9)
-    * 9 - Mensa Röntgenring Würzburg (AbrufID 8)
-    * 10 - Mensa Josef-Schneider-Straße (AbrufID 5)
-    * 11 - Mensateria Campus Nord (?) (AbrufID: 54)
-    *
-    *
-    * */
+    private void initMealsList() {
 
-    public class DataFetcher extends AsyncTask<Void, Void, Void> {
+        setTitleAndDate();
 
-        private HttpURLConnection urlConnection;
-        private Context mContext;
+        allMeals = database.getMealsById(mensaId);
 
-        private String URL_MENSA = "http://54.93.76.71:8080/FHWS/mensaplan?mensaId=";
+        getTodayMeals();
 
-        StringBuilder result;
+        if(todayMeals.size() > 0) {
 
-        public DataFetcher(Context context, int mensa_id) {
+            if(mensa_no_data.getVisibility() == View.VISIBLE) {
 
-            mContext = context;
-            URL_MENSA += mensa_id;
-
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            result = new StringBuilder();
-
-            try {
-
-                URL url = new URL(URL_MENSA);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.setRequestProperty("Content-Type", "application/json");
-
-                if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-
-                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        result.append(line);
-                    }
-                } else {
-
-                    getActivity().runOnUiThread(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            try {
-                                Toast.makeText(getContext(), "Server-Fehler: " + urlConnection.getResponseCode() + "-" + urlConnection.getResponseMessage(), Toast.LENGTH_SHORT).show();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-
-
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                urlConnection.disconnect();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-
-            super.onPostExecute(aVoid);
-
-            if (result != null) {
-
-//                dataBaseHelper.deleteOldMeals();
-
-                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                allMeals = new ArrayList<Meal>(Arrays.asList(gson.fromJson(result.toString(), Meal[].class)));
-
-                if (allMeals != null) {
-
-                    getTodayMeals();
-                    mAdapter = new MealListAdapter(mContext, todayMeals);
-                    mListView.setAdapter(mAdapter);
-
-                }
-
-
+                mListView.setVisibility(View.VISIBLE);
+                mensa_no_data.setVisibility(View.GONE);
 
             }
+            mAdapter = new MealListAdapter(mContext, todayMeals);
+            mListView.setAdapter(mAdapter);
+
+        } else {
+
+            mListView.setVisibility(View.GONE);
+            mensa_no_data.setVisibility(View.VISIBLE);
+
         }
+
+
+
     }
 
 }

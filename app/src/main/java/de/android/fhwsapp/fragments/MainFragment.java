@@ -136,15 +136,13 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
         }
 
-
-
-
+        //todays Fav-Mensa meals
         mensaId = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt("MENSAID", -1);
 
         if (mensaId != -1) {
 
             getTodayMeals(db.getMealsById(mensaId));
-            showMensaCard();
+            if(todayMeals.size() > 0) showMensaCard();
 
         }
 
@@ -244,7 +242,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 @Override
                 public void run() {
 
-
                     if(getActivity() == null) {
                         return;
                     } else {
@@ -271,16 +268,24 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                             meal_thread.interrupt();
 
                         }
-
                     }
-
                 }
             };
-
 
             meal_thread.start();
 
         }
+    }
+
+    private void stopThread() {
+        if (meal_thread != null)
+            meal_thread.interrupt();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(meal_thread != null && meal_thread.isInterrupted()) meal_thread.run();
     }
 
     @Override
@@ -288,21 +293,14 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         super.onPause();
 
         isOpen = false;
-
-        Log.d("THREAD", "onPause");
-        if (meal_thread != null)
-            meal_thread.interrupt();
+        stopThread();
 
     }
 
     @Override
     public void onStop() {
         super.onStop();
-
-        Log.d("THREAD", "onStop");
-        if (meal_thread != null)
-            meal_thread.interrupt();
-
+        stopThread();
     }
 
 }
