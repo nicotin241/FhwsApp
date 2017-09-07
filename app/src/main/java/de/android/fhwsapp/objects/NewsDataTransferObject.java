@@ -12,4 +12,19 @@ public class NewsDataTransferObject {
     @SerializedName("timestamp")
     private String timestamp;
 
+    public ArrayList<NewsItem> getNewsItems() {
+        return newsItems;
+    }
+
+    public void setNewsItems(ArrayList<NewsItem> newsItems) {
+        this.newsItems = newsItems;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
 }

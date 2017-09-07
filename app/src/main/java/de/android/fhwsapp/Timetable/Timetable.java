@@ -1,5 +1,6 @@
 package de.android.fhwsapp.Timetable;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -66,6 +67,8 @@ public class Timetable extends FragmentActivity {
 
     private Context context;
 
+    public static Activity timetableActivity;
+
     //    private LinearLayout addLayout;
     public static FloatingActionButton floatingActionButton;
 
@@ -82,6 +85,7 @@ public class Timetable extends FragmentActivity {
 
         context = this;
         created = true;
+        timetableActivity = this;
 
         if(getIntent().getExtras() != null)
             created = getIntent().getExtras().getBoolean("from_filter");
@@ -407,5 +411,13 @@ public class Timetable extends FragmentActivity {
         startActivity(intent);
         this.finish();
     }
+
+    public void backToMain(View view) {
+
+        this.finish();
+        this.overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+
+    }
+
 }
 

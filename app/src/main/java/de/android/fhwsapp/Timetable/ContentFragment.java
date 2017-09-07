@@ -1,8 +1,10 @@
 package de.android.fhwsapp.Timetable;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -70,7 +72,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener, V
         }catch (Exception e){}
 
         if(tvDate != null) {
-            String weekDay = subjects.get(0).getDateAsDateTime().dayOfWeek().getAsShortText(new Locale("de"));
+            String weekDay = subjects.get(0).getDateAsDateTime().dayOfWeek().getAsText(new Locale("de")); //.getAsShortText(new Locale("de"));
             tvDate.setText(weekDay+" "+subjects.get(0).getDate());
 
         }
@@ -131,6 +133,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener, V
     }
 
     private TextView addSubject(){
+
         layout.setWeightSum(layout.getWeightSum()+1);
 
         TextView tv = new TextView(getContext(),null);
@@ -138,7 +141,12 @@ public class ContentFragment extends Fragment implements View.OnClickListener, V
 
         tv.setGravity(Gravity.CENTER);
         tv.setTextColor(Color.WHITE);
-        tv.setBackgroundColor(0x99000000);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            tv.setLetterSpacing(0.05f);
+        }
+//        tv.setBackgroundColor(0x99000000);
+        tv.setBackgroundResource(R.drawable.timetable_item_bg);
+
 
         //make tv scrollbar
         tv.setMaxLines(10);
@@ -168,7 +176,9 @@ public class ContentFragment extends Fragment implements View.OnClickListener, V
             if(markedTv != null)
                     if(markedTv.equals(tv)) {
                         markedTv = null;
-                        tv.setBackgroundColor(tv.getHighlightColor());
+
+                        tv.setBackgroundResource(R.drawable.timetable_item_bg);
+//                        tv.setBackgroundColor(tv.getHighlightColor());
 
                         if(markedTv == null)
                             if(Timetable.floatingActionButton != null) {
@@ -186,10 +196,13 @@ public class ContentFragment extends Fragment implements View.OnClickListener, V
             }
 
             if(markedTv != null)
-                markedTv.setBackgroundColor(markedTv.getHighlightColor());
+                markedTv.setBackgroundResource(R.drawable.timetable_item_bg);
+//                markedTv.setBackgroundColor(markedTv.getHighlightColor());
 
             markedTv = tv;
-            tv.setBackgroundColor(0xFF000000);
+//            tv.setBackgroundColor(0xFF000000);
+            tv.setBackgroundResource(R.drawable.timetable_item_bg);
+
             tv.startAnimation(animShake);
 
         }
@@ -209,7 +222,8 @@ public class ContentFragment extends Fragment implements View.OnClickListener, V
 
             if (markedTv != null) {
 
-                markedTv.setBackgroundColor(markedTv.getHighlightColor());
+                markedTv.setBackgroundResource(R.drawable.timetable_item_bg);
+//                markedTv.setBackgroundColor(markedTv.getHighlightColor());
 
                 if (Timetable.floatingActionButton != null) {
                     Timetable.floatingActionButton.setImageResource(R.drawable.plus);
