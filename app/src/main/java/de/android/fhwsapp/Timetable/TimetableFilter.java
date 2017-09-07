@@ -44,7 +44,7 @@ public class TimetableFilter extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.lvNExp);
         database = new Database(this);
 
-        if(getIntent().getExtras() != null)
+        if (getIntent().getExtras() != null)
             nothingChecked = getIntent().getExtras().getBoolean("nothing checked");
 
         addSubject = (Button) findViewById(R.id.btnAddCustomSubject);
@@ -61,7 +61,7 @@ public class TimetableFilter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TimetableFilter.this, Timetable.class);
-                intent.putExtra("from_filter",true);
+                intent.putExtra("from_filter", true);
                 startActivity(intent);
             }
         });
@@ -127,10 +127,10 @@ public class TimetableFilter extends AppCompatActivity {
 
                             TextView tvInfo = (TextView) view.findViewById(R.id.tvInfos);
                             String info = subject.getDate();
-                            if(!subject.getGruppe().equals(""))
-                                info = info+", "+subject.getGruppe();
-                            if(!subject.getTeacher().equals(""))
-                                info = info+", "+subject.getTeacher();
+                            if (!subject.getGruppe().equals(""))
+                                info = info + ", " + subject.getGruppe();
+                            if (!subject.getTeacher().equals(""))
+                                info = info + ", " + subject.getTeacher();
                             tvInfo.setText(info);
                             tvInfo.setSelected(true);
 
@@ -254,10 +254,10 @@ public class TimetableFilter extends AppCompatActivity {
 
                                     TextView tvInfo = (TextView) view.findViewById(R.id.tvInfos);
                                     String info = "";
-                                    if(!subject.getTeacher().equals(""))
-                                        info = info+subject.getTeacher();
-                                    if(!subject.getGruppe().equals(""))
-                                        info = info+", "+subject.getGruppe();
+                                    if (!subject.getTeacher().equals(""))
+                                        info = info + subject.getTeacher();
+                                    if (!subject.getGruppe().equals(""))
+                                        info = info + ", " + subject.getGruppe();
                                     tvInfo.setText(info);
                                     tvInfo.setSelected(true);
 
@@ -295,25 +295,30 @@ public class TimetableFilter extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
 
-        if(nothingChecked) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
+        if (nothingChecked) {
+
+//            Intent intent = new Intent(this, MainActivity.class);
+//            startActivity(intent);
+            this.finish();
+            Timetable.timetableActivity.finish();
+
         }
+
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
 
         init();
     }
 
-    public void init(){
+    public void init() {
         prepareListData();
 
         NLevelAdapter adapter = new NLevelAdapter(list);
@@ -323,8 +328,8 @@ public class TimetableFilter extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                ((NLevelAdapter)listView.getAdapter()).toggle(arg2);
-                ((NLevelAdapter)listView.getAdapter()).getFilter().filter();
+                ((NLevelAdapter) listView.getAdapter()).toggle(arg2);
+                ((NLevelAdapter) listView.getAdapter()).getFilter().filter();
 
             }
         });

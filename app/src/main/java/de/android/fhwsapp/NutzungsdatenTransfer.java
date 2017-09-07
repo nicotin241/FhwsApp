@@ -15,12 +15,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
 
-
-
-/**
- * Created by admin on 04.09.17.
- */
-
 public class NutzungsdatenTransfer extends AsyncTask<String, Void, String> {
 
     private Context context;

@@ -16,6 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".SplashScreen"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
@@ -25,15 +26,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".Timetable.Timetable" />
+
+        <activity android:name=".Timetable.Timetable">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.android.fhwsapp.MainActivity" />
+        </activity>
+
         <activity android:name=".Timetable.AddSubject" />
+
         <activity android:name=".Timetable.TimetableFilter" />
 
         <provider
@@ -46,7 +56,11 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".Timetable.CheckedSubjectsOverview"></activity>
+        <activity android:name=".Timetable.CheckedSubjectsOverview">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.android.fhwsapp.Timetable.Timetable" />
+        </activity>
     </application>
 
 </manifest>

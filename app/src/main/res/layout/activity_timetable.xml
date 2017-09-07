@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context="de.android.fhwsapp.Timetable.Timetable">
 
-
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -14,33 +13,42 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:orientation="vertical"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="1.0">
 
-
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@color/colorPrimaryDark"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/llDays"
-            app:layout_constraintHorizontal_bias="0.0" />
+            android:background="@color/colorPrimary"
+            app:layout_constraintHorizontal_bias="0.0">
 
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_arrow_back_white_24dp"
+                android:adjustViewBounds="true"
+                android:layout_marginLeft="16dp"
+                android:onClick="backToMain"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layoutHeight"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="3dp"
             android:orientation="vertical"
             android:weightSum="13">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#AAAAAA"
+                android:background="@color/time_column_dark"
                 android:text="8:00"
                 android:paddingBottom="8dp"
                 android:paddingLeft="8dp"
@@ -50,7 +58,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#DDDDDD"
+                android:background="@color/time_column_bright"
                 android:text="9:00"
                 android:paddingBottom="8dp"
                 android:paddingLeft="8dp"
@@ -60,7 +68,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#AAAAAA"
+                android:background="@color/time_column_dark"
                 android:text="10:00"
                 android:paddingBottom="8dp"
                 android:paddingLeft="8dp"
@@ -70,7 +78,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#DDDDDD"
+                android:background="@color/time_column_bright"
                 android:text="11:00"
                 android:paddingBottom="8dp"
                 android:paddingLeft="8dp"
@@ -80,7 +88,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#AAAAAA"
+                android:background="@color/time_column_dark"
                 android:text="12:00"
                 android:paddingBottom="8dp"
                 android:paddingLeft="8dp"
@@ -90,7 +98,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#DDDDDD"
+                android:background="@color/time_column_bright"
                 android:text="13:00"
                 android:paddingBottom="8dp"
                 android:paddingLeft="8dp"
@@ -100,7 +108,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#AAAAAA"
+                android:background="@color/time_column_dark"
                 android:text="14:00"
                 android:paddingBottom="8dp"
                 android:paddingLeft="8dp"
@@ -110,7 +118,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#DDDDDD"
+                android:background="@color/time_column_bright"
                 android:text="15:00"
                 android:paddingBottom="8dp"
                 android:paddingLeft="8dp"
@@ -120,7 +128,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#AAAAAA"
+                android:background="@color/time_column_dark"
                 android:text="16:00"
                 android:paddingBottom="8dp"
                 android:paddingLeft="8dp"
@@ -130,7 +138,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#DDDDDD"
+                android:background="@color/time_column_bright"
                 android:text="17:00"
                 android:paddingBottom="8dp"
                 android:paddingLeft="8dp"
@@ -140,7 +148,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#AAAAAA"
+                android:background="@color/time_column_dark"
                 android:text="18:00"
                 android:paddingBottom="8dp"
                 android:paddingLeft="8dp"
@@ -150,7 +158,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#DDDDDD"
+                android:background="@color/time_column_bright"
                 android:text="19:00"
                 android:paddingBottom="8dp"
                 android:paddingLeft="8dp"
@@ -161,7 +169,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#AAAAAA"
+                android:background="@color/time_column_dark"
                 android:text="20:00"
                 android:paddingBottom="8dp"
                 android:paddingLeft="8dp"
@@ -183,7 +191,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="43dp"
+            android:layout_marginTop="56dp"
             android:weightSum="7">
 
             <ImageButton
@@ -248,7 +256,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="56dp"
             android:weightSum="0">
 
 
@@ -262,13 +270,12 @@
             android:layout_gravity="center"
             />
 
-
     </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_weight="1"
         android:clickable="true"
         app:srcCompat="@drawable/plus"

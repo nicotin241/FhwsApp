@@ -177,7 +177,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         pbNextLecture = (ProgressBar) layout.findViewById(R.id.pbNextLecture);
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
