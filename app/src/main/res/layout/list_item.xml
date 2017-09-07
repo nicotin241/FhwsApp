@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:weightSum="3.1">
 
     <TextView
         android:id="@+id/tvSubjectName"
@@ -33,6 +33,12 @@
         android:marqueeRepeatLimit="marquee_forever"
         android:singleLine="true" />
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:layout_weight="0.05"/>
+
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -45,7 +51,7 @@
         android:gravity="left"
         android:marqueeRepeatLimit="marquee_forever"
         android:singleLine="true"
-        android:layout_weight="1"/>
+        android:layout_weight="0.95"/>
 
     </LinearLayout>
 

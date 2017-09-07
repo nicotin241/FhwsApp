@@ -2,6 +2,7 @@ package de.android.fhwsapp.Timetable;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -98,6 +99,10 @@ public class TimetableFilter extends AppCompatActivity {
                     view.findViewById(R.id.level2).setVisibility(View.GONE);
                     TextView tv = (TextView) view.findViewById(R.id.lblListHeader);
                     String name = item.getWrappedObject().toString();
+
+                    if(name.equals(""))
+                        name = "Vorlesungen";
+
                     tv.setText(name);
                     return view;
                 }
@@ -120,30 +125,68 @@ public class TimetableFilter extends AppCompatActivity {
 
                             View view = inflater.inflate(R.layout.custom_list_item, null);
 
-                            TextView tv = (TextView) view.findViewById(R.id.tvSubjectName);
+                            final TextView tv = (TextView) view.findViewById(R.id.tvSubjectName);
                             String name = subject.getSubjectName();
                             tv.setText(name);
-                            tv.setSelected(true);
 
-                            TextView tvInfo = (TextView) view.findViewById(R.id.tvInfos);
+
+                            final TextView tvInfo = (TextView) view.findViewById(R.id.tvInfos);
                             String info = subject.getDate();
                             if(!subject.getGruppe().equals(""))
                                 info = info+", "+subject.getGruppe();
                             if(!subject.getTeacher().equals(""))
                                 info = info+", "+subject.getTeacher();
                             tvInfo.setText(info);
+
+                            tv.setSelected(true);
                             tvInfo.setSelected(true);
 
                             final CheckBox cb = (CheckBox) view.findViewById(R.id.cbAbo);
-                            if (subject.isChecked())
+                            cb.setVisibility(View.GONE);
+
+                            if (subject.isChecked()) {
                                 cb.setChecked(true);
-                            else
+                                tv.setBackgroundColor(Color.parseColor("#0078ff"));
+                                tvInfo.setBackgroundColor(Color.parseColor("#0078ff"));
+                            } else {
                                 cb.setChecked(false);
+                                tv.setBackgroundColor(Color.parseColor("#ffffff"));
+                                tvInfo.setBackgroundColor(Color.parseColor("#ffffff"));
+                            }
 
                             tv.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     cb.toggle();
+
+                                    if(cb.isChecked()){
+                                        tv.setBackgroundColor(Color.parseColor("#0078ff"));
+                                        tvInfo.setBackgroundColor(Color.parseColor("#0078ff"));
+                                    }else{
+                                        cb.setChecked(false);
+                                        tv.setBackgroundColor(Color.parseColor("#ffffff"));
+                                        tvInfo.setBackgroundColor(Color.parseColor("#ffffff"));
+                                    }
+
+                                    database.updateCheckedSubjects(subject, cb.isChecked());
+                                    subject.setChecked(cb.isChecked());
+                                }
+                            });
+
+                            tvInfo.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    cb.toggle();
+
+                                    if(cb.isChecked()){
+                                        tv.setBackgroundColor(Color.parseColor("#0078ff"));
+                                        tvInfo.setBackgroundColor(Color.parseColor("#0078ff"));
+                                    }else{
+                                        cb.setChecked(false);
+                                        tv.setBackgroundColor(Color.parseColor("#ffffff"));
+                                        tvInfo.setBackgroundColor(Color.parseColor("#ffffff"));
+                                    }
+
                                     database.updateCheckedSubjects(subject, cb.isChecked());
                                     subject.setChecked(cb.isChecked());
                                 }
@@ -247,31 +290,67 @@ public class TimetableFilter extends AppCompatActivity {
                                     final Subject subject = ((Subject) item.getWrappedObject());
 
                                     View view = inflater.inflate(R.layout.list_item, null);
-                                    TextView tv = (TextView) view.findViewById(R.id.tvSubjectName);
+                                    final TextView tv = (TextView) view.findViewById(R.id.tvSubjectName);
                                     String name = subject.getSubjectName();
                                     tv.setText(name);
-                                    tv.setSelected(true);
 
-                                    TextView tvInfo = (TextView) view.findViewById(R.id.tvInfos);
+                                    final TextView tvInfo = (TextView) view.findViewById(R.id.tvInfos);
                                     String info = "";
                                     if(!subject.getTeacher().equals(""))
                                         info = info+subject.getTeacher();
                                     if(!subject.getGruppe().equals(""))
                                         info = info+", "+subject.getGruppe();
                                     tvInfo.setText(info);
+
+                                    tv.setSelected(true);
                                     tvInfo.setSelected(true);
 
                                     final CheckBox cb = (CheckBox) view.findViewById(R.id.cbAbo);
-                                    if (subject.isChecked())
-                                        cb.setChecked(true);
-                                    else
-                                        cb.setChecked(false);
+                                    cb.setVisibility(View.GONE);
 
+                                    if (subject.isChecked()) {
+                                        cb.setChecked(true);
+                                        tv.setBackgroundColor(Color.parseColor("#0078ff"));
+                                        tvInfo.setBackgroundColor(Color.parseColor("#0078ff"));
+                                    } else {
+                                        cb.setChecked(false);
+                                        tv.setBackgroundColor(Color.parseColor("#ffffff"));
+                                        tvInfo.setBackgroundColor(Color.parseColor("#ffffff"));
+                                    }
                                     tv.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             cb.toggle();
+
+                                            if(cb.isChecked()){
+                                                tv.setBackgroundColor(Color.parseColor("#0078ff"));
+                                                tvInfo.setBackgroundColor(Color.parseColor("#0078ff"));
+                                            }else{
+                                                cb.setChecked(false);
+                                                tv.setBackgroundColor(Color.parseColor("#ffffff"));
+                                                tvInfo.setBackgroundColor(Color.parseColor("#ffffff"));
+                                            }
+
                                             database.updateCheckedSubjects(subject.getId(), cb.isChecked());
+                                            subject.setChecked(cb.isChecked());
+                                        }
+                                    });
+
+                                    tvInfo.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            cb.toggle();
+
+                                            if(cb.isChecked()){
+                                                tv.setBackgroundColor(Color.parseColor("#0078ff"));
+                                                tvInfo.setBackgroundColor(Color.parseColor("#0078ff"));
+                                            }else{
+                                                cb.setChecked(false);
+                                                tv.setBackgroundColor(Color.parseColor("#ffffff"));
+                                                tvInfo.setBackgroundColor(Color.parseColor("#ffffff"));
+                                            }
+
+                                            database.updateCheckedSubjects(subject, cb.isChecked());
                                             subject.setChecked(cb.isChecked());
                                         }
                                     });

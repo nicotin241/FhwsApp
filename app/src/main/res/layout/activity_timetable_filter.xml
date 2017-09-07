@@ -31,6 +31,7 @@
             android:layout_weight="1"
             android:text="Eigenes Fach hinzufügen"
             android:padding="3dp"
+            android:textSize="12sp"
             android:background="@drawable/rounded_button"/>
 
         <Button
@@ -41,6 +42,7 @@
             android:text="Meine Vorlesungen"
             android:layout_marginRight="3dp"
             android:layout_marginLeft="3dp"
+            android:textSize="12sp"
             android:padding="3dp"
             android:background="@drawable/rounded_button"/>
 
@@ -50,6 +52,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Fertig"
+            android:textSize="12sp"
             android:padding="3dp"
             android:background="@drawable/rounded_button"/>
     </LinearLayout>

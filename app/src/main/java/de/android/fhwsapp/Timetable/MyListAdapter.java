@@ -40,34 +40,35 @@ public class MyListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        if(convertView==null){
+        //if(convertView==null){
 
-            convertView = LayoutInflater.from(context).inflate(R.layout.activity_list_adapter,parent,false);
+        convertView = LayoutInflater.from(context).inflate(R.layout.activity_list_adapter, parent, false);
 
-            TextView tvTime = (TextView) convertView.findViewById(R.id.tvTime);
-            tvTime.setSelected(true);
-            TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
-            tvName.setSelected(true);
-            TextView tvRoom = (TextView) convertView.findViewById(R.id.tvRoom);
-            tvRoom.setSelected(true);
-            TextView tvTeacher = (TextView) convertView.findViewById(R.id.tvTeacher);
-            tvTeacher.setSelected(true);
+        TextView tvTime = (TextView) convertView.findViewById(R.id.tvTime);
+        TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
+        TextView tvRoom = (TextView) convertView.findViewById(R.id.tvRoom);
+        TextView tvTeacher = (TextView) convertView.findViewById(R.id.tvTeacher);
 
-                Subject subject = objects.get(position);
+        tvTime.setSelected(true);
+        tvName.setSelected(true);
+        tvRoom.setSelected(true);
+        tvTeacher.setSelected(true);
 
-                tvTime.setText(subject.getTimeStart() + " - " + subject.getTimeEnd());
-                tvName.setText(subject.getType() + " " + subject.getSubjectName());
-                if(subject.getStudiengang() != null && !subject.getStudiengang().equals(""))
-                    tvName.setText(tvName.getText()+ " [" + subject.getStudiengang() + "]");
+        Subject subject = objects.get(position);
 
-                tvRoom.setText(subject.getRoom());
-                tvTeacher.setText(subject.getTeacher());
+        tvTime.setText(subject.getTimeStart() + " - " + subject.getTimeEnd());
+        tvName.setText(subject.getType() + " " + subject.getSubjectName());
+        if (subject.getStudiengang() != null && !subject.getStudiengang().equals(""))
+            tvName.setText(tvName.getText() + " [" + subject.getStudiengang() + "]");
+
+        tvRoom.setText(subject.getRoom());
+        tvTeacher.setText(subject.getTeacher());
 
 
-            if(position == 0 || position % 2 == 0)
-                convertView.setBackgroundColor(Color.parseColor("#AAAAAA"));
+        if (position == 0 || position % 2 == 0)
+            convertView.setBackgroundColor(Color.parseColor("#AAAAAA"));
 
-        }
+        //}
         return convertView;
     }
 }
