@@ -855,7 +855,7 @@ public class Database extends SQLiteOpenHelper {
                 subject.setChecked(true);
 
                 //delete out of date entries
-                if (subject.getDateAsDateTime().isBeforeNow()) {
+                if (subject.getDateAsDateTime().plusDays(1).isBeforeNow()) {
                     deleteSingleSubject(subject);
                     continue;
                 }

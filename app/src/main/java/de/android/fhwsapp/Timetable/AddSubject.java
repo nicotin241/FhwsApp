@@ -126,6 +126,13 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
                     break;
                 }
 
+                int diff = ((customSubject.getDateAsDateTime().getYear() * 1000) +customSubject.getDateAsDateTime().getDayOfYear()) - ((DateTime.now().getYear() * 1000)+DateTime.now().getDayOfYear());
+                if(diff > 240){
+                    Toast.makeText(this,"Das Datum darf maximal 240 Tage in der Zukunft liegen", Toast.LENGTH_LONG).show();
+                    break;
+                }
+
+
                 if(edit) {
                     if(customSubject.getType().equals("Custom"))
                         database.updateSubjectWithNameAndDate(customSubject, oldName, oldDate);
