@@ -1,168 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:orientation="vertical"
-    android:weightSum="7">
+    android:layout_marginBottom="16dp"
+    android:layout_marginTop="16dp">
 
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="6"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:paddingLeft="16dp"
+        android:text="Bitte trage die Details deiner Veranstaltung ein:"
+        android:textColor="@android:color/black"
+        android:textSize="17dp"
+        android:letterSpacing="0.05"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="56dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:weightSum="8">
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="Fach name: " />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="Dozent: " />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="Findet statt am: " />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="Findet jede folgende Woche statt: " />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="Startet um: : " />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="Endet um: " />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="Raum: " />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="Gruppe: " />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:weightSum="8">
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/etSubjectName"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center" />
+                android:layout_height="@dimen/new_event_list_item"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/orange_button_pressed"
+                android:hint="Name der Veranstaltung"
+                android:inputType="textCapSentences"
+                android:maxLines="1"
+                android:padding="16dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/new_event_list_text_size" />
 
             <EditText
                 android:id="@+id/etTeacher"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center" />
+                android:layout_height="@dimen/new_event_list_item"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/orange_button_pressed"
+                android:hint="Name des Dozenten"
+                android:inputType="textCapSentences"
+                android:maxLines="1"
+                android:padding="16dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/new_event_list_text_size" />
 
             <EditText
                 android:id="@+id/etDay"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
+                android:layout_height="@dimen/new_event_list_item"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/orange_button_pressed"
                 android:editable="false"
+                android:hint="Findet statt am"
+                android:maxLines="1"
+                android:padding="16dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/new_event_list_text_size"
                 android:windowSoftInputMode="stateAlwaysHidden" />
 
-            <CheckBox
-                android:id="@+id/cbEveryWeek"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/new_event_list_item"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/orange_button_pressed"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9"
+                    android:gravity="center_vertical"
+                    android:text="Findet wöchentlich statt:"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/new_event_list_text_size" />
+
+                <CheckBox
+                    android:id="@+id/cbEveryWeek"
+                    android:layout_width="0sp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/etStart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
+                android:layout_height="@dimen/new_event_list_item"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/orange_button_pressed"
                 android:editable="false"
+                android:hint="Beginn der Veranstaltung"
+                android:maxLines="1"
+                android:padding="16dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/new_event_list_text_size"
                 android:windowSoftInputMode="stateAlwaysHidden" />
 
             <EditText
                 android:id="@+id/etEnd"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="@dimen/new_event_list_item"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/orange_button_pressed"
                 android:editable="false"
-                android:gravity="center"
+                android:hint="Ende der Veranstaltung"
                 android:inputType="none"
+                android:maxLines="1"
+                android:padding="16dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/new_event_list_text_size"
                 android:windowSoftInputMode="stateAlwaysHidden" />
 
             <EditText
                 android:id="@+id/etRoom"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center" />
+                android:layout_height="@dimen/new_event_list_item"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/orange_button_pressed"
+                android:hint="Raum"
+                android:inputType="textCapSentences"
+                android:maxLines="1"
+                android:padding="16dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/new_event_list_text_size" />
 
             <EditText
                 android:id="@+id/etGroup"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center" />
+                android:layout_height="@dimen/new_event_list_item"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/orange_button_pressed"
+                android:hint="Gruppe"
+                android:inputType="textCapSentences"
+                android:maxLines="1"
+                android:padding="16dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/new_event_list_text_size" />
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/orange_button"
+                android:text="Speichern"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
+    </ScrollView>
 
-    </LinearLayout>
-
-
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Speichern" />
-
-</LinearLayout>
+</FrameLayout>

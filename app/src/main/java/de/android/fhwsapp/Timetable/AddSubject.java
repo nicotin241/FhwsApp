@@ -40,6 +40,8 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_subject);
 
+        setTitle("Eigene Veranstaltung");
+
         database = new Database(this);
 
         etSubjectName = (EditText) findViewById(R.id.etSubjectName);
@@ -189,7 +191,7 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
         mDayPicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                //warum muss ich month um 1 erhöhen???
+                //warum muss ich month um 1 erhöhen??? --> Weil in der Calendar-Klasse die Monate von 0 - 11 gezählt werden ;)
                 etDay.setText( dayOfMonth + "." + ++month +"."+year);
             }
         },year,month,day );
@@ -207,9 +209,9 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 if(id == R.id.etStart)
-                    etStart.setText( selectedHour + ":" + selectedMinute);
+                    etStart.setText( selectedHour + ":" + ((selectedMinute < 10) ? selectedMinute + "0" : selectedMinute));
                 else
-                    etEnd.setText( selectedHour + ":" + selectedMinute);
+                    etEnd.setText( selectedHour + ":" + ((selectedMinute < 10) ? selectedMinute + "0" : selectedMinute));
             }
         }, hour, minute, true);
         if(id == R.id.etStart)
