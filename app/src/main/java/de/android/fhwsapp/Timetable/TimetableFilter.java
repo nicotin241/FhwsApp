@@ -61,9 +61,11 @@ public class TimetableFilter extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Timetable.timetableActivity.finish();
                 Intent intent = new Intent(TimetableFilter.this, Timetable.class);
                 intent.putExtra("from_filter", true);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -378,16 +380,18 @@ public class TimetableFilter extends AppCompatActivity {
 
         if (nothingChecked) {
 
-//            Intent intent = new Intent(this, MainActivity.class);
-//            startActivity(intent);
             this.finish();
             Timetable.timetableActivity.finish();
 
+        } else {
+
+            Intent intent = new Intent(TimetableFilter.this, Timetable.class);
+            intent.putExtra("from_filter", true);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+
         }
-
-        super.onBackPressed();
-        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
-
     }
 
     @Override

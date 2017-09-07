@@ -341,6 +341,7 @@ public class Timetable extends FragmentActivity {
                     Intent intent = new Intent(Timetable.this, TimetableFilter.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+//                    finish();
 
                 } else {
                     new AlertDialog.Builder(Timetable.this)
