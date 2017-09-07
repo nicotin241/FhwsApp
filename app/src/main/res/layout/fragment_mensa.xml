@@ -33,14 +33,28 @@
                 android:textColor="@android:color/black"
                 android:textSize="20dp" />
 
-            <ListView
-                android:id="@+id/mealList"
+            <FrameLayout
+                android:id="@+id/listLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@null"
-                android:dividerHeight="0dp"
-                android:scrollbars="none"
-                android:paddingTop="16dp" />
+                android:layout_height="match_parent">
+
+                <ListView
+                    android:id="@+id/mealList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    android:scrollbars="none"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="56dp"
+                    android:clipToPadding="false"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:background="@drawable/fading_bg"/>
+
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/mensa_no_data"
@@ -59,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/black_transp"
-            android:visibility="gone">
+            android:visibility="invisible">
 
             <ListView
                 android:id="@+id/mensa_item_list"

@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context="de.android.fhwsapp.fragments.LaufendeVeranstaltungenFragment">
 
     <LinearLayout
@@ -10,13 +11,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:padding="10dp">
+        android:padding="16dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Laufende Lehrveranstaltungen"
-            android:textColor="@android:color/black"
+            android:gravity="left"
+            android:paddingBottom="16dp"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp"/>
 
         <View

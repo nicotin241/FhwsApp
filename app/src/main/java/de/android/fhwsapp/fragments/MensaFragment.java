@@ -55,6 +55,7 @@ public class MensaFragment extends Fragment {
 
     private View view;
     private FrameLayout mensa_select_layout;
+    private FrameLayout listLayout;
 
     private SharedPreferences mPrefs;
     private SharedPreferences.Editor editor;
@@ -100,11 +101,6 @@ public class MensaFragment extends Fragment {
 
         initLayout();
 
-        //TODO: Animation is not working first time - WHY?
-        mensa_select_layout.animate()
-                .translationY(mensa_select_layout.getHeight())
-                .setDuration(300);
-
         mensa_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -133,11 +129,10 @@ public class MensaFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-
+                mensa_select_layout.setVisibility(View.VISIBLE);
                 mensa_select_layout.animate()
                         .translationY(0)
                         .setDuration(300);
-                mensa_select_layout.setVisibility(View.VISIBLE);
 
                 fab.setVisibility(View.GONE);
 
@@ -148,6 +143,14 @@ public class MensaFragment extends Fragment {
 
         if(mensaId != -1) {
 
+            mensa_select_layout.post(new Runnable() {
+                @Override
+                public void run() {
+                    mensa_select_layout.animate()
+                            .translationY(mensa_select_layout.getHeight())
+                            .setDuration(0);
+                }
+            });
             initMealsList();
 
         } else {
@@ -163,6 +166,8 @@ public class MensaFragment extends Fragment {
     private void initLayout() {
 
         mensa_select_layout = (FrameLayout) view.findViewById(R.id.mensa_select_layout);
+        listLayout = (FrameLayout) view.findViewById(R.id.listLayout);
+
         mensa_list = (ListView) view.findViewById(R.id.mensa_item_list);
         mListView = (ListView) view.findViewById(R.id.mealList);
         saveMensaCheckBox = (CheckBox) view.findViewById(R.id.saveMensaCheckBox);
@@ -223,7 +228,7 @@ public class MensaFragment extends Fragment {
 
             if(mensa_no_data.getVisibility() == View.VISIBLE) {
 
-                mListView.setVisibility(View.VISIBLE);
+                listLayout.setVisibility(View.VISIBLE);
                 mensa_no_data.setVisibility(View.GONE);
 
             }
@@ -232,7 +237,7 @@ public class MensaFragment extends Fragment {
 
         } else {
 
-            mListView.setVisibility(View.GONE);
+            listLayout.setVisibility(View.GONE);
             mensa_no_data.setVisibility(View.VISIBLE);
 
         }

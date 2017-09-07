@@ -22,7 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.android.fhwsapp.Timetable.MyListAdapter;
+import de.android.fhwsapp.adapter.OngoingEventsListAdapter;
 import de.android.fhwsapp.Timetable.Subject;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -165,7 +165,7 @@ public class LVeranstaltungenDataFetcher extends AsyncTask<String, Void, String>
 
         pbEvents.setVisibility(View.GONE);
 
-        MyListAdapter arrayAdapter = new MyListAdapter(context, subjectList);
+        OngoingEventsListAdapter arrayAdapter = new OngoingEventsListAdapter(context, subjectList);
         listView.setAdapter(arrayAdapter);
 
     }
@@ -254,7 +254,7 @@ public class LVeranstaltungenDataFetcher extends AsyncTask<String, Void, String>
                 addEvent(jsonObject);
             }
 
-            MyListAdapter arrayAdapter = new MyListAdapter(context, subjectList);
+            OngoingEventsListAdapter arrayAdapter = new OngoingEventsListAdapter(context, subjectList);
 
             listView.setAdapter(arrayAdapter);
 

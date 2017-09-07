@@ -246,7 +246,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                     } else {
                         try {
                             while (!isInterrupted()) {
-                                Thread.sleep(10000);
+                                Thread.sleep(6000);
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {

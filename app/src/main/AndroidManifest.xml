@@ -19,7 +19,9 @@
 
         <activity
             android:name=".SplashScreen"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,21 +32,39 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".LoginActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_login" />
 
-        <activity android:name=".Timetable.Timetable">
+        <activity android:name=".Timetable.Timetable"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.android.fhwsapp.MainActivity" />
         </activity>
 
-        <activity android:name=".Timetable.AddSubject" />
+        <activity android:name=".Timetable.AddSubject"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.android.fhwsapp.Timetable.TimetableFilter" />
+        </activity>
 
-        <activity android:name=".Timetable.TimetableFilter" />
+        <activity android:name=".Timetable.TimetableFilter"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.android.fhwsapp.Timetable.Timetable" />
+        </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -56,7 +76,9 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".Timetable.CheckedSubjectsOverview">
+        <activity android:name=".Timetable.CheckedSubjectsOverview"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.android.fhwsapp.Timetable.Timetable" />

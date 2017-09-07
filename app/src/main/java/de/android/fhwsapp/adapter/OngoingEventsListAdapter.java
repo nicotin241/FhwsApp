@@ -1,4 +1,4 @@
-package de.android.fhwsapp.Timetable;
+package de.android.fhwsapp.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,13 +11,14 @@ import android.widget.TextView;
 import java.util.List;
 
 import de.android.fhwsapp.R;
+import de.android.fhwsapp.Timetable.Subject;
 
-public class MyListAdapter extends BaseAdapter {
+public class OngoingEventsListAdapter extends BaseAdapter {
 
     private Context context;
     private List<Subject> objects;
 
-    public MyListAdapter(Context context, List<Subject> objects) {
+    public OngoingEventsListAdapter(Context context, List<Subject> objects) {
         this.context = context;
         this.objects = objects;
     }
@@ -65,8 +66,8 @@ public class MyListAdapter extends BaseAdapter {
         tvTeacher.setText(subject.getTeacher());
 
 
-        if (position == 0 || position % 2 == 0)
-            convertView.setBackgroundColor(Color.parseColor("#AAAAAA"));
+            if(position == 0 || position % 2 == 0)
+                convertView.setBackgroundResource(R.color.time_column_dark);
 
         //}
         return convertView;

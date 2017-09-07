@@ -99,6 +99,7 @@ public class QuestionListAdapter extends BaseAdapter {
         }
 
         viewHolder.arrow.setImageResource(arrowDown);
+        viewHolder.answer.setVisibility(View.GONE);
         final ViewHolder finalViewHolder = viewHolder;
         viewHolder.element.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,8 +119,6 @@ public class QuestionListAdapter extends BaseAdapter {
 
             }
         });
-
-
 
         return view;
     }
