@@ -15,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -97,6 +98,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void onResume() {
+
+        super.onResume();
+        setDrawerItemSelected(mFragment);
+
+    }
+
+    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -109,6 +118,7 @@ public class MainActivity extends AppCompatActivity
 
             mFragment = new MainFragment();
             setFragment(mFragment);
+            navigationView.setCheckedItem(R.id.nav_home);
 
         }
 
@@ -144,6 +154,7 @@ public class MainActivity extends AppCompatActivity
             setFragment(mFragment);
 
         } else if (id == R.id.nav_bus) {
+
             mFragment = new Busplaene();
             setFragment(mFragment);
 
@@ -234,6 +245,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setFragment(Fragment fragment) {
+
         String backStateName = fragment.getClass().getName();
 
         boolean fragmentPopped = manager.popBackStackImmediate(backStateName, 0);
@@ -246,6 +258,20 @@ public class MainActivity extends AppCompatActivity
                 ft.addToBackStack(backStateName);  //do this to avoid white screen after backPressed
             ft.commit();
         }
+
+        setDrawerItemSelected(fragment);
+
+    }
+
+    private void setDrawerItemSelected(Fragment fragment) {
+
+        if(fragment instanceof MainFragment) navigationView.setCheckedItem(R.id.nav_home);
+        else if(fragment instanceof MensaFragment) navigationView.setCheckedItem(R.id.nav_mensa);
+        else if(fragment instanceof LaufendeVeranstaltungenFragment) navigationView.setCheckedItem(R.id.nav_veranst);
+        else if(fragment instanceof Busplaene) navigationView.setCheckedItem(R.id.nav_bus);
+        else if(fragment instanceof WebViewFragment && WebViewFragment.URL.equals("https://studentenportal.fhws.de/grades")) navigationView.setCheckedItem(R.id.nav_grades);
+        else navigationView.setCheckedItem(R.id.menu_none);
+
     }
 
     public void startMensaFragment(View view) {
