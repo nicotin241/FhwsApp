@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
     <CheckBox
         android:id="@+id/cbAbo"
@@ -16,42 +17,42 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="3.1">
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/tvSubjectName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="17sp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:paddingLeft="0dp"
-        android:layout_weight="2"
-        android:ellipsize="marquee"
-        android:gravity="left"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:singleLine="true" />
-
-        <View
+        <TextView
+            android:id="@+id/tvSubjectName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@android:color/darker_gray"
-            android:layout_weight="0.05"/>
+            android:layout_weight="2"
+            android:ellipsize="marquee"
+            android:gravity="left"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:paddingBottom="5dp"
+            android:paddingLeft="0dp"
+            android:paddingTop="5dp"
+            android:singleLine="true"
+            android:textSize="17sp" />
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvInfos"
-        android:textSize="17sp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:paddingLeft="5dp"
-        android:ellipsize="marquee"
-        android:gravity="left"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:singleLine="true"
-        android:layout_weight="0.95"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tvInfos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="marquee"
+            android:gravity="left"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:singleLine="true"
+            android:textSize="17sp" />
 
     </LinearLayout>
 

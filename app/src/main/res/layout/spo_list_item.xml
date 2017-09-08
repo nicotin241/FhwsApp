@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:letterSpacing="0.05"
-        android:lineSpacingExtra="3dp"
-        android:visibility="gone"/>
+        android:lineSpacingExtra="3dp"/>
+        <!--android:visibility="gone"-->
 
 </LinearLayout>

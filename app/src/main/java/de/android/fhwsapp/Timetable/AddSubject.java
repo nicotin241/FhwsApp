@@ -209,9 +209,9 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 if(id == R.id.etStart)
-                    etStart.setText( selectedHour + ":" + ((selectedMinute < 10) ? selectedMinute + "0" : selectedMinute));
+                    etStart.setText( selectedHour + ":" + ((selectedMinute < 10) ? "0" + selectedMinute : selectedMinute));
                 else
-                    etEnd.setText( selectedHour + ":" + ((selectedMinute < 10) ? selectedMinute + "0" : selectedMinute));
+                    etEnd.setText( selectedHour + ":" + ((selectedMinute < 10) ? "0" + selectedMinute : selectedMinute));
             }
         }, hour, minute, true);
         if(id == R.id.etStart)

@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-  >
+    android:orientation="horizontal">
 
     <View
         android:id="@+id/level1"
@@ -15,29 +14,28 @@
         android:id="@+id/level2"
         android:layout_width="20dp"
         android:layout_height="wrap_content"
-        android:visibility="gone">
-    </View>
+        android:visibility="gone"></View>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/orange_button_pressed"
         android:padding="8dp">
 
         <ImageView
             android:id="@+id/ivArrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/arrow_down_float"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:src="@android:drawable/arrow_down_float" />
 
-    <TextView
-        android:id="@+id/lblListHeader"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
-        android:textSize="17dp"
-        android:textColor="@android:color/black" />
+        <TextView
+            android:id="@+id/lblListHeader"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+            android:textColor="@android:color/black"
+            android:textSize="17dp" />
 
     </LinearLayout>
 

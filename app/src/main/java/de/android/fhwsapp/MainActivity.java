@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -132,7 +133,10 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_grades) {
 
-            startNotenWebView(null);
+            if(utils.isConnectingToInternet()) {
+                startNotenWebView(null);
+            }else showNoInternetSnackBar();
+
 
         } else if (id == R.id.nav_mensa) {
 
@@ -150,7 +154,10 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_progress) {
 
-            startNotenverlaufWebView(null);
+            if(utils.isConnectingToInternet()) {
+                startNotenverlaufWebView(null);
+            }else showNoInternetSnackBar();
+
 
         } else if (id == R.id.nav_spo) {
 
@@ -159,7 +166,10 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_imma) {
 
-            startImmatrikWebView(null);
+            if(utils.isConnectingToInternet()) {
+                startImmatrikWebView(null);
+            }else showNoInternetSnackBar();
+
 
         } else if (id == R.id.nav_signout) {
 
@@ -230,6 +240,7 @@ public class MainActivity extends AppCompatActivity
 
         if (!fragmentPopped) { //fragment not in back stack, create it.
             android.support.v4.app.FragmentTransaction ft = manager.beginTransaction();
+            ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
             ft.replace(R.id.content_frame, fragment);
             if (!(fragment instanceof MainFragment))
                 ft.addToBackStack(backStateName);  //do this to avoid white screen after backPressed
@@ -275,7 +286,7 @@ public class MainActivity extends AppCompatActivity
             mFragment.setArguments(bundle);
             setFragment(mFragment);
 
-        } else showSnackbar();
+        } else showLoginSnackbar();
 
     }
 
@@ -298,7 +309,7 @@ public class MainActivity extends AppCompatActivity
             mFragment.setArguments(bundle);
             setFragment(mFragment);
 
-        } else showSnackbar();
+        } else showLoginSnackbar();
     }
 
     public void startNotenWebView(View view) {
@@ -315,10 +326,10 @@ public class MainActivity extends AppCompatActivity
             WebViewFragment.JS = js;
             setFragment(mFragment);
 
-        } else showSnackbar();
+        } else showLoginSnackbar();
     }
 
-    private void showSnackbar() {
+    private void showLoginSnackbar() {
 
         Snackbar bar = Snackbar.make(drawer_layout, "Anmeldung notwendig", Snackbar.LENGTH_LONG)
                 .setAction("LogIn", new View.OnClickListener() {
@@ -345,6 +356,21 @@ public class MainActivity extends AppCompatActivity
 
         if (username.equals("") || password.equals("")) return false;
         else return true;
+
+    }
+
+    private void showNoInternetSnackBar() {
+
+        Snackbar bar = Snackbar.make(drawer_layout, "Netzwerk notwendig", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Einstellungen", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivityForResult(new Intent(
+                                Settings.ACTION_WIFI_SETTINGS), 0);
+                    }
+                });
+
+        bar.show();
 
     }
 

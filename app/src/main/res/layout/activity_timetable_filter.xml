@@ -2,59 +2,83 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:orientation="vertical"
-    android:weightSum="10">
+    android:background="@android:color/white"
+    android:orientation="vertical">
 
-
-    <ListView
-        android:id="@+id/lvNExp"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
-        android:background="#f4f4f4">
+        android:layout_weight="9">
 
-    </ListView>
+        <ListView
+            android:id="@+id/lvNExp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp"
+            android:scrollbars="none"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:background="@drawable/fading_bg" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:background="@drawable/fading_bg_bottom"
+            android:layout_gravity="bottom"/>
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:weightSum="3"
-        android:orientation="horizontal">
-
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:weightSum="2">
 
         <Button
             android:id="@+id/btnAddCustomSubject"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="0sp"
+            android:layout_marginBottom="1dp"
             android:layout_weight="1"
+            android:background="@drawable/orange_button"
+            android:gravity="right|center_vertical"
+            android:paddingRight="16dp"
             android:text="Eigenes Fach hinzufügen"
-            android:padding="3dp"
-            android:textSize="12sp"
-            android:background="@drawable/rounded_button"/>
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/btnCheckedSubjects"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="0sp"
             android:layout_weight="1"
+            android:background="@drawable/orange_button"
+            android:paddingRight="16dp"
             android:text="Meine Vorlesungen"
-            android:layout_marginRight="3dp"
-            android:layout_marginLeft="3dp"
             android:textSize="12sp"
-            android:padding="3dp"
-            android:background="@drawable/rounded_button"/>
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btnDone"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="0sp"
+            android:layout_marginBottom="16dp"
             android:layout_weight="1"
-            android:text="Fertig"
-            android:textSize="12sp"
-            android:padding="3dp"
-            android:background="@drawable/rounded_button"/>
+            android:background="@drawable/orange_button"
+            android:gravity="right|center_vertical"
+            android:paddingRight="16dp"
+            android:text="Speichern"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
     </LinearLayout>
 
 </LinearLayout>
