@@ -90,7 +90,15 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
 
         switch (v.getId()){
             case R.id.btnSave:
-                Subject customSubject = createCustomSubject();
+                Subject customSubject = null;
+
+                try {
+                    customSubject = createCustomSubject();
+                }catch (Exception e){
+                    Toast.makeText(this,"Die Felder Name, Datum, Startzeit und Endzeit müssen ausgefüllt werden",
+                            Toast.LENGTH_LONG).show();
+                    break;
+                }
 
                 if(customSubject.getSubjectName().equals("") || customSubject.getDate().equals("")
                         || customSubject.getTimeStart().equals("") || customSubject.getTimeEnd().equals("")){
