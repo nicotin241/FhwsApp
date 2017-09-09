@@ -67,7 +67,7 @@ public class Timetable extends FragmentActivity {
 
     private Context context;
 
-    public static Activity timetableActivity;
+    //public static Activity timetableActivity;
 
     //    private LinearLayout addLayout;
     public static FloatingActionButton floatingActionButton;
@@ -84,8 +84,7 @@ public class Timetable extends FragmentActivity {
         isOpen = true;
 
         context = this;
-        created = true;
-        timetableActivity = this;
+        //timetableActivity = this;
 
         if(getIntent().getExtras() != null)
             created = getIntent().getExtras().getBoolean("from_filter");
@@ -230,9 +229,9 @@ public class Timetable extends FragmentActivity {
 
                 sharedPreferences.edit().putFloat(SCREEN_HEIGHT, oneHourMargin).commit();
 
-                Intent intent = new Intent(getBaseContext(), TimetableFilter.class);
+                Intent intent = new Intent(getBaseContext(), Timetable.class);
                 startActivity(intent);
-                //finish();
+                finish();
             }
         });
     }
@@ -266,9 +265,13 @@ public class Timetable extends FragmentActivity {
         subjects = loadSubjects();
 
         if(subjects.length == 0){
+
+            Toast.makeText(this, "Wähle deine Vorlesungen",Toast.LENGTH_LONG).show();
+
             Intent intent = new Intent(this, TimetableFilter.class);
             intent.putExtra("nothing checked",true);
             startActivity(intent);
+            //this.finish();
             return;
         }
 
@@ -411,6 +414,7 @@ public class Timetable extends FragmentActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         this.finish();
+        this.overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
     }
 
     public void backToMain(View view) {

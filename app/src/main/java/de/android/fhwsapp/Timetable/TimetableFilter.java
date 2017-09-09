@@ -6,17 +6,22 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import de.android.fhwsapp.Connect;
+import de.android.fhwsapp.ConnectionListener;
 import de.android.fhwsapp.Database;
 import de.android.fhwsapp.MainActivity;
 import de.android.fhwsapp.R;
@@ -32,6 +37,9 @@ public class TimetableFilter extends AppCompatActivity {
     private Button addSubject;
     private Button done;
     private Button checkedSubjects;
+    private ProgressBar progressBar;
+
+    public static boolean isOpen = false;
 
     private boolean nothingChecked = false;
 
@@ -40,9 +48,16 @@ public class TimetableFilter extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timetable_filter);
 
-        setTitle("Wähle deine Fächer");
+        isOpen = true;
+
+        setTitle("Wähle deine Vorlesungen");
 
         listView = (ListView) findViewById(R.id.lvNExp);
+        progressBar = (ProgressBar) findViewById(R.id.pbTimetableFilter);
+
+        if(Timetable.isLoading)
+            progressBar.setVisibility(View.VISIBLE);
+
         database = new Database(this);
 
         if (getIntent().getExtras() != null)
@@ -61,10 +76,11 @@ public class TimetableFilter extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Timetable.timetableActivity.finish();
-                Intent intent = new Intent(TimetableFilter.this, Timetable.class);
-                intent.putExtra("from_filter", true);
-                startActivity(intent);
+                //Timetable.timetableActivity.finish();
+//                Intent intent = new Intent(TimetableFilter.this, Timetable.class);
+//                intent.putExtra("from_filter", true);
+//                startActivity(intent);
+                overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
                 finish();
             }
         });
@@ -79,6 +95,24 @@ public class TimetableFilter extends AppCompatActivity {
         });
 
 
+        Connect.addListener(new ConnectionListener() {
+            @Override
+            public void onChanged() {
+                if(isOpen) {
+                    Log.e("TimetableFilter", "onChanged");
+                    init();
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        init();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        isOpen = false;
     }
 
     private void prepareListData() {
@@ -264,6 +298,7 @@ public class TimetableFilter extends AppCompatActivity {
 
                     //Semester
                     List<String> childList = database.getDistinctSemesterOfYaS(gParentList.get(i), parentList.get(j));
+                    Collections.sort(childList);
 
                     for (int k = 0; k < childList.size(); k++) {
                         NLevelItem child = new NLevelItem(childList.get(k), parent, new NLevelView() {
@@ -378,27 +413,20 @@ public class TimetableFilter extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        if (nothingChecked) {
-
-            this.finish();
-            Timetable.timetableActivity.finish();
-
-        } else {
-
-            Intent intent = new Intent(TimetableFilter.this, Timetable.class);
-            intent.putExtra("from_filter", true);
+        if(nothingChecked){
+            Intent intent = new Intent(TimetableFilter.this,MainActivity.class);
             startActivity(intent);
-            finish();
+            this.finish();
             overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
-
         }
+
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
-        init();
     }
 
     public void init() {
