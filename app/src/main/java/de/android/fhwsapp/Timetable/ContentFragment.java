@@ -22,7 +22,7 @@ import java.util.Locale;
 
 import de.android.fhwsapp.R;
 
-public class ContentFragment extends Fragment implements View.OnClickListener, View.OnTouchListener {
+public class ContentFragment extends Fragment  {
 
     private TextView tvDate;
     private String subjectText;
@@ -52,7 +52,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener, V
         tvDate = (TextView) rootView.findViewById(R.id.tvDate);
         //tvSubject = (TextView) rootView.findViewById(R.id.tvSubject);
         layout = (LinearLayout) rootView.findViewById(R.id.subjects);
-        layout.setOnTouchListener(this);
+        //layout.setOnTouchListener(this);
         
     }
 
@@ -66,10 +66,10 @@ public class ContentFragment extends Fragment implements View.OnClickListener, V
             return;
         }
 
-        try {
-            Timetable.floatingActionButton.setImageResource(R.drawable.plus);
-            Timetable.floatingActionButton.setTag("plus");
-        }catch (Exception e){}
+//        try {
+//            Timetable.floatingActionButton.setImageResource(R.drawable.plus);
+//            Timetable.floatingActionButton.setTag("plus");
+//        }catch (Exception e){}
 
         if(tvDate != null) {
             String weekDay = subjects.get(0).getDateAsDateTime().dayOfWeek().getAsText(new Locale("de")); //.getAsShortText(new Locale("de"));
@@ -154,7 +154,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener, V
         tv.setMovementMethod(new ScrollingMovementMethod());
         tv.setHighlightColor(0x99000000);
 
-        tv.setOnClickListener(this);
+        //tv.setOnClickListener(this);
 
         layout.addView(tv);
 
@@ -162,78 +162,78 @@ public class ContentFragment extends Fragment implements View.OnClickListener, V
     }
 
 
-    @Override
-    public void onClick(View v) {
-
-        try{
-            markedTv.clearAnimation();
-        }catch (Exception e){}
-
-        if(v instanceof TextView) {
-            TextView tv = (TextView) v;
-
-            //bei click auf gleichen tv
-            if(markedTv != null)
-                    if(markedTv.equals(tv)) {
-                        markedTv = null;
-
-                        tv.setBackgroundResource(R.drawable.timetable_item_bg);
-//                        tv.setBackgroundColor(tv.getHighlightColor());
-
-                        if(markedTv == null)
-                            if(Timetable.floatingActionButton != null) {
-                                Timetable.floatingActionButton.setImageResource(R.drawable.plus);
-                                Timetable.floatingActionButton.setTag("plus");
-                            }
-
-                        return;
-                    }
-
-            //bei click auf neuen tv
-            if(Timetable.floatingActionButton != null){
-                Timetable.floatingActionButton.setImageResource(R.drawable.minus);
-                Timetable.floatingActionButton.setTag("minus");
-            }
-
-            if(markedTv != null)
-                markedTv.setBackgroundResource(R.drawable.timetable_item_bg);
-//                markedTv.setBackgroundColor(markedTv.getHighlightColor());
-
-            markedTv = tv;
-//            tv.setBackgroundColor(0xFF000000);
-            tv.setBackgroundResource(R.drawable.timetable_item_bg);
-
-            tv.startAnimation(animShake);
-
-        }
-    }
-
-
-    //click weder auf Button, noch auf TV
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-
-        if(!(v instanceof TextView)) {
-
-            try {
-                markedTv.clearAnimation();
-            } catch (Exception e) {
-            }
-
-            if (markedTv != null) {
-
-                markedTv.setBackgroundResource(R.drawable.timetable_item_bg);
-//                markedTv.setBackgroundColor(markedTv.getHighlightColor());
-
-                if (Timetable.floatingActionButton != null) {
-                    Timetable.floatingActionButton.setImageResource(R.drawable.plus);
-                    Timetable.floatingActionButton.setTag("plus");
-                }
-
-                markedTv = null;
-            }
-        }
-        return false;
-    }
+//    @Override
+//    public void onClick(View v) {
+//
+//        try{
+//            markedTv.clearAnimation();
+//        }catch (Exception e){}
+//
+//        if(v instanceof TextView) {
+//            TextView tv = (TextView) v;
+//
+//            //bei click auf gleichen tv
+//            if(markedTv != null)
+//                    if(markedTv.equals(tv)) {
+//                        markedTv = null;
+//
+//                        tv.setBackgroundResource(R.drawable.timetable_item_bg);
+////                        tv.setBackgroundColor(tv.getHighlightColor());
+//
+//                        if(markedTv == null)
+//                            if(Timetable.floatingActionButton != null) {
+//                                Timetable.floatingActionButton.setImageResource(R.drawable.plus);
+//                                Timetable.floatingActionButton.setTag("plus");
+//                            }
+//
+//                        return;
+//                    }
+//
+//            //bei click auf neuen tv
+//            if(Timetable.floatingActionButton != null){
+//                Timetable.floatingActionButton.setImageResource(R.drawable.minus);
+//                Timetable.floatingActionButton.setTag("minus");
+//            }
+//
+//            if(markedTv != null)
+//                markedTv.setBackgroundResource(R.drawable.timetable_item_bg);
+////                markedTv.setBackgroundColor(markedTv.getHighlightColor());
+//
+//            markedTv = tv;
+////            tv.setBackgroundColor(0xFF000000);
+//            tv.setBackgroundResource(R.drawable.timetable_item_bg);
+//
+//            tv.startAnimation(animShake);
+//
+//        }
+//    }
+//
+//
+//    //click weder auf Button, noch auf TV
+//    @Override
+//    public boolean onTouch(View v, MotionEvent event) {
+//
+//        if(!(v instanceof TextView)) {
+//
+//            try {
+//                markedTv.clearAnimation();
+//            } catch (Exception e) {
+//            }
+//
+//            if (markedTv != null) {
+//
+//                markedTv.setBackgroundResource(R.drawable.timetable_item_bg);
+////                markedTv.setBackgroundColor(markedTv.getHighlightColor());
+//
+//                if (Timetable.floatingActionButton != null) {
+//                    Timetable.floatingActionButton.setImageResource(R.drawable.plus);
+//                    Timetable.floatingActionButton.setTag("plus");
+//                }
+//
+//                markedTv = null;
+//            }
+//        }
+//        return false;
+//    }
 }
 

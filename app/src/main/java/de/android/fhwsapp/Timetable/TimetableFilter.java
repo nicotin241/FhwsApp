@@ -106,7 +106,6 @@ public class TimetableFilter extends AppCompatActivity {
             }
         });
 
-        init();
     }
 
     @Override
@@ -427,6 +426,10 @@ public class TimetableFilter extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+
+        try{
+            init();
+        }catch (Exception e){}
     }
 
     public void init() {

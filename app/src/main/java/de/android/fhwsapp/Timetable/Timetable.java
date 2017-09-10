@@ -1,18 +1,15 @@
 package de.android.fhwsapp.Timetable;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import com.github.clans.fab.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -22,10 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionMenu;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import de.android.fhwsapp.Connect;
 import de.android.fhwsapp.ConnectionListener;
@@ -70,7 +68,9 @@ public class Timetable extends FragmentActivity {
     //public static Activity timetableActivity;
 
     //    private LinearLayout addLayout;
-    public static FloatingActionButton floatingActionButton;
+    public static FloatingActionMenu floatingActionButton;
+    private FloatingActionButton fabVorlesungsAuswahl, fabMeineVorlesungen;
+
 
     private boolean created;
 
@@ -329,77 +329,96 @@ public class Timetable extends FragmentActivity {
         weekTabs.removeAllViews();
         addWeekTabs();
 
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        fabVorlesungsAuswahl = (FloatingActionButton) findViewById(R.id.fabVorlesungsAuswahl);
+        fabVorlesungsAuswahl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(Timetable.this, TimetableFilter.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 
-                if(isLoading){
-                    Toast.makeText(context,"Bitte warten bis der Inhalt fertig geladen wurde",Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                if (floatingActionButton.getTag().equals("plus")) {
-
-                    Intent intent = new Intent(Timetable.this, TimetableFilter.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
-//                    finish();
-
-                } else {
-                    new AlertDialog.Builder(Timetable.this)
-                            .setTitle("Fach entfernen")
-                            .setMessage("Willst du das Fach wirklich aus deinem Stundenplan nehmen")
-                            .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    ContentFragment.markedTv.clearAnimation();
-
-                                    if (ContentFragment.markedTv != null)
-                                        ContentFragment.markedTv.setBackgroundColor(ContentFragment.markedTv.getHighlightColor());
-
-                                    floatingActionButton.setImageResource(R.drawable.plus);
-                                    floatingActionButton.setTag("plus");
-
-                                    String subject = "";
-
-                                    List<String> names = database.getAllSubjectNames();
-                                    for (String name : names)
-                                        if (ContentFragment.markedTv.getText().toString().contains(name)) {
-                                            subject = name;
-                                            break;
-                                        }
-
-
-                                    Subject update = database.getSubjectWithName(subject);
-
-                                    database.updateCheckedSubjects(update.getId(), false);
-
-                                    ContentFragment.markedTv = null;
-
-                                    subjects = loadSubjects();
-                                    mFragmentGridPager.setGridPagerAdapter(mFragmentGridPagerAdapter);
-                                }
-                            })
-                            .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    ContentFragment.markedTv.clearAnimation();
-
-                                    if (ContentFragment.markedTv != null)
-                                        ContentFragment.markedTv.setBackgroundColor(ContentFragment.markedTv.getHighlightColor());
-
-                                    ContentFragment.markedTv = null;
-
-                                    Timetable.floatingActionButton.setImageResource(R.drawable.plus);
-                                    Timetable.floatingActionButton.setTag("plus");
-
-                                    dialog.dismiss();
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                }
             }
         });
+        fabMeineVorlesungen = (FloatingActionButton) findViewById(R.id.fabMeineVorlesungen);
+        fabMeineVorlesungen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Timetable.this, CheckedSubjectsOverview.class);
+                startActivity(intent);
+            }
+        });
+
+        floatingActionButton = (FloatingActionMenu) findViewById(R.id.floatingActionButton);
+//        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if(isLoading){
+//                    Toast.makeText(context,"Bitte warten bis der Inhalt fertig geladen wurde",Toast.LENGTH_LONG).show();
+//                    return;
+//                }
+//
+//                if (floatingActionButton.getTag().equals("plus")) {
+//
+//                    Intent intent = new Intent(Timetable.this, TimetableFilter.class);
+//                    startActivity(intent);
+//                    overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+////                    finish();
+//
+//                } else {
+//                    new AlertDialog.Builder(Timetable.this)
+//                            .setTitle("Fach entfernen")
+//                            .setMessage("Willst du das Fach wirklich aus deinem Stundenplan nehmen")
+//                            .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    ContentFragment.markedTv.clearAnimation();
+//
+//                                    if (ContentFragment.markedTv != null)
+//                                        ContentFragment.markedTv.setBackgroundColor(ContentFragment.markedTv.getHighlightColor());
+//
+//                                    floatingActionButton.setImageResource(R.drawable.plus);
+//                                    floatingActionButton.setTag("plus");
+//
+//                                    String subject = "";
+//
+//                                    List<String> names = database.getAllSubjectNames();
+//                                    for (String name : names)
+//                                        if (ContentFragment.markedTv.getText().toString().contains(name)) {
+//                                            subject = name;
+//                                            break;
+//                                        }
+//
+//
+//                                    Subject update = database.getSubjectWithName(subject);
+//
+//                                    database.updateCheckedSubjects(update.getId(), false);
+//
+//                                    ContentFragment.markedTv = null;
+//
+//                                    subjects = loadSubjects();
+//                                    mFragmentGridPager.setGridPagerAdapter(mFragmentGridPagerAdapter);
+//                                }
+//                            })
+//                            .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    ContentFragment.markedTv.clearAnimation();
+//
+//                                    if (ContentFragment.markedTv != null)
+//                                        ContentFragment.markedTv.setBackgroundColor(ContentFragment.markedTv.getHighlightColor());
+//
+//                                    ContentFragment.markedTv = null;
+//
+//                                    Timetable.floatingActionButton.setImageResource(R.drawable.plus);
+//                                    Timetable.floatingActionButton.setTag("plus");
+//
+//                                    dialog.dismiss();
+//                                }
+//                            })
+//                            .setIcon(android.R.drawable.ic_dialog_alert)
+//                            .show();
+//                }
+//            }
+//        });
         if (oneHourMargin == 0) {
             getLayoutHeight();
         }
