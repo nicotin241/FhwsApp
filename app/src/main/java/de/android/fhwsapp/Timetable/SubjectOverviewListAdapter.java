@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -51,6 +52,8 @@ public class SubjectOverviewListAdapter extends BaseAdapter {
         TextView tvTeacher = (TextView) convertView.findViewById(R.id.tvTeacher);
         TextView tvType = (TextView) convertView.findViewById(R.id.tvType);
 
+        LinearLayout llBackground = (LinearLayout) convertView.findViewById(R.id.llBackground);
+
         Subject subject = objects.get(position);
 
         tvName.setText(subject.getSubjectName());
@@ -59,9 +62,9 @@ public class SubjectOverviewListAdapter extends BaseAdapter {
         tvTeacher.setText("Dozent: " + subject.getTeacher());
 
         if (position == 0 || position % 2 == 0)
-            convertView.setBackgroundColor(Color.parseColor("#DDDDDD"));
+            llBackground.setBackgroundColor(Color.parseColor("#DDDDDD"));
         else
-            convertView.setBackgroundColor(Color.parseColor("#ED6E00"));
+            llBackground.setBackgroundColor(Color.parseColor("#ED6E00"));
 
 
         // }
