@@ -64,12 +64,13 @@ public class SplashScreen extends FragmentActivity {
             firstOpen = mPrefs.getBoolean("firstOpen",true);
             if(firstOpen){
                 mPrefs.edit().putBoolean("firstOpen",false).apply();
-                new GetID().execute();
+                new GetID().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
             // Server Sync
             new MensaDataFetcher(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new BusplanDataFetcher(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new NewsDataFetcher(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         }

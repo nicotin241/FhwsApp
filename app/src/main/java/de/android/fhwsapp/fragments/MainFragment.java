@@ -1,27 +1,38 @@
 package de.android.fhwsapp.fragments;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.text.Html;
+import android.text.format.DateFormat;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import de.android.fhwsapp.Connect;
@@ -34,12 +45,14 @@ import de.android.fhwsapp.Timetable.Subject;
 import de.android.fhwsapp.Timetable.Timetable;
 import de.android.fhwsapp.objects.Meal;
 import de.android.fhwsapp.objects.Mensa;
+import de.android.fhwsapp.objects.NewsItem;
 
 import static android.content.Context.MODE_PRIVATE;
 
 public class MainFragment extends Fragment implements View.OnClickListener {
 
     private View layout;
+    private LinearLayout newsLayout;
 
     private CardView timeTable;
     private CardView mensa_card;
@@ -74,6 +87,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private static int meals_counter;
     private Thread meal_thread;
 
+    private int itemPosition = 0;
+
     public MainFragment() {
         // Required empty public constructor
     }
@@ -84,6 +99,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         layout = inflater.inflate(R.layout.fragment_main, container, false);
+
+        newsLayout = (LinearLayout) layout.findViewById(R.id.newsLayout);
 
         timeTable = (CardView) layout.findViewById(R.id.timeTable);
         timeTable.setOnClickListener(this);
@@ -136,6 +153,15 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
         }
 
+
+
+        // News
+        ArrayList<NewsItem> news = db.getAllNews();
+
+        for(NewsItem newsItem : news) {
+            addNewsCardView(newsItem);
+        }
+
         //todays Fav-Mensa meals
         mensaId = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt("MENSAID", -1);
 
@@ -146,9 +172,91 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
         }
 
+
         return layout;
+
     }
 
+    private void addNewsCardView(final NewsItem news) {
+
+        CardView card = new CardView(getContext());
+
+        CardView.LayoutParams cardParams = new CardView.LayoutParams(CardView.LayoutParams.MATCH_PARENT, dpInPixel(160));
+        cardParams.setMargins(dpInPixel(5), dpInPixel(5), dpInPixel(5), dpInPixel(5));
+        card.setLayoutParams(cardParams);
+
+        card.setRadius(dpInPixel(2));
+        card.setContentPadding(dpInPixel(10), dpInPixel(10), dpInPixel(10), dpInPixel(10));
+        card.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
+
+        card.setMaxCardElevation(15);
+        card.setCardElevation(9);
+
+        card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDetails(news);
+            }
+        });
+
+        View child = getActivity().getLayoutInflater().inflate(R.layout.news_item, null);
+
+        TextView newsTitle = (TextView) child.findViewById(R.id.news_title);
+        newsTitle.setSelected(true);
+        newsTitle.setText(news.getTitle());
+
+        TextView newsText = (TextView) child.findViewById(R.id.news_text);
+        newsText.setText(news.getText());
+
+        card.addView(child);
+
+        if(newsLayout.getChildCount() > itemPosition) {
+
+            newsLayout.addView(card, itemPosition);
+            itemPosition += 2;
+
+        } else newsLayout.addView(card);
+
+    }
+
+    private void showDetails(NewsItem newsItem) {
+
+        final Dialog alertDialog = new Dialog(getContext());
+        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        alertDialog.setContentView(R.layout.news_details);
+
+        TextView newsTitle = (TextView) alertDialog.findViewById(R.id.news_title);
+        newsTitle.setText(newsItem.getTitle());
+
+        TextView newsText = (TextView) alertDialog.findViewById(R.id.news_text);
+        newsText.setText(newsItem.getText());
+
+        TextView news_date = (TextView) alertDialog.findViewById(R.id.news_date);
+
+        Calendar cal = Calendar.getInstance(Locale.GERMAN);
+        cal.setTimeInMillis(newsItem.getTimestamp() * 1000);
+
+        news_date.setText(DateFormat.format("dd.MM.yyyy", cal).toString());
+
+        TextView dialog_dismiss = (TextView) alertDialog.findViewById(R.id.dialog_dismiss);
+        dialog_dismiss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.show();
+
+    }
+
+    private int dpInPixel(int dp) {
+
+        final float scale = getContext().getResources().getDisplayMetrics().density;
+        return (int) (dp * scale + 0.5f);
+
+    }
 
     private void fillNextLectureViews(Subject nextLecture){
         int today = DateTime.now().getDayOfYear();

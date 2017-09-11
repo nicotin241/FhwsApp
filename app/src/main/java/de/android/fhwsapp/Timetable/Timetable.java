@@ -349,6 +349,7 @@ public class Timetable extends FragmentActivity {
         });
 
         floatingActionButton = (FloatingActionMenu) findViewById(R.id.floatingActionButton);
+        floatingActionButton.setClosedOnTouchOutside(true);
 //        floatingActionButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
