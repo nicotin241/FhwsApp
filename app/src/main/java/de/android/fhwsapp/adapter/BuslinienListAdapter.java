@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import de.android.fhwsapp.R;
@@ -14,6 +16,8 @@ public class BuslinienListAdapter extends BaseAdapter {
 
     Context context;
     String[] map;
+
+    public static int loadingView = -1;
 
     private static final String LINIE6 = "Stadtmitte - Gartenstadt Keesburg";
     private static final String LINIE114 = "Busbahnhof - Frauenland / Wittelsbacherplatz - Hubland / Unizentrum";
@@ -25,6 +29,8 @@ public class BuslinienListAdapter extends BaseAdapter {
 
         this.context = context;
         this.map = map;
+
+        loadingView = -1;
 
     }
 
@@ -48,6 +54,8 @@ public class BuslinienListAdapter extends BaseAdapter {
 
         private TextView bus_name;
         private TextView bus_description;
+        private ImageView downloadImage;
+        private ProgressBar downloadProgress;
 
     }
 
@@ -65,7 +73,8 @@ public class BuslinienListAdapter extends BaseAdapter {
 
             viewHolder.bus_name = (TextView) view.findViewById(R.id.bus_name);
             viewHolder.bus_description = (TextView) view.findViewById(R.id.bus_description);
-
+            viewHolder.downloadImage = (ImageView) view.findViewById(R.id.ivBusItem);
+            viewHolder.downloadProgress = (ProgressBar) view.findViewById(R.id.pbBusItem);
 
             view.setTag(viewHolder);
 
@@ -73,6 +82,14 @@ public class BuslinienListAdapter extends BaseAdapter {
 
             viewHolder = (ViewHolder) view.getTag();
 
+        }
+
+        if(loadingView == position){
+            viewHolder.downloadProgress.setVisibility(View.VISIBLE);
+            viewHolder.downloadImage.setVisibility(View.GONE);
+        }else {
+            viewHolder.downloadProgress.setVisibility(View.GONE);
+            viewHolder.downloadImage.setVisibility(View.VISIBLE);
         }
 
         viewHolder.bus_name.setText("Linie " + map[position]);

@@ -11,11 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.HashMap;
 
+import de.android.fhwsapp.ConnectionListener;
 import de.android.fhwsapp.Database;
 import de.android.fhwsapp.NutzungsdatenTransfer;
 import de.android.fhwsapp.R;
@@ -30,12 +33,18 @@ public class Busplaene extends Fragment {
     private String[] lineNames;
     private int tempPosition;
 
+    private ImageView downloadImage;
+    private ProgressBar downloadProgress;
+    private boolean clickable = true;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         context = getContext();
+
+        clickable = true;
 
         view = inflater.inflate(R.layout.activity_busplaene, container, false);
         ListView listView = (ListView) view.findViewById(R.id.lvBus);
@@ -50,6 +59,19 @@ public class Busplaene extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if(!clickable)
+                    return;
+
+                downloadImage = (ImageView) view.findViewById(R.id.ivBusItem);
+                downloadProgress = (ProgressBar) view.findViewById(R.id.pbBusItem);
+
+                BuslinienListAdapter.loadingView = position;
+
+                clickable = false;
+                downloadImage.setVisibility(View.GONE);
+                downloadProgress.setVisibility(View.VISIBLE);
+
 
                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
 
@@ -67,6 +89,23 @@ public class Busplaene extends Fragment {
 
         new NutzungsdatenTransfer(context).execute("busplan");
 
+        BusConnect.addListener(new ConnectionListener() {
+            @Override
+            public void onChanged() {
+                if(downloadImage != null && downloadProgress != null){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            downloadImage.setVisibility(View.VISIBLE);
+                            downloadProgress.setVisibility(View.GONE);
+                            clickable = true;
+                            BuslinienListAdapter.loadingView = -1;
+                        }
+                    });
+                }
+            }
+        });
+
 
         return view;
     }
@@ -81,7 +120,7 @@ public class Busplaene extends Fragment {
     }
 
     public void download(String url, String name) {
-        new PdfViewer(getContext(), getActivity()).viewPdf(url, "FHWS_Buslinien", name);
+        new PdfViewer(getContext(), getActivity(), true).viewPdf(url, "FHWS_Buslinien", name);
     }
 
     private boolean checkIfAlreadyhavePermission() {

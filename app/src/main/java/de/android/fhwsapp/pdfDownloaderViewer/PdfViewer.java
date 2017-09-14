@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 
 import de.android.fhwsapp.MainActivity;
+import de.android.fhwsapp.busplaene.BusConnect;
 
 /**
  * Created by admin on 02.09.17.
@@ -25,10 +26,18 @@ public class PdfViewer {
 
     private Context context;
     private FragmentActivity activity;
+    private boolean waitingForListener = false;
 
     public PdfViewer(Context context, FragmentActivity activity) {
         this.context = context;
         this.activity = activity;
+        waitingForListener = false;
+    }
+
+    public PdfViewer(Context context, FragmentActivity activity, boolean waitingforListener) {
+        this.context = context;
+        this.activity = activity;
+        this.waitingForListener = waitingforListener;
     }
 
     public void viewPdf(String url, String folderName, String fileName){
@@ -36,6 +45,9 @@ public class PdfViewer {
     }
 
     private void view(String uri) {
+
+        if(waitingForListener)
+            BusConnect.sendToAllListeners();
 
         File pdfFile = new File(uri);
         Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
@@ -102,6 +114,10 @@ public class PdfViewer {
                             Toast.makeText(context, "Es besteht keine Internetverbindung. Die Datei konnte nicht heruntergeladen werden!", Toast.LENGTH_LONG).show();
                         }
                     });
+
+                    if(waitingForListener)
+                        BusConnect.sendToAllListeners();
+
                     return null;
                 }
 
