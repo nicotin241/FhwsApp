@@ -45,6 +45,8 @@ public class CheckedSubjectsOverview extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
                 ImageView ivDelete = (ImageView) view.findViewById(R.id.ivDelete);
+
+                selectedViews.clear();
                 selectedViews.put(position, ivDelete);
 
                 ivDelete.setVisibility(View.VISIBLE);
