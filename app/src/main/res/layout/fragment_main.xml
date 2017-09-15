@@ -20,7 +20,9 @@
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:onClick="startLVFragment"
-            card_view:cardCornerRadius="2dp">
+            card_view:cardCornerRadius="2dp"
+            card_view:cardMaxElevation="15px"
+            card_view:cardElevation="9px">
 
             <LinearLayout
                 android:id="@+id/llEvents"
@@ -68,7 +70,9 @@
             android:layout_height="160dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            card_view:cardCornerRadius="2dp">
+            card_view:cardCornerRadius="2dp"
+            card_view:cardMaxElevation="15px"
+            card_view:cardElevation="9px">
 
 
             <LinearLayout
@@ -173,7 +177,9 @@
             android:layout_margin="5dp"
             android:onClick="startMensaFragment"
             android:visibility="gone"
-            card_view:cardCornerRadius="2dp">
+            card_view:cardCornerRadius="2dp"
+            card_view:cardMaxElevation="15px"
+            card_view:cardElevation="9px">
 
             <LinearLayout
                 android:layout_width="match_parent"

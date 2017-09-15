@@ -242,8 +242,6 @@ public class MensaFragment extends Fragment {
 
         }
 
-
-
     }
 
 }

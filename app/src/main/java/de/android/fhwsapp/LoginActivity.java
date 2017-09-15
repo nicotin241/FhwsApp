@@ -108,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (inputOk()) {
 
                     mDialog.setMessage("Anmelden...");
+                    mDialog.setCancelable(false);
                     mDialog.show();
                     didOnce = false;
                     checkLoginData();
