@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FhwsApp</string>
+    <string name="app_name">FHWS</string>
     <string name="splash_text">Hochschule für angewandte Wissenschaften\nWürzburg - Schweinfurt</string>
     <string name="title_activity_main">MainActivity</string>
 
@@ -8,8 +8,6 @@
 
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
@@ -25,4 +23,8 @@
         completions."
     </string>
     <string name="additives"><![CDATA[Zusatzstoffe / Allergene & sonstige Informationen]]></string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="default_notification_channel_name" translatable="true">News</string>
+
 </resources>

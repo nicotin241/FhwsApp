@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "463699755673",
+    "firebase_url": "https://fhwsapp.firebaseio.com",
+    "project_id": "fhwsapp",
+    "storage_bucket": "fhwsapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463699755673:android:0c0c044c559ea2d2",
+        "android_client_info": {
+          "package_name": "de.android.fhwsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "463699755673-k0mjemfocou2k6mctbi0vvaj29i8bi4q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "de.android.fhwsapp",
+            "certificate_hash": "0e48c09f05673cfd9853d679e82016c533875b8a"
+          }
+        },
+        {
+          "client_id": "463699755673-s42ps557ei10gnuffceh7ljp0g6d1qr9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-rWH1f1qOL9CYB9LDiYfjNNWT-ZWR9CM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "463699755673-s42ps557ei10gnuffceh7ljp0g6d1qr9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
