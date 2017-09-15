@@ -6,14 +6,42 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <TextView
-        android:id="@+id/title_thema"
-        android:padding="16dp"
-        android:lineSpacingMultiplier="1.2"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20dp"/>
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/spo_arrow_left"
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:padding="8dp"
+            android:src="@drawable/arrow_grey_left"/>
+
+        <TextView
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:id="@+id/title_thema"
+            android:gravity="center"
+            android:padding="8dp"
+            android:lineSpacingMultiplier="1.2"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp"/>
+
+        <ImageView
+            android:id="@+id/spo_arrow_right"
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:padding="8dp"
+            android:src="@drawable/arrow_grey_right"/>
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/listLayout"
@@ -34,7 +62,5 @@
             android:background="@drawable/fading_bg"/>
 
     </FrameLayout>
-
-
 
 </LinearLayout>

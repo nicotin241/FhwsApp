@@ -1,5 +1,6 @@
 package de.android.fhwsapp.fragments;
 
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,6 +19,7 @@ import java.io.InputStream;
 import de.android.fhwsapp.R;
 import de.android.fhwsapp.objects.SpoObject;
 
+
 public class SpoFragment extends Fragment {
 
     private View view;
@@ -25,7 +27,6 @@ public class SpoFragment extends Fragment {
     private static final int NUM_PAGES = 10;
     private ViewPager mPager;
     private ScreenSlidePagerAdapter mPagerAdapter;
-
 
     public SpoFragment() {
 
@@ -138,7 +139,5 @@ public class SpoFragment extends Fragment {
             }
         }
     }
-
-
 
 }

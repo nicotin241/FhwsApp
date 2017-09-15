@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -56,10 +57,16 @@ public class ScreenSlidePageFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.spo_screen_slide_page, container, false);
 
         TextView title_thema = (TextView) rootView.findViewById(R.id.title_thema);
+
+        ImageView spo_arrow_right = (ImageView) rootView.findViewById(R.id.spo_arrow_right);
+        ImageView spo_arrow_left = (ImageView) rootView.findViewById(R.id.spo_arrow_left);
+
         ListView question_list = (ListView) rootView.findViewById(R.id.question_list);
         question_list.setAdapter(new QuestionListAdapter(getContext(), questions));
 
         title_thema.setText(title);
+        if(title.equals("Studienstruktur")) spo_arrow_left.setVisibility(View.INVISIBLE);
+        else if(title.equals("Sonstiges")) spo_arrow_right.setVisibility(View.INVISIBLE);
 
         return rootView;
     }

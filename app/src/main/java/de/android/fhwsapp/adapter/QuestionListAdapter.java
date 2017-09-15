@@ -78,7 +78,6 @@ public class QuestionListAdapter extends BaseAdapter {
             viewHolder.question = (TextView) view.findViewById(R.id.question);
             viewHolder.answer = (TextView) view.findViewById(R.id.answer);
 
-
             view.setTag(viewHolder);
 
         } else {
