@@ -42,11 +42,12 @@ public class Subject {
         this.checked = subject.isChecked();
     }
 
-    public Subject(){};
+    public Subject() {
+    }
 
     public Subject(int id, String date, String timeStart, String timeEnd,
                    String type, String subjectName, String teacher, String room,
-                   String info, String gruppe, String year, String studiengang, String semester, String url){
+                   String info, String gruppe, String year, String studiengang, String semester, String url) {
 
         this.id = id;
         this.date = date;
@@ -65,16 +66,8 @@ public class Subject {
 
     }
 
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
-
     public String getInfo() {
-        if(info != null)
+        if (info != null)
             return info;
         else
             return "";
@@ -85,7 +78,7 @@ public class Subject {
     }
 
     public String getRoom() {
-        if(room == null)
+        if (room == null)
             return "";
         return room;
     }
@@ -95,7 +88,7 @@ public class Subject {
     }
 
     public String getTeacher() {
-        if(teacher == null)
+        if (teacher == null)
             return "";
         return teacher;
     }
@@ -105,7 +98,7 @@ public class Subject {
     }
 
     public String getSubjectName() {
-        if(subjectName == null)
+        if (subjectName == null)
             return "";
         return subjectName;
     }
@@ -115,7 +108,7 @@ public class Subject {
     }
 
     public String getTimeEnd() {
-        if(timeEnd == null)
+        if (timeEnd == null)
             return "";
         return timeEnd;
     }
@@ -125,7 +118,7 @@ public class Subject {
     }
 
     public String getTimeStart() {
-        if(timeStart == null)
+        if (timeStart == null)
             return "";
         return timeStart;
     }
@@ -135,7 +128,7 @@ public class Subject {
     }
 
     public String getType() {
-        if(type == null)
+        if (type == null)
             return "";
         return type;
     }
@@ -145,16 +138,16 @@ public class Subject {
     }
 
     public String getDate() {
-        if(date == null)
+        if (date == null)
             return "";
         return date;
     }
 
-    public DateTime getDateAsDateTime(){
+    public DateTime getDateAsDateTime() {
         return DateTime.parse(date, DateTimeFormat.forPattern("dd.MM.yy"));
     }
 
-    public void setDateAsDateTime(DateTime date){
+    public void setDateAsDateTime(DateTime date) {
         DateTimeFormatter fmt = DateTimeFormat.forPattern("dd.MM.yy");
         this.date = fmt.print(date);
     }
@@ -164,7 +157,7 @@ public class Subject {
     }
 
     public String getGruppe() {
-        if(gruppe == null)
+        if (gruppe == null)
             return "";
         return gruppe;
     }
@@ -182,7 +175,7 @@ public class Subject {
     }
 
     public String getYear() {
-        if(year == null)
+        if (year == null)
             return "";
         return year;
     }
@@ -192,7 +185,7 @@ public class Subject {
     }
 
     public String getStudiengang() {
-        if(studiengang == null)
+        if (studiengang == null)
             return "";
         return studiengang;
     }
@@ -210,7 +203,7 @@ public class Subject {
     }
 
     public String getSemester() {
-        if(semester == null)
+        if (semester == null)
             return "";
         return semester;
     }
@@ -220,7 +213,7 @@ public class Subject {
     }
 
     public String getUrl() {
-        if(url == null)
+        if (url == null)
             return "";
         return url;
     }

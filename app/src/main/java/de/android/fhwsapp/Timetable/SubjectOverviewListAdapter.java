@@ -43,8 +43,6 @@ public class SubjectOverviewListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        //if(convertView==null){
-
         convertView = LayoutInflater.from(context).inflate(R.layout.subject_overview_list_adapter, parent, false);
 
         TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
@@ -67,7 +65,6 @@ public class SubjectOverviewListAdapter extends BaseAdapter {
             llBackground.setBackgroundColor(Color.parseColor("#ED6E00"));
 
 
-        // }
         return convertView;
     }
 }

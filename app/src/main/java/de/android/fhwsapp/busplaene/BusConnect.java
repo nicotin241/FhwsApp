@@ -7,9 +7,6 @@ import java.util.List;
 
 import de.android.fhwsapp.ConnectionListener;
 
-/**
- * Created by admin on 14.09.17.
- */
 
 public class BusConnect {
 

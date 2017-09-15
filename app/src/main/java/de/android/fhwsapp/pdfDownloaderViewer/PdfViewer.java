@@ -18,10 +18,6 @@ import java.io.IOException;
 import de.android.fhwsapp.MainActivity;
 import de.android.fhwsapp.busplaene.BusConnect;
 
-/**
- * Created by admin on 02.09.17.
- */
-
 public class PdfViewer {
 
     private Context context;
@@ -40,13 +36,13 @@ public class PdfViewer {
         this.waitingForListener = waitingforListener;
     }
 
-    public void viewPdf(String url, String folderName, String fileName){
-        new DownloadFile().execute(url,folderName, fileName);
+    public void viewPdf(String url, String folderName, String fileName) {
+        new DownloadFile().execute(url, folderName, fileName);
     }
 
     private void view(String uri) {
 
-        if(waitingForListener)
+        if (waitingForListener)
             BusConnect.sendToAllListeners();
 
         File pdfFile = new File(uri);
@@ -60,20 +56,20 @@ public class PdfViewer {
         } else {
 
             Uri pdfURI = FileProvider.getUriForFile(context, "de.android.fhwsapp.fileprovider", pdfFile);
-            pdfIntent.setDataAndType(pdfURI , "application/pdf");
+            pdfIntent.setDataAndType(pdfURI, "application/pdf");
             pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
         }
 
-        try{
+        try {
             context.startActivity(pdfIntent);
-        }catch(ActivityNotFoundException e){
+        } catch (ActivityNotFoundException e) {
             activity.runOnUiThread(new Runnable() {
                 public void run() {
                     Toast.makeText(context, "Sie benötigen eine Applikation, welche PDFs darstellen kann", Toast.LENGTH_LONG).show();
                 }
             });
-        }catch (Exception ex){
+        } catch (Exception ex) {
             activity.runOnUiThread(new Runnable() {
                 public void run() {
                     Toast.makeText(context, "Es ist leider ein Fehler aufgetreten", Toast.LENGTH_LONG).show();
@@ -93,36 +89,36 @@ public class PdfViewer {
 
             String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
             File folder = new File(extStorageDirectory, folderName);
-            if(!folder.exists())
+            if (!folder.exists())
                 folder.mkdir();
 
             File pdfFile = new File(folder, fileName + ".pdf");
 
-            if(pdfFile.exists() && !MainActivity.isNetworkConnected(context)){
+            if (pdfFile.exists() && !MainActivity.isNetworkConnected(context)) {
                 view(pdfFile.getAbsolutePath());
                 return null;
             }
 
-            if(pdfFile.exists())
+            if (pdfFile.exists())
                 pdfFile.delete();
 
 
-            try{
-                if(!MainActivity.isNetworkConnected(context)){
+            try {
+                if (!MainActivity.isNetworkConnected(context)) {
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(context, "Es besteht keine Internetverbindung. Die Datei konnte nicht heruntergeladen werden!", Toast.LENGTH_LONG).show();
                         }
                     });
 
-                    if(waitingForListener)
+                    if (waitingForListener)
                         BusConnect.sendToAllListeners();
 
                     return null;
                 }
 
                 pdfFile.createNewFile();
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             FileDownloader.downloadFile(fileUrl, pdfFile, context);

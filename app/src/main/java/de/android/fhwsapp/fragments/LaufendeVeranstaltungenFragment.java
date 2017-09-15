@@ -25,7 +25,6 @@ public class LaufendeVeranstaltungenFragment extends Fragment {
     private View view;
     private SharedPreferences preferences;
 
-    //todays Events
     private String todaysEvents = "";
     private ListView listView;
     private ProgressBar pbEvents;
@@ -37,9 +36,8 @@ public class LaufendeVeranstaltungenFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_laufende_veranstaltungen, container, false);
 
-        preferences = getContext().getSharedPreferences(getContext().getPackageName(),MODE_PRIVATE);
+        preferences = getContext().getSharedPreferences(getContext().getPackageName(), MODE_PRIVATE);
 
-        //todays Events
         subjectList = new ArrayList<>();
         pbEvents = (ProgressBar) view.findViewById(R.id.pbEvents);
         listView = (ListView) view.findViewById(R.id.listView);
@@ -47,10 +45,9 @@ public class LaufendeVeranstaltungenFragment extends Fragment {
 
         LVeranstaltungenDataFetcher lvDataFetcher = new LVeranstaltungenDataFetcher(getContext(), pbEvents, listView, todaysEvents);
 
-        if(MainActivity.isNetworkConnected(getContext())) {
-            //new LoadEventsFromServer().execute("https://apistaging.fiw.fhws.de/mo/api/events/today");
+        if (MainActivity.isNetworkConnected(getContext())) {
             lvDataFetcher.execute("https://apistaging.fiw.fhws.de/mo/api/events/today");
-        }else{
+        } else {
 
             lvDataFetcher.offlineUse();
         }

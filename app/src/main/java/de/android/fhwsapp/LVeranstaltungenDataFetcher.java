@@ -27,14 +27,9 @@ import de.android.fhwsapp.Timetable.Subject;
 
 import static android.content.Context.MODE_PRIVATE;
 
-/**
- * Created by admin on 01.09.17.
- */
-
 public class LVeranstaltungenDataFetcher extends AsyncTask<String, Void, String> {
 
     private String server_response;
-    //todays Events
     private String todaysEvents = "";
     private ListView listView;
     private ProgressBar pbEvents;
@@ -47,7 +42,7 @@ public class LVeranstaltungenDataFetcher extends AsyncTask<String, Void, String>
     public LVeranstaltungenDataFetcher(Context context, ProgressBar pbEvents, ListView listView, String todaysEvents) {
 
         this.context = context;
-        preferences = context.getSharedPreferences(context.getPackageName(),MODE_PRIVATE);
+        preferences = context.getSharedPreferences(context.getPackageName(), MODE_PRIVATE);
         subjectList = new ArrayList<>();
         this.pbEvents = pbEvents;
         this.listView = listView;
@@ -80,69 +75,6 @@ public class LVeranstaltungenDataFetcher extends AsyncTask<String, Void, String>
         }
 
 
-        //nur zu testzwecken
-        //TODO für release löschen
-        if (server_response == null || server_response.equals("[]"))
-            server_response = "[\n" +
-                    "  {\n" +
-                    "    \"endTime\":\"2017-07-14T11:30:00+02:00\",\n" +
-                    "    \"lecturerView\":[\n" +
-                    "    ],\n" +
-                    "    \"name\":\"Rechnerarchitektur\",\n" +
-                    "    \"roomsView\":[\n" +
-                    "      {\n" +
-                    "        \"name\":\"I.3.24\"\n" +
-                    "      }\n" +
-                    "    ],\n" +
-                    "    \"startTime\":\"2017-07-14T10:00:00+02:00\",\n" +
-                    "    \"studentsView\":[\n" +
-                    "      {\n" +
-                    "        \"program\":\"ANY\",\n" +
-                    "        \"semester\":0\n" +
-                    "      }\n" +
-                    "    ],\n" +
-                    "    \"type\":\"Tutorial\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"endTime\":\"2017-07-14T11:30:00+02:00\",\n" +
-                    "    \"lecturerView\":[\n" +
-                    "    ],\n" +
-                    "    \"name\":\"Datenbanken 1\",\n" +
-                    "    \"roomsView\":[\n" +
-                    "      {\n" +
-                    "        \"name\":\"H.1.5\"\n" +
-                    "      }\n" +
-                    "    ],\n" +
-                    "    \"startTime\":\"2017-07-14T10:00:00+02:00\",\n" +
-                    "    \"studentsView\":[\n" +
-                    "      {\n" +
-                    "        \"program\":\"ANY\",\n" +
-                    "        \"semester\":0\n" +
-                    "      }\n" +
-                    "    ],\n" +
-                    "    \"type\":\"Vorlesung\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"endTime\":\"2017-07-14T13:00:00+02:00\",\n" +
-                    "    \"lecturerView\":[\n" +
-                    "    ],\n" +
-                    "    \"name\":\"Programmieren 2\",\n" +
-                    "    \"roomsView\":[\n" +
-                    "      {\n" +
-                    "        \"name\":\"H.1.5\"\n" +
-                    "      }\n" +
-                    "    ],\n" +
-                    "    \"startTime\":\"2017-07-14T11:30:00+02:00\",\n" +
-                    "    \"studentsView\":[\n" +
-                    "      {\n" +
-                    "        \"program\":\"ANY\",\n" +
-                    "        \"semester\":0\n" +
-                    "      }\n" +
-                    "    ],\n" +
-                    "    \"type\":\"Vorlesung\"\n" +
-                    "  }\n" +
-                    "]";
-
         try {
             JSONArray jsonArray = new JSONArray(server_response);
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -152,7 +84,7 @@ public class LVeranstaltungenDataFetcher extends AsyncTask<String, Void, String>
 
             preferences.edit().putString("todaysEvents", server_response).apply();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e("Response error", e.getMessage());
         }
 
@@ -170,9 +102,7 @@ public class LVeranstaltungenDataFetcher extends AsyncTask<String, Void, String>
 
     }
 
-
-// Converting InputStream to String
-
+    // Converting InputStream to String
     private String readStream(InputStream in) {
         BufferedReader reader = null;
         StringBuffer response = new StringBuffer();
@@ -244,12 +174,12 @@ public class LVeranstaltungenDataFetcher extends AsyncTask<String, Void, String>
     }
 
 
-    public void offlineUse(){
+    public void offlineUse() {
         pbEvents.setVisibility(View.GONE);
 
         try {
             JSONArray jsonArray = new JSONArray(todaysEvents);
-            for(int i = 0; i < jsonArray.length(); i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                 addEvent(jsonObject);
             }
@@ -258,8 +188,8 @@ public class LVeranstaltungenDataFetcher extends AsyncTask<String, Void, String>
 
             listView.setAdapter(arrayAdapter);
 
-        }catch (Exception e){
-            Log.e("Response error",e.getMessage());
+        } catch (Exception e) {
+            Log.e("Response error", e.getMessage());
         }
     }
 

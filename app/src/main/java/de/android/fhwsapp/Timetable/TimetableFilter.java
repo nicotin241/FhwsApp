@@ -55,7 +55,7 @@ public class TimetableFilter extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.lvNExp);
         progressBar = (ProgressBar) findViewById(R.id.pbTimetableFilter);
 
-        if(Timetable.isLoading)
+        if (Timetable.isLoading)
             progressBar.setVisibility(View.VISIBLE);
 
         database = new Database(this);
@@ -76,10 +76,6 @@ public class TimetableFilter extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Timetable.timetableActivity.finish();
-//                Intent intent = new Intent(TimetableFilter.this, Timetable.class);
-//                intent.putExtra("from_filter", true);
-//                startActivity(intent);
                 overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
                 finish();
             }
@@ -95,10 +91,11 @@ public class TimetableFilter extends AppCompatActivity {
         });
 
 
+        //wird nach aufgerufen wenn Vorlesunge fertig geladen wurden
         Connect.addListener(new ConnectionListener() {
             @Override
             public void onChanged() {
-                if(isOpen) {
+                if (isOpen) {
                     Log.e("TimetableFilter", "onChanged");
                     init();
                     progressBar.setVisibility(View.GONE);
@@ -109,7 +106,7 @@ public class TimetableFilter extends AppCompatActivity {
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         isOpen = false;
     }
@@ -135,7 +132,7 @@ public class TimetableFilter extends AppCompatActivity {
                     TextView tv = (TextView) view.findViewById(R.id.lblListHeader);
                     String name = item.getWrappedObject().toString();
 
-                    if(name.equals(""))
+                    if (name.equals(""))
                         name = "Vorlesungen";
 
                     tv.setText(name);
@@ -194,10 +191,10 @@ public class TimetableFilter extends AppCompatActivity {
                                 public void onClick(View v) {
                                     cb.toggle();
 
-                                    if(cb.isChecked()){
+                                    if (cb.isChecked()) {
                                         tv.setBackgroundColor(Color.parseColor("#0078ff"));
                                         tvInfo.setBackgroundColor(Color.parseColor("#0078ff"));
-                                    }else{
+                                    } else {
                                         cb.setChecked(false);
                                         tv.setBackgroundColor(Color.parseColor("#ffffff"));
                                         tvInfo.setBackgroundColor(Color.parseColor("#ffffff"));
@@ -213,10 +210,10 @@ public class TimetableFilter extends AppCompatActivity {
                                 public void onClick(View v) {
                                     cb.toggle();
 
-                                    if(cb.isChecked()){
+                                    if (cb.isChecked()) {
                                         tv.setBackgroundColor(Color.parseColor("#0078ff"));
                                         tvInfo.setBackgroundColor(Color.parseColor("#0078ff"));
-                                    }else{
+                                    } else {
                                         cb.setChecked(false);
                                         tv.setBackgroundColor(Color.parseColor("#ffffff"));
                                         tvInfo.setBackgroundColor(Color.parseColor("#ffffff"));
@@ -358,10 +355,10 @@ public class TimetableFilter extends AppCompatActivity {
                                         public void onClick(View v) {
                                             cb.toggle();
 
-                                            if(cb.isChecked()){
+                                            if (cb.isChecked()) {
                                                 tv.setBackgroundColor(Color.parseColor("#0078ff"));
                                                 tvInfo.setBackgroundColor(Color.parseColor("#0078ff"));
-                                            }else{
+                                            } else {
                                                 cb.setChecked(false);
                                                 tv.setBackgroundColor(Color.parseColor("#ffffff"));
                                                 tvInfo.setBackgroundColor(Color.parseColor("#ffffff"));
@@ -377,10 +374,10 @@ public class TimetableFilter extends AppCompatActivity {
                                         public void onClick(View v) {
                                             cb.toggle();
 
-                                            if(cb.isChecked()){
+                                            if (cb.isChecked()) {
                                                 tv.setBackgroundColor(Color.parseColor("#0078ff"));
                                                 tvInfo.setBackgroundColor(Color.parseColor("#0078ff"));
-                                            }else{
+                                            } else {
                                                 cb.setChecked(false);
                                                 tv.setBackgroundColor(Color.parseColor("#ffffff"));
                                                 tvInfo.setBackgroundColor(Color.parseColor("#ffffff"));
@@ -412,8 +409,8 @@ public class TimetableFilter extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        if(nothingChecked){
-            Intent intent = new Intent(TimetableFilter.this,MainActivity.class);
+        if (nothingChecked) {
+            Intent intent = new Intent(TimetableFilter.this, MainActivity.class);
             startActivity(intent);
             this.finish();
             overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
@@ -427,9 +424,10 @@ public class TimetableFilter extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        try{
+        try {
             init();
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
     public void init() {

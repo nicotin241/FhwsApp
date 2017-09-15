@@ -53,7 +53,7 @@ public class CheckedSubjectsOverview extends AppCompatActivity {
                 ivDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        database.updateAllCheckedSubjectsWithName(data.get(position).getSubjectName(),false);
+                        database.updateAllCheckedSubjectsWithName(data.get(position).getSubjectName(), false);
                         //reload listview
                         SubjectOverviewListAdapter arrayAdapter = new SubjectOverviewListAdapter(context, database.getAllCheckedSubjects());
                         listView.setAdapter(arrayAdapter);
@@ -66,9 +66,9 @@ public class CheckedSubjectsOverview extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(!selectedViews.containsKey(position)){
-                 for(ImageView iv : selectedViews.values())
-                     iv.setVisibility(View.GONE);
+                if (!selectedViews.containsKey(position)) {
+                    for (ImageView iv : selectedViews.values())
+                        iv.setVisibility(View.GONE);
                 }
             }
         });

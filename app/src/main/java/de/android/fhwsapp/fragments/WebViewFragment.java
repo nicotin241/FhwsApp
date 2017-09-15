@@ -47,9 +47,6 @@ public class WebViewFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_webview, container, false);
 
-//        url = getArguments().getString("url");
-//        js = getArguments().getString("js");
-
         url = URL;
         js = JS;
 
@@ -80,20 +77,20 @@ public class WebViewFragment extends Fragment {
                     //führt bei login screen das javascript aus
                     view.loadUrl(js);
 
-                } else if(url2.contains("pdf?semester=")) {
+                } else if (url2.contains("pdf?semester=")) {
 
                     String semester = url2.substring(url2.length() - 6);
                     downloadPdf(url2, "FHWS-Dokumente", "Immatrikulation " + semester);
 
-                } else if(url2.contains("history/pdf")) {
+                } else if (url2.contains("history/pdf")) {
 
                     downloadPdf(url2, "FHWS-Dokumente", "Studienverlauf");
 
-                } else if(url2.contains("grades/pdf")) {
+                } else if (url2.contains("grades/pdf")) {
 
                     downloadPdf(url2, "FHWS-Dokumente", "Notenauszug");
 
-                } else if(!url2.equals(url)) {
+                } else if (!url2.equals(url)) {
 
                     webView.loadUrl(url);
 
@@ -122,10 +119,11 @@ public class WebViewFragment extends Fragment {
 
     private void downloadPdf(String url, String folderName, String fileName) {
 
-        if(checkIfAlreadyhavePermission()) new PdfViewer(getContext(), getActivity()).viewPdf(url, folderName, fileName);
+        if (checkIfAlreadyhavePermission())
+            new PdfViewer(getContext(), getActivity()).viewPdf(url, folderName, fileName);
         else {
 
-            savedDataForPermissionRequest = new String[] {url, folderName, fileName };
+            savedDataForPermissionRequest = new String[]{url, folderName, fileName};
             requestForSpecificPermission();
         }
 
@@ -151,7 +149,7 @@ public class WebViewFragment extends Fragment {
 
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    if(savedDataForPermissionRequest != null) {
+                    if (savedDataForPermissionRequest != null) {
 
                         new PdfViewer(getContext(), getActivity()).viewPdf(savedDataForPermissionRequest[0], savedDataForPermissionRequest[1], savedDataForPermissionRequest[2]);
 

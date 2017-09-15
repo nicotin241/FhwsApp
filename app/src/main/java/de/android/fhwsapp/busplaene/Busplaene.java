@@ -47,20 +47,22 @@ public class Busplaene extends Fragment {
         clickable = true;
 
         view = inflater.inflate(R.layout.activity_busplaene, container, false);
-        ListView listView = (ListView) view.findViewById(R.id.lvBus);
 
         Database database = new Database(context);
         map = database.getBusLinien();
-
         lineNames = map.keySet().toArray(new String[map.keySet().size()]);
         BuslinienListAdapter adapter = new BuslinienListAdapter(getContext(), lineNames);
 
+        ListView listView = (ListView) view.findViewById(R.id.lvBus);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            //es ist immer nur ein Item klickbar, nach klick wird das ImageView mit einer Progressbar
+            //getauscht und der Download der pdf angefangen
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if(!clickable)
+                if (!clickable)
                     return;
 
                 downloadImage = (ImageView) view.findViewById(R.id.ivBusItem);
@@ -89,10 +91,13 @@ public class Busplaene extends Fragment {
 
         new NutzungsdatenTransfer(context).execute("busplan");
 
+
+        //nach laden der pdfs wird die Progressbar wieder mit den download Image getauscht und die
+        //anderen Listitems wieder klickbar gemacht
         BusConnect.addListener(new ConnectionListener() {
             @Override
             public void onChanged() {
-                if(downloadImage != null && downloadProgress != null){
+                if (downloadImage != null && downloadProgress != null) {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

@@ -14,8 +14,8 @@ import de.android.fhwsapp.R;
 
 public class BuslinienListAdapter extends BaseAdapter {
 
-    Context context;
-    String[] map;
+    private Context context;
+    private String[] map;
 
     public static int loadingView = -1;
 
@@ -84,10 +84,10 @@ public class BuslinienListAdapter extends BaseAdapter {
 
         }
 
-        if(loadingView == position){
+        if (loadingView == position) {
             viewHolder.downloadProgress.setVisibility(View.VISIBLE);
             viewHolder.downloadImage.setVisibility(View.GONE);
-        }else {
+        } else {
             viewHolder.downloadProgress.setVisibility(View.GONE);
             viewHolder.downloadImage.setVisibility(View.VISIBLE);
         }
@@ -111,7 +111,6 @@ public class BuslinienListAdapter extends BaseAdapter {
                 viewHolder.bus_description.setText(LINIE10);
                 break;
         }
-
 
 
         return view;

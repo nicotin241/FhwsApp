@@ -7,7 +7,9 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+
 import com.github.clans.fab.FloatingActionButton;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -63,17 +65,8 @@ public class Timetable extends FragmentActivity {
 
     private Database database;
 
-    private Context context;
-
-    //public static Activity timetableActivity;
-
-    //    private LinearLayout addLayout;
     public static FloatingActionMenu floatingActionButton;
     private FloatingActionButton fabVorlesungsAuswahl, fabMeineVorlesungen;
-
-
-    private boolean created;
-
     private ProgressBar progressBar;
 
     @Override
@@ -83,27 +76,22 @@ public class Timetable extends FragmentActivity {
 
         isOpen = true;
 
-        context = this;
-        //timetableActivity = this;
-
-        if(getIntent().getExtras() != null)
-            created = getIntent().getExtras().getBoolean("from_filter");
-
         TypedValue typedValue = new TypedValue();
         TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorAccent});
         colorAccent = a.getColor(0, 0);
 
         progressBar = (ProgressBar) findViewById(R.id.timeTableProgress);
 
-        if(!MainActivity.isNetworkConnected(this))
+        if (!MainActivity.isNetworkConnected(this))
             progressBar.setVisibility(View.GONE);
 
         new NutzungsdatenTransfer(this).execute("veranstaltungen");
 
+        //wird nach aufgerufen wenn Vorlesunge fertig geladen wurden
         Connect.addListener(new ConnectionListener() {
             @Override
             public void onChanged() {
-                if(isOpen) {
+                if (isOpen) {
                     Log.e("Timetable", "onChanged");
                     init();
                     progressBar.setVisibility(View.GONE);
@@ -114,7 +102,7 @@ public class Timetable extends FragmentActivity {
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         isOpen = false;
     }
@@ -144,8 +132,6 @@ public class Timetable extends FragmentActivity {
         params.setMargins(0, 2, 0, 2);
         ib.setLayoutParams(params);
         ib.setBackgroundColor(Color.GRAY);
-
-        //ib.setOnClickListener(this);
 
         weekTabs.addView(ib);
         weekTabList.add(ib);
@@ -182,17 +168,11 @@ public class Timetable extends FragmentActivity {
 
     private void initTabs() {
         tabMo = (ImageButton) findViewById(R.id.ibMo);
-//        tabMo.setOnClickListener(this);
         tabDi = (ImageButton) findViewById(R.id.ibDi);
-//        tabDi.setOnClickListener(this);
         tabMi = (ImageButton) findViewById(R.id.ibMi);
-//        tabMi.setOnClickListener(this);
         tabDo = (ImageButton) findViewById(R.id.ibDo);
-//        tabDo.setOnClickListener(this);
         tabFr = (ImageButton) findViewById(R.id.ibFr);
-//        tabFr.setOnClickListener(this);
         tabSa = (ImageButton) findViewById(R.id.ibSa);
-//        tabSa.setOnClickListener(this);
         tabSo = (ImageButton) findViewById(R.id.ibSo);
     }
 
@@ -261,17 +241,16 @@ public class Timetable extends FragmentActivity {
         init();
     }
 
-    private void init(){
+    private void init() {
         subjects = loadSubjects();
 
-        if(subjects.length == 0){
+        if (subjects.length == 0) {
 
-            Toast.makeText(this, "Wähle deine Vorlesungen",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Wähle deine Vorlesungen", Toast.LENGTH_LONG).show();
 
             Intent intent = new Intent(this, TimetableFilter.class);
-            intent.putExtra("nothing checked",true);
+            intent.putExtra("nothing checked", true);
             startActivity(intent);
-            //this.finish();
             return;
         }
 
@@ -310,7 +289,7 @@ public class Timetable extends FragmentActivity {
                 } catch (Exception e) {
                     //bei absoluten Notfall
                     Log.e("Timetable", "Fehler bei fragment.loadData");
-                    if(isOpen)
+                    if (isOpen)
                         onBackPressed();
                 }
                 return fragment;
@@ -319,9 +298,9 @@ public class Timetable extends FragmentActivity {
 
         try {
             mFragmentGridPager.setGridPagerAdapter(mFragmentGridPagerAdapter);
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e("Timetable", "Fehler bei mFragmentGridPager.setGridPagerAdapter");
-            if(isOpen)
+            if (isOpen)
                 onBackPressed();
         }
 
@@ -350,86 +329,17 @@ public class Timetable extends FragmentActivity {
 
         floatingActionButton = (FloatingActionMenu) findViewById(R.id.floatingActionButton);
         floatingActionButton.setClosedOnTouchOutside(true);
-//        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                if(isLoading){
-//                    Toast.makeText(context,"Bitte warten bis der Inhalt fertig geladen wurde",Toast.LENGTH_LONG).show();
-//                    return;
-//                }
-//
-//                if (floatingActionButton.getTag().equals("plus")) {
-//
-//                    Intent intent = new Intent(Timetable.this, TimetableFilter.class);
-//                    startActivity(intent);
-//                    overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
-////                    finish();
-//
-//                } else {
-//                    new AlertDialog.Builder(Timetable.this)
-//                            .setTitle("Fach entfernen")
-//                            .setMessage("Willst du das Fach wirklich aus deinem Stundenplan nehmen")
-//                            .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    ContentFragment.markedTv.clearAnimation();
-//
-//                                    if (ContentFragment.markedTv != null)
-//                                        ContentFragment.markedTv.setBackgroundColor(ContentFragment.markedTv.getHighlightColor());
-//
-//                                    floatingActionButton.setImageResource(R.drawable.plus);
-//                                    floatingActionButton.setTag("plus");
-//
-//                                    String subject = "";
-//
-//                                    List<String> names = database.getAllSubjectNames();
-//                                    for (String name : names)
-//                                        if (ContentFragment.markedTv.getText().toString().contains(name)) {
-//                                            subject = name;
-//                                            break;
-//                                        }
-//
-//
-//                                    Subject update = database.getSubjectWithName(subject);
-//
-//                                    database.updateCheckedSubjects(update.getId(), false);
-//
-//                                    ContentFragment.markedTv = null;
-//
-//                                    subjects = loadSubjects();
-//                                    mFragmentGridPager.setGridPagerAdapter(mFragmentGridPagerAdapter);
-//                                }
-//                            })
-//                            .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    ContentFragment.markedTv.clearAnimation();
-//
-//                                    if (ContentFragment.markedTv != null)
-//                                        ContentFragment.markedTv.setBackgroundColor(ContentFragment.markedTv.getHighlightColor());
-//
-//                                    ContentFragment.markedTv = null;
-//
-//                                    Timetable.floatingActionButton.setImageResource(R.drawable.plus);
-//                                    Timetable.floatingActionButton.setTag("plus");
-//
-//                                    dialog.dismiss();
-//                                }
-//                            })
-//                            .setIcon(android.R.drawable.ic_dialog_alert)
-//                            .show();
-//                }
-//            }
-//        });
+
         if (oneHourMargin == 0) {
             getLayoutHeight();
         }
 
-        if(!isLoading)
+        if (!isLoading)
             progressBar.setVisibility(View.GONE);
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

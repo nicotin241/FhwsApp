@@ -62,7 +62,7 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
         btnSave = (Button) findViewById(R.id.btnSave);
         btnSave.setOnClickListener(this);
 
-        if(this.getIntent().getExtras() != null){
+        if (this.getIntent().getExtras() != null) {
             String name = (String) this.getIntent().getExtras().get("Subject");
             String date = (String) this.getIntent().getExtras().get("Date");
 
@@ -88,37 +88,37 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnSave:
                 Subject customSubject = null;
 
                 try {
                     customSubject = createCustomSubject();
-                }catch (Exception e){
-                    Toast.makeText(this,"Die Felder Name, Datum, Startzeit und Endzeit müssen ausgefüllt werden",
+                } catch (Exception e) {
+                    Toast.makeText(this, "Die Felder Name, Datum, Startzeit und Endzeit müssen ausgefüllt werden",
                             Toast.LENGTH_LONG).show();
                     break;
                 }
 
-                if(customSubject.getSubjectName().equals("") || customSubject.getDate().equals("")
-                        || customSubject.getTimeStart().equals("") || customSubject.getTimeEnd().equals("")){
-                    Toast.makeText(this,"Die Felder Name, Datum, Startzeit und Endzeit müssen ausgefüllt werden",
+                if (customSubject.getSubjectName().equals("") || customSubject.getDate().equals("")
+                        || customSubject.getTimeStart().equals("") || customSubject.getTimeEnd().equals("")) {
+                    Toast.makeText(this, "Die Felder Name, Datum, Startzeit und Endzeit müssen ausgefüllt werden",
                             Toast.LENGTH_LONG).show();
                     break;
                 }
 
                 boolean stop = false;
 
-                for(String name : database.getAllSubjectNames()){
-                    if(name.equals(oldName))
+                for (String name : database.getAllSubjectNames()) {
+                    if (name.equals(oldName))
                         continue;
-                    if(customSubject.getSubjectName().equals(name)){
+                    if (customSubject.getSubjectName().equals(name)) {
                         Toast.makeText(this, "Es dürfen keine gleichen Namen vorkommen", Toast.LENGTH_LONG);
                         stop = true;
                         break;
                     }
                 }
-                if(stop)
+                if (stop)
                     break;
 
 
@@ -126,31 +126,30 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
                 DateTime start = formatter.parseDateTime(customSubject.getTimeStart());
                 DateTime end = formatter.parseDateTime(customSubject.getTimeEnd());
 
-                if(start.isAfter(end)){
-                   Toast.makeText(this,"Die Endzeit muss größer sein als die Startzeit", Toast.LENGTH_LONG).show();
+                if (start.isAfter(end)) {
+                    Toast.makeText(this, "Die Endzeit muss größer sein als die Startzeit", Toast.LENGTH_LONG).show();
                     break;
                 }
 
-                if(customSubject.getDateAsDateTime().plusDays(1).isBeforeNow()){
-                    Toast.makeText(this,"Das Datum liegt in der Vergangenheit", Toast.LENGTH_LONG).show();
+                if (customSubject.getDateAsDateTime().plusDays(1).isBeforeNow()) {
+                    Toast.makeText(this, "Das Datum liegt in der Vergangenheit", Toast.LENGTH_LONG).show();
                     break;
                 }
 
-                int diff = ((customSubject.getDateAsDateTime().getYear() * 1000) +customSubject.getDateAsDateTime().getDayOfYear()) - ((DateTime.now().getYear() * 1000)+DateTime.now().getDayOfYear());
-                if(diff > 240){
-                    Toast.makeText(this,"Das Datum darf maximal 240 Tage in der Zukunft liegen", Toast.LENGTH_LONG).show();
+                int diff = ((customSubject.getDateAsDateTime().getYear() * 1000) + customSubject.getDateAsDateTime().getDayOfYear()) - ((DateTime.now().getYear() * 1000) + DateTime.now().getDayOfYear());
+                if (diff > 240) {
+                    Toast.makeText(this, "Das Datum darf maximal 240 Tage in der Zukunft liegen", Toast.LENGTH_LONG).show();
                     break;
                 }
 
 
-                if(edit) {
-                    if(customSubject.getType().equals("Custom"))
+                if (edit) {
+                    if (customSubject.getType().equals("Custom"))
                         database.updateSubjectWithNameAndDate(customSubject, oldName, oldDate);
                     else
                         database.updateSubjectWithName(customSubject, oldName);
-                }
-                else {
-                    if(cbEveryWeek.isChecked())
+                } else {
+                    if (cbEveryWeek.isChecked())
                         database.createSubjectsForEveryWeek(customSubject);
                     else
                         database.createSubject(customSubject);
@@ -165,7 +164,7 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
-        if(event.getAction() == MotionEvent.ACTION_DOWN) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
             InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             mgr.hideSoftInputFromWindow(etSubjectName.getWindowToken(), 0);
@@ -190,7 +189,7 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
         return false;
     }
 
-    private void showDatePickerDialog(){
+    private void showDatePickerDialog() {
         Calendar mcurrentTime = Calendar.getInstance();
         int year = mcurrentTime.get(Calendar.YEAR);
         int month = mcurrentTime.get(Calendar.MONTH);
@@ -199,16 +198,15 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
         mDayPicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                //warum muss ich month um 1 erhöhen??? --> Weil in der Calendar-Klasse die Monate von 0 - 11 gezählt werden ;)
-                etDay.setText( dayOfMonth + "." + ++month +"."+year);
+                etDay.setText(dayOfMonth + "." + ++month + "." + year);
             }
-        },year,month,day );
+        }, year, month, day);
         mDayPicker.setTitle("Wähle Datum");
 
         mDayPicker.show();
     }
 
-    private void showTimePickerDialog(final int id){
+    private void showTimePickerDialog(final int id) {
         Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         int minute = mcurrentTime.get(Calendar.MINUTE);
@@ -216,13 +214,13 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
         mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                if(id == R.id.etStart)
-                    etStart.setText( selectedHour + ":" + ((selectedMinute < 10) ? "0" + selectedMinute : selectedMinute));
+                if (id == R.id.etStart)
+                    etStart.setText(selectedHour + ":" + ((selectedMinute < 10) ? "0" + selectedMinute : selectedMinute));
                 else
-                    etEnd.setText( selectedHour + ":" + ((selectedMinute < 10) ? "0" + selectedMinute : selectedMinute));
+                    etEnd.setText(selectedHour + ":" + ((selectedMinute < 10) ? "0" + selectedMinute : selectedMinute));
             }
         }, hour, minute, true);
-        if(id == R.id.etStart)
+        if (id == R.id.etStart)
             mTimePicker.setTitle("Wähle Startzeit");
         else
             mTimePicker.setTitle("Wähle Endzeit");
@@ -230,7 +228,7 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
         mTimePicker.show();
     }
 
-    private Subject createCustomSubject(){
+    private Subject createCustomSubject() {
         Subject subject = new Subject();
         subject.setType("Custom");
         subject.setSubjectName(etSubjectName.getText().toString());
