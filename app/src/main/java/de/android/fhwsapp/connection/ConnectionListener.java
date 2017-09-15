@@ -1,4 +1,4 @@
-package de.android.fhwsapp;
+package de.android.fhwsapp.connection;
 
 public interface ConnectionListener {
     void onChanged();

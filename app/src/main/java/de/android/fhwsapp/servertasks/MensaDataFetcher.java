@@ -1,13 +1,11 @@
-package de.android.fhwsapp.busplaene;
+package de.android.fhwsapp.servertasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -15,21 +13,21 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
 
 import de.android.fhwsapp.Database;
-import de.android.fhwsapp.adapter.BuslinienListAdapter;
+import de.android.fhwsapp.objects.Meal;
 
-
-public class BusplanDataFetcher extends AsyncTask<Void, Void, Void> {
+public class MensaDataFetcher extends AsyncTask<Void, Void, Void> {
 
     private HttpURLConnection urlConnection;
-    private Database database;
+    private Database dataBaseHelper;
     private Context mContext;
+    private StringBuilder result;
 
-    private String urlString = "http://54.93.76.71:8080/FHWS/busplan";
 
-    public BusplanDataFetcher(Context context) {
+    private String URL_MENSA = "http://54.93.76.71:8080/FHWS/mensaplan";
+
+    public MensaDataFetcher(Context context) {
 
         mContext = context;
 
@@ -39,19 +37,21 @@ public class BusplanDataFetcher extends AsyncTask<Void, Void, Void> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        database = new Database(mContext);
+        dataBaseHelper = new Database(mContext);
 
     }
 
     @Override
     protected Void doInBackground(Void... params) {
 
-        StringBuilder result = new StringBuilder();
+        result = new StringBuilder();
 
         try {
 
-            URL url = new URL(urlString);
+            URL url = new URL(URL_MENSA);
             urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestProperty("Content-Type", "application/json");
 
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 
@@ -61,10 +61,9 @@ public class BusplanDataFetcher extends AsyncTask<Void, Void, Void> {
                 while ((line = reader.readLine()) != null) {
                     result.append(line);
                 }
-
             } else {
 
-                Toast.makeText(mContext, "Busplan-Serverfehler: " + urlConnection.getResponseCode() + "-" + urlConnection.getResponseMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Mensa-Serverfehler: " + urlConnection.getResponseCode() + "-" + urlConnection.getResponseMessage(), Toast.LENGTH_SHORT).show();
 
             }
 
@@ -74,34 +73,26 @@ public class BusplanDataFetcher extends AsyncTask<Void, Void, Void> {
             urlConnection.disconnect();
         }
 
-        String serverData = result.toString();
+        if (result != null) {
 
-        try {
+            dataBaseHelper.deleteOldMeals();
 
-            JSONArray jsonArray = new JSONArray(serverData);
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            Meal[][] allMeals = gson.fromJson(result.toString(), Meal[][].class);
 
-            if (jsonArray != null)
-                database.deleteOldBusLinien();
+            if (allMeals != null) {
 
-            for (int i = 0; i < jsonArray.length(); i++) {
+                for (Meal meal[] : allMeals) {
 
-                JSONObject linien = jsonArray.getJSONObject(i);
+                    for (Meal meal2 : meal) {
 
-                String linie = "";
-                linie = linien.keys().next().toString();
+                        dataBaseHelper.addMeal(meal2);
 
-                String url = "";
-                url = linien.getString(linie);
+                    }
 
-                database.addBusplan(linie, url);
+                }
 
             }
-
-        } catch (JSONException e) {
-
-            e.printStackTrace();
-
-        } catch (Exception e) {
 
         }
 
@@ -113,8 +104,7 @@ public class BusplanDataFetcher extends AsyncTask<Void, Void, Void> {
 
         super.onPostExecute(aVoid);
 
+
     }
 
 }
-
-

@@ -20,9 +20,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -36,17 +33,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import de.android.fhwsapp.adapter.MealListAdapter;
-import de.android.fhwsapp.objects.Meal;
-
-
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
 
     public static final String K_NUMBER = "kNumber";
     public static final String PASSWORD = "password";
-
 
     private SharedPreferences mPrefs;
     private SharedPreferences.Editor editor;
@@ -56,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
     private boolean didOnce = false;
     private String url, js, cookies;
 
-    // UI references.
     private EditText mK_Nummer;
     private EditText mPasswordView;
     private Button signInButton;

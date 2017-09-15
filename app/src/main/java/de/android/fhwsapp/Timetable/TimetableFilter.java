@@ -20,14 +20,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import de.android.fhwsapp.Connect;
-import de.android.fhwsapp.ConnectionListener;
 import de.android.fhwsapp.Database;
 import de.android.fhwsapp.MainActivity;
 import de.android.fhwsapp.R;
 import de.android.fhwsapp.Timetable.nLevelExpandableListview.NLevelAdapter;
 import de.android.fhwsapp.Timetable.nLevelExpandableListview.NLevelItem;
 import de.android.fhwsapp.Timetable.nLevelExpandableListview.NLevelView;
+import de.android.fhwsapp.connection.Connect;
+import de.android.fhwsapp.connection.ConnectionListener;
+import de.android.fhwsapp.objects.Subject;
 
 public class TimetableFilter extends AppCompatActivity {
 

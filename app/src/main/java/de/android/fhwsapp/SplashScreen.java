@@ -8,27 +8,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.WindowManager;
 
-import org.joda.time.DateTime;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
-import de.android.fhwsapp.Timetable.Subject;
-import de.android.fhwsapp.busplaene.BusplanDataFetcher;
+import de.android.fhwsapp.servertasks.BusplanDataFetcher;
+import de.android.fhwsapp.servertasks.GetID;
+import de.android.fhwsapp.servertasks.MensaDataFetcher;
+import de.android.fhwsapp.servertasks.NewsDataFetcher;
 
 public class SplashScreen extends FragmentActivity {
 
@@ -64,7 +49,7 @@ public class SplashScreen extends FragmentActivity {
             firstOpen = mPrefs.getBoolean("firstOpen",true);
             if(firstOpen){
                 mPrefs.edit().putBoolean("firstOpen",false).apply();
-                new GetID().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new GetID(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
             // Server Sync
@@ -94,74 +79,6 @@ public class SplashScreen extends FragmentActivity {
             }
         };
         mHandler.postDelayed(mCallback, 1500);
-
-    }
-
-    public class GetID extends AsyncTask<String, Void, String> {
-
-        String server_response;
-
-        @Override
-        protected String doInBackground(String... strings) {
-
-            URL url;
-            HttpURLConnection urlConnection = null;
-
-            try {
-                url = new URL("http://54.93.76.71:8080/FHWS/userData");
-                urlConnection = (HttpURLConnection) url.openConnection();
-
-                int responseCode = urlConnection.getResponseCode();
-
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    server_response = readStream(urlConnection.getInputStream());
-                    Log.v("ID", server_response);
-                }
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            try {
-                JSONObject jsonObject = new JSONObject(server_response);
-                String id = jsonObject.getString("userId");
-
-                mPrefs.edit().putString("ID", id).apply();
-            }catch (Exception e){}
-
-        }
-
-        private String readStream(InputStream in) {
-            BufferedReader reader = null;
-            StringBuffer response = new StringBuffer();
-            try {
-                reader = new BufferedReader(new InputStreamReader(in));
-                String line = "";
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            return response.toString();
-        }
 
     }
 

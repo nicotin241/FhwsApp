@@ -23,9 +23,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
-import de.android.fhwsapp.Timetable.Subject;
 import de.android.fhwsapp.objects.Meal;
 import de.android.fhwsapp.objects.NewsItem;
+import de.android.fhwsapp.objects.Subject;
 
 public class Database extends SQLiteOpenHelper {
 

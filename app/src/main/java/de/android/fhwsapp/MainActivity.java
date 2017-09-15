@@ -15,7 +15,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,13 +23,14 @@ import android.widget.TextView;
 import org.joda.time.DateTime;
 
 import de.android.fhwsapp.Timetable.Timetable;
-import de.android.fhwsapp.Timetable.TimetableDataFetcher;
-import de.android.fhwsapp.busplaene.Busplaene;
+import de.android.fhwsapp.fragments.BusplaeneFragment;
 import de.android.fhwsapp.fragments.LaufendeVeranstaltungenFragment;
 import de.android.fhwsapp.fragments.MainFragment;
 import de.android.fhwsapp.fragments.MensaFragment;
 import de.android.fhwsapp.fragments.SpoFragment;
 import de.android.fhwsapp.fragments.WebViewFragment;
+import de.android.fhwsapp.servertasks.NutzungsdatenTransfer;
+import de.android.fhwsapp.servertasks.TimetableDataFetcher;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_bus) {
 
-            mFragment = new Busplaene();
+            mFragment = new BusplaeneFragment();
             setFragment(mFragment);
 
         } else if (id == R.id.nav_veranst) {
@@ -268,7 +268,7 @@ public class MainActivity extends AppCompatActivity
         if(fragment instanceof MainFragment) navigationView.setCheckedItem(R.id.nav_home);
         else if(fragment instanceof MensaFragment) navigationView.setCheckedItem(R.id.nav_mensa);
         else if(fragment instanceof LaufendeVeranstaltungenFragment) navigationView.setCheckedItem(R.id.nav_veranst);
-        else if(fragment instanceof Busplaene) navigationView.setCheckedItem(R.id.nav_bus);
+        else if(fragment instanceof BusplaeneFragment) navigationView.setCheckedItem(R.id.nav_bus);
         else if(fragment instanceof WebViewFragment && WebViewFragment.URL.equals("https://studentenportal.fhws.de/grades")) navigationView.setCheckedItem(R.id.nav_grades);
         else navigationView.setCheckedItem(R.id.menu_none);
 
@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void startBuslinienFragment(View view) {
-        mFragment = new Busplaene();
+        mFragment = new BusplaeneFragment();
         setFragment(mFragment);
     }
 

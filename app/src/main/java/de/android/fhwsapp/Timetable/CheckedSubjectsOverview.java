@@ -1,20 +1,20 @@
 package de.android.fhwsapp.Timetable;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import de.android.fhwsapp.Database;
 import de.android.fhwsapp.R;
+import de.android.fhwsapp.adapter.SubjectOverviewListAdapter;
+import de.android.fhwsapp.objects.Subject;
 
 public class CheckedSubjectsOverview extends AppCompatActivity {
 

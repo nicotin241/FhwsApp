@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="de.android.fhwsapp.busplaene.Busplaene">
+    tools:context="de.android.fhwsapp.fragments.BusplaeneFragment">
 
     <TextView
         android:id="@+id/tv"

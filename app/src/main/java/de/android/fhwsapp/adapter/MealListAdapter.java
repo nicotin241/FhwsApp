@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import de.android.fhwsapp.R;
 import de.android.fhwsapp.objects.Meal;
 
-
-
 public class MealListAdapter extends BaseAdapter {
 
     Context context;

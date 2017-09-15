@@ -1,4 +1,4 @@
-package de.android.fhwsapp.Timetable;
+package de.android.fhwsapp.servertasks;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -21,9 +21,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import de.android.fhwsapp.Connect;
 import de.android.fhwsapp.Database;
-import de.android.fhwsapp.fragments.MainFragment;
+import de.android.fhwsapp.Timetable.Timetable;
+import de.android.fhwsapp.connection.Connect;
+import de.android.fhwsapp.objects.Subject;
 
 public class TimetableDataFetcher extends AsyncTask<String, Void, String> {
 

@@ -1,11 +1,9 @@
-package de.android.fhwsapp.busplaene;
+package de.android.fhwsapp.connection;
 
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.android.fhwsapp.ConnectionListener;
 
 
 public class BusConnect {

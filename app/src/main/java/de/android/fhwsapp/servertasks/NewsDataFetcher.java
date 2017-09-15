@@ -1,4 +1,4 @@
-package de.android.fhwsapp;
+package de.android.fhwsapp.servertasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -7,32 +7,26 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import de.android.fhwsapp.adapter.MealListAdapter;
-import de.android.fhwsapp.objects.Meal;
+import de.android.fhwsapp.Database;
+import de.android.fhwsapp.objects.NewsItem;
 
-public class MensaDataFetcher extends AsyncTask<Void, Void, Void> {
+public class NewsDataFetcher extends AsyncTask<Void, Void, Void> {
 
     private HttpURLConnection urlConnection;
     private Database dataBaseHelper;
     private Context mContext;
     private StringBuilder result;
 
+    private final String URL_NEWS = "http://54.93.76.71:8080/FHWS/news";
 
-    private String URL_MENSA = "http://54.93.76.71:8080/FHWS/mensaplan";
-
-    public MensaDataFetcher(Context context) {
+    public NewsDataFetcher(Context context) {
 
         mContext = context;
 
@@ -53,7 +47,7 @@ public class MensaDataFetcher extends AsyncTask<Void, Void, Void> {
 
         try {
 
-            URL url = new URL(URL_MENSA);
+            URL url = new URL(URL_NEWS);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setRequestProperty("Content-Type", "application/json");
@@ -68,7 +62,7 @@ public class MensaDataFetcher extends AsyncTask<Void, Void, Void> {
                 }
             } else {
 
-                Toast.makeText(mContext, "Mensa-Serverfehler: " + urlConnection.getResponseCode() + "-" + urlConnection.getResponseMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "News-Serverfehler: " + urlConnection.getResponseCode() + "-" + urlConnection.getResponseMessage(), Toast.LENGTH_SHORT).show();
 
             }
 
@@ -80,20 +74,16 @@ public class MensaDataFetcher extends AsyncTask<Void, Void, Void> {
 
         if (result != null) {
 
-            dataBaseHelper.deleteOldMeals();
+            dataBaseHelper.deleteOldNews();
 
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            Meal[][] allMeals = gson.fromJson(result.toString(), Meal[][].class);
+            NewsItem[] allNews = gson.fromJson(result.toString(), NewsItem[].class);
 
-            if (allMeals != null) {
+            if (allNews != null) {
 
-                for (Meal meal[] : allMeals) {
+                for (NewsItem newsItem : allNews) {
 
-                    for (Meal meal2 : meal) {
-
-                        dataBaseHelper.addMeal(meal2);
-
-                    }
+                    dataBaseHelper.addNewsItem(newsItem);
 
                 }
 

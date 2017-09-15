@@ -3,7 +3,6 @@ package de.android.fhwsapp.pdfDownloaderViewer;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -16,7 +15,7 @@ import java.io.File;
 import java.io.IOException;
 
 import de.android.fhwsapp.MainActivity;
-import de.android.fhwsapp.busplaene.BusConnect;
+import de.android.fhwsapp.connection.BusConnect;
 
 public class PdfViewer {
 

@@ -1,7 +1,6 @@
 package de.android.fhwsapp.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import de.android.fhwsapp.R;
-import de.android.fhwsapp.Timetable.Subject;
+import de.android.fhwsapp.objects.Subject;
 
 public class OngoingEventsListAdapter extends BaseAdapter {
 

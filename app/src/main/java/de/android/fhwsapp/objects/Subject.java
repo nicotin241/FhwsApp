@@ -1,4 +1,4 @@
-package de.android.fhwsapp.Timetable;
+package de.android.fhwsapp.objects;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;

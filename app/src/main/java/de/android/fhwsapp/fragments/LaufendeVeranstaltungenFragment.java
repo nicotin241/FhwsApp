@@ -12,10 +12,10 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.android.fhwsapp.LVeranstaltungenDataFetcher;
 import de.android.fhwsapp.MainActivity;
 import de.android.fhwsapp.R;
-import de.android.fhwsapp.Timetable.Subject;
+import de.android.fhwsapp.objects.Subject;
+import de.android.fhwsapp.servertasks.LVeranstaltungenDataFetcher;
 
 import static android.content.Context.MODE_PRIVATE;
 

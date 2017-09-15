@@ -1,11 +1,12 @@
-package de.android.fhwsapp;
+package de.android.fhwsapp.servertasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -14,20 +15,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import de.android.fhwsapp.objects.Meal;
-import de.android.fhwsapp.objects.NewsItem;
+import de.android.fhwsapp.Database;
 
-public class NewsDataFetcher extends AsyncTask<Void, Void, Void> {
+
+public class BusplanDataFetcher extends AsyncTask<Void, Void, Void> {
 
     private HttpURLConnection urlConnection;
-    private Database dataBaseHelper;
+    private Database database;
     private Context mContext;
-    private StringBuilder result;
 
+    private String urlString = "http://54.93.76.71:8080/FHWS/busplan";
 
-    private final String URL_NEWS = "http://54.93.76.71:8080/FHWS/news";
-
-    public NewsDataFetcher(Context context) {
+    public BusplanDataFetcher(Context context) {
 
         mContext = context;
 
@@ -37,21 +36,19 @@ public class NewsDataFetcher extends AsyncTask<Void, Void, Void> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        dataBaseHelper = new Database(mContext);
+        database = new Database(mContext);
 
     }
 
     @Override
     protected Void doInBackground(Void... params) {
 
-        result = new StringBuilder();
+        StringBuilder result = new StringBuilder();
 
         try {
 
-            URL url = new URL(URL_NEWS);
+            URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.setRequestProperty("Content-Type", "application/json");
 
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 
@@ -61,9 +58,10 @@ public class NewsDataFetcher extends AsyncTask<Void, Void, Void> {
                 while ((line = reader.readLine()) != null) {
                     result.append(line);
                 }
+
             } else {
 
-                Toast.makeText(mContext, "News-Serverfehler: " + urlConnection.getResponseCode() + "-" + urlConnection.getResponseMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Busplan-Serverfehler: " + urlConnection.getResponseCode() + "-" + urlConnection.getResponseMessage(), Toast.LENGTH_SHORT).show();
 
             }
 
@@ -73,22 +71,34 @@ public class NewsDataFetcher extends AsyncTask<Void, Void, Void> {
             urlConnection.disconnect();
         }
 
-        if (result != null) {
+        String serverData = result.toString();
 
-            dataBaseHelper.deleteOldNews();
+        try {
 
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            NewsItem[] allNews = gson.fromJson(result.toString(), NewsItem[].class);
+            JSONArray jsonArray = new JSONArray(serverData);
 
-            if (allNews != null) {
+            if (jsonArray != null)
+                database.deleteOldBusLinien();
 
-                for (NewsItem newsItem : allNews) {
+            for (int i = 0; i < jsonArray.length(); i++) {
 
-                    dataBaseHelper.addNewsItem(newsItem);
+                JSONObject linien = jsonArray.getJSONObject(i);
 
-                }
+                String linie = "";
+                linie = linien.keys().next().toString();
+
+                String url = "";
+                url = linien.getString(linie);
+
+                database.addBusplan(linie, url);
 
             }
+
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+
+        } catch (Exception e) {
 
         }
 
@@ -100,7 +110,8 @@ public class NewsDataFetcher extends AsyncTask<Void, Void, Void> {
 
         super.onPostExecute(aVoid);
 
-
     }
 
 }
+
+

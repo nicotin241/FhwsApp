@@ -6,13 +6,6 @@ import java.util.ArrayList;
 
 public class Meal {
 
-    /*
-    * ID for Mensa Location
-    *
-    * Burse: 9
-    *
-    * */
-
     @SerializedName("mensaid")
     private int mensa_id;
 

@@ -1,4 +1,4 @@
-package de.android.fhwsapp;
+package de.android.fhwsapp.servertasks;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.android.fhwsapp.adapter.OngoingEventsListAdapter;
-import de.android.fhwsapp.Timetable.Subject;
+import de.android.fhwsapp.objects.Subject;
 
 import static android.content.Context.MODE_PRIVATE;
 

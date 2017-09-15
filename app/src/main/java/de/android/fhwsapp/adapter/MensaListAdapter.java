@@ -6,15 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import de.android.fhwsapp.R;
-import de.android.fhwsapp.objects.Meal;
 import de.android.fhwsapp.objects.Mensa;
-
 
 public class MensaListAdapter extends BaseAdapter {
 

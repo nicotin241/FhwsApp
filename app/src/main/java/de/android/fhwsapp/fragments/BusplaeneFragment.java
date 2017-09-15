@@ -1,4 +1,4 @@
-package de.android.fhwsapp.busplaene;
+package de.android.fhwsapp.fragments;
 
 import android.Manifest;
 import android.content.Context;
@@ -18,14 +18,15 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 
-import de.android.fhwsapp.ConnectionListener;
 import de.android.fhwsapp.Database;
-import de.android.fhwsapp.NutzungsdatenTransfer;
 import de.android.fhwsapp.R;
 import de.android.fhwsapp.adapter.BuslinienListAdapter;
+import de.android.fhwsapp.connection.BusConnect;
+import de.android.fhwsapp.connection.ConnectionListener;
 import de.android.fhwsapp.pdfDownloaderViewer.PdfViewer;
+import de.android.fhwsapp.servertasks.NutzungsdatenTransfer;
 
-public class Busplaene extends Fragment {
+public class BusplaeneFragment extends Fragment {
 
     private HashMap<String, String> map = new HashMap<>();
     private View view;

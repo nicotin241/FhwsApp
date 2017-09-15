@@ -23,6 +23,7 @@ import java.util.Calendar;
 
 import de.android.fhwsapp.Database;
 import de.android.fhwsapp.R;
+import de.android.fhwsapp.objects.Subject;
 
 public class AddSubject extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
 

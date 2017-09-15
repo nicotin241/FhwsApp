@@ -4,11 +4,9 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -21,6 +19,7 @@ import java.util.List;
 import java.util.Locale;
 
 import de.android.fhwsapp.R;
+import de.android.fhwsapp.objects.Subject;
 
 public class ContentFragment extends Fragment {
 

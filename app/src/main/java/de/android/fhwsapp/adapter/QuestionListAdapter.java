@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import de.android.fhwsapp.R;
 import de.android.fhwsapp.objects.SpoQuestionObject;
 
-
 public class QuestionListAdapter extends BaseAdapter {
 
     Context context;

@@ -1,9 +1,7 @@
 package de.android.fhwsapp.pdfDownloaderViewer;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.webkit.CookieManager;
 import android.widget.Toast;
 
 import java.io.File;
@@ -14,8 +12,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class FileDownloader {
 

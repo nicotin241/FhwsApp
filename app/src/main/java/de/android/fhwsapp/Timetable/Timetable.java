@@ -1,15 +1,11 @@
 package de.android.fhwsapp.Timetable;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-
-import com.github.clans.fab.FloatingActionButton;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -21,19 +17,21 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import de.android.fhwsapp.Connect;
-import de.android.fhwsapp.ConnectionListener;
 import de.android.fhwsapp.Database;
 import de.android.fhwsapp.MainActivity;
-import de.android.fhwsapp.NutzungsdatenTransfer;
 import de.android.fhwsapp.R;
 import de.android.fhwsapp.Timetable.BTGridPager.BTFragmentGridPager;
+import de.android.fhwsapp.connection.Connect;
+import de.android.fhwsapp.connection.ConnectionListener;
+import de.android.fhwsapp.objects.Subject;
+import de.android.fhwsapp.servertasks.NutzungsdatenTransfer;
 
 public class Timetable extends FragmentActivity {
 

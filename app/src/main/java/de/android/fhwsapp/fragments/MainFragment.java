@@ -11,10 +11,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
-import android.text.Html;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,28 +22,26 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import de.android.fhwsapp.Connect;
-import de.android.fhwsapp.ConnectionListener;
 import de.android.fhwsapp.Database;
-import de.android.fhwsapp.LVeranstaltungenDataFetcher;
 import de.android.fhwsapp.MainActivity;
 import de.android.fhwsapp.R;
-import de.android.fhwsapp.Timetable.Subject;
 import de.android.fhwsapp.Timetable.Timetable;
+import de.android.fhwsapp.connection.Connect;
+import de.android.fhwsapp.connection.ConnectionListener;
 import de.android.fhwsapp.objects.Meal;
 import de.android.fhwsapp.objects.Mensa;
 import de.android.fhwsapp.objects.NewsItem;
+import de.android.fhwsapp.objects.Subject;
+import de.android.fhwsapp.servertasks.LVeranstaltungenDataFetcher;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -97,7 +93,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         layout = inflater.inflate(R.layout.fragment_main, container, false);
 
         newsLayout = (LinearLayout) layout.findViewById(R.id.newsLayout);
@@ -153,8 +149,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
         }
 
-
-
         // News
         ArrayList<NewsItem> news = db.getAllNews();
 
@@ -171,7 +165,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             if(todayMeals.size() > 0) showMensaCard();
 
         }
-
 
         return layout;
 

@@ -1,9 +1,8 @@
-package de.android.fhwsapp;
+package de.android.fhwsapp.connection;
 
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Connect {

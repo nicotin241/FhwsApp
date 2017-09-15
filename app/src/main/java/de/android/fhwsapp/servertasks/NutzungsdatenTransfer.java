@@ -1,4 +1,4 @@
-package de.android.fhwsapp;
+package de.android.fhwsapp.servertasks;
 
 import android.content.ContentValues;
 import android.content.Context;
