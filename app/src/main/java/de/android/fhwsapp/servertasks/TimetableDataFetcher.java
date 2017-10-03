@@ -184,7 +184,7 @@ public class TimetableDataFetcher extends AsyncTask<String, Void, String> {
                 }
             }
         } catch (Exception e) {
-            Log.e("Lesen der Vorlesungen", e.getMessage());
+//            Log.e("Lesen der Vorlesungen", e.getMessage());
         }
 
         Log.e("Response", "" + server_response);
