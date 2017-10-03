@@ -31,7 +31,7 @@ public class GetID extends AsyncTask<String, Void, String> {
         HttpURLConnection urlConnection = null;
 
         try {
-            url = new URL("http://54.93.76.71:8080/FHWS/userData");
+            url = new URL("https://fhwsapp.tk:8443/FHWS/userData");
             urlConnection = (HttpURLConnection) url.openConnection();
 
             int responseCode = urlConnection.getResponseCode();

@@ -27,7 +27,7 @@ public class NewsDataFetcher extends AsyncTask<Void, Void, Void> {
     private Context mContext;
     private StringBuilder result;
 
-    private final String URL_NEWS = "http://54.93.76.71:8080/FHWS/news";
+    private final String URL_NEWS = "https://fhwsapp.tk:8443/FHWS/news";
 
     public NewsDataFetcher(Context context) {
 

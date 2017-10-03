@@ -27,7 +27,7 @@ public class BusplanDataFetcher extends AsyncTask<Void, Void, Void> {
     private Database database;
     private Context mContext;
 
-    private String urlString = "http://54.93.76.71:8080/FHWS/busplan";
+    private String urlString = "https://fhwsapp.tk:8443/FHWS/busplan";
 
     public BusplanDataFetcher(Context context) {
 

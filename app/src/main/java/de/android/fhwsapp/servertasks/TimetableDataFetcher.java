@@ -49,7 +49,7 @@ public class TimetableDataFetcher extends AsyncTask<String, Void, String> {
         HttpURLConnection urlConnection = null;
 
         try {
-            url = new URL("http://54.93.76.71:8080/FHWS/veranstaltungen?program=BIN");
+            url = new URL("https://fhwsapp.tk:8443/FHWS/veranstaltungen?program=BIN");
             urlConnection = (HttpURLConnection) url.openConnection();
 
             int responseCode = urlConnection.getResponseCode();

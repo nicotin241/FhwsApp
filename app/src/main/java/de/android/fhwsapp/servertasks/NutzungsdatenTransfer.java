@@ -36,7 +36,7 @@ public class NutzungsdatenTransfer extends AsyncTask<String, Void, String> {
             return null;
 
         try {
-            URL url = new URL("http://54.93.76.71:8080/FHWS/userData");
+            URL url = new URL("https://fhwsapp.tk:8443/FHWS/userData");
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);

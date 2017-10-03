@@ -28,7 +28,7 @@ public class MensaDataFetcher extends AsyncTask<Void, Void, Void> {
     private StringBuilder result;
 
 
-    private String URL_MENSA = "http://54.93.76.71:8080/FHWS/mensaplan";
+    private String URL_MENSA = "https://fhwsapp.tk:8443/FHWS/mensaplan";
 
     public MensaDataFetcher(Context context) {
 
